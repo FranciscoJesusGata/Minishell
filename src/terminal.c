@@ -6,12 +6,13 @@
 /*   By: fgata-va <fgata-va@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 14:51:58 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/14 16:09:05 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/15 13:41:01 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 void	init_term(t_term *term)
 {
 	tgetent (term->buffer, getenv("TERM"));
@@ -58,9 +59,9 @@ int	enter_command(t_term *term)
 		*term->cursor = 0;
 	}
 	return (0);
-}
+}*/
 
-int	launch_term(void)
+/*int	launch_term(void)
 {
 	t_term	term;
 	char	buff[9];
@@ -99,5 +100,25 @@ int	launch_term(void)
 		readed = read(STDIN_FILENO, &buff, 8);
 	}
 	free_history(term.history);
+	return (0);
+}*/
+
+int		launch_term(void)
+{
+	char	*line;
+
+	welcome();
+	while (1)
+	{
+		line = readline("\e[38;5;38mMiniShell ~ \e[0m👉 ");
+		if (!line)
+		{
+			write(1,"\n", 1);
+			break;
+		}
+		add_history(line);
+		free(line);
+	}
+	clear_history();
 	return (0);
 }

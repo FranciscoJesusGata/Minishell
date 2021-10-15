@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/14 15:16:31 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/15 12:46:59 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 # include "libft.h"
 # include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
