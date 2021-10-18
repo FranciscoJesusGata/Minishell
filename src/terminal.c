@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 14:51:58 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/15 13:41:01 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/18 16:07:01 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,14 @@ int		launch_term(void)
 	welcome();
 	while (1)
 	{
-		line = readline("\e[38;5;38mMiniShell ~ \e[0m👉 ");
-		if (!line)
+		line = readline("MiniShell ~ 👉 ");
+		if (line && *line)
+			add_history(line);
+		else if (!line)
 		{
 			write(1,"\n", 1);
 			break;
 		}
-		add_history(line);
 		free(line);
 	}
 	clear_history();
