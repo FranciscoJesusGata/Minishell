@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 14:51:58 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/18 16:53:36 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/18 17:01:41 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,7 @@ int		launch_term(void)
 		if (line && *line)
 			add_history(line);
 		else if (!line)
-		{
-			write(1,"\n", 1);
 			break;
-		}
 		free(line);
 	}
 	clear_history();
