@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/18 18:00:59 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/21 12:31:44 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 int		main();
 char	*launch_term(void);
+t_list	*lexer(char *line);
 
 /*
 ** Utils

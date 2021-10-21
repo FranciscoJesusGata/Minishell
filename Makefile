@@ -6,7 +6,7 @@
 #    By: fgata-va <fgata-va@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/19 10:34:45 by fgata-va          #+#    #+#              #
-#    Updated: 2021/10/18 17:00:33 by fgata-va         ###   ########.fr        #
+#    Updated: 2021/10/21 12:33:17 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJDIR := build/
 SRCDIR := src/
 LIBDIR := libs/
 
-SRC = $(addprefix $(SRCDIR), main.c terminal.c term_utils.c)
+SRC = $(addprefix $(SRCDIR), main.c terminal.c term_utils.c lexer.c)
 
 OBJS =  $(patsubst $(SRCDIR)%,$(OBJDIR)%,$(SRC:.c=.o))
 
@@ -47,7 +47,7 @@ norm:
 	$(NORMI) $(LIBDIR)Libft/
 
 libft:
-	make -C $(LIBDIR)Libft/ all
+	make -C $(LIBDIR)Libft/ bonus
 
 clean:
 	rm -rf $(OBJS)
