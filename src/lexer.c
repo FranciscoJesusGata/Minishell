@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:14:00 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/26 12:55:26 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/10/26 13:14:48 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_list	*lexer(char *line)
 	lexer.buffer = NULL;
 	while (line[lexer.end])
 	{
-		if (line[lexer.end] == 32)
+		if (line[lexer.end] == SPACEX)
 		{
 			is_space(&lexer, line);
 			continue ;

@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/21 12:35:56 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/26 13:14:27 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ void	print_tokens(t_list *tokens)
 {
 	while (tokens)
 	{
-		printf("\"%s\" ", (char *)tokens->content);
+		printf("token [%p]: \"%s\"\n", tokens, (char *)tokens->content);
 		tokens = tokens->next;
 	}
-	printf("\n");
 }
 
 int		main()
