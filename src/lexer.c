@@ -1,47 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:14:00 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/21 12:33:57 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/26 12:55:26 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexer.h"
 
-void	create_token(t_list **tokens, char *format, int start, int len)
+void	create_token(t_lexer *lexer, char *line)
 {
 	char	*sub_str;
 
-	sub_str = ft_substr(format, start, len);
-	if (sub_str)
-		ft_lstadd_back(tokens, ft_lstnew(sub_str));
+	if (lexer->start != lexer->end)
+	{
+		sub_str = ft_substr(line, lexer->start, lexer->end - lexer->start);
+		if (sub_str)
+			ft_lstadd_back(&lexer->tokens, ft_lstnew(sub_str));
+	}
 }
 
 t_list	*lexer(char *line)
 {
-	int	start;
-	int	len;
-	t_list	*tokens;
+	t_lexer lexer;
 
-	start = 0;
-	len = 0;
-	tokens = NULL;
-	while (line[len])
+	lexer.start = 0;
+	lexer.end = 0;
+	lexer.tokens = NULL;
+	lexer.buffer = NULL;
+	while (line[lexer.end])
 	{
-		if (line[len] == 32)
+		if (line[lexer.end] == 32)
 		{
-			create_token(&tokens, line, start, len);
-			len++;
-			start = len;
+			is_space(&lexer, line);
 			continue ;
 		}
-		len++;
+		//if (line[lexer.end] == SQUOTE) // '
+		//	is_squote(&lexer, line);
+		//if (line[lexer.end] == DQUOTE) // ""
+		//{
+
+		//}
+		//if (line[lexer.end] == XPAND) // ·$$
+		//{
+
+		//}
+		lexer.end++;
 	}
-	create_token(&tokens, line, start, len);
-	return (tokens);
+	create_token(&lexer, line);
+	return (lexer.tokens);
 }
 
