@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:14:00 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/26 13:14:48 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/26 13:42:20 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,9 @@ void	create_token(t_lexer *lexer, char *line)
 {
 	char	*sub_str;
 
-	if (lexer->start != lexer->end)
-	{
-		sub_str = ft_substr(line, lexer->start, lexer->end - lexer->start);
-		if (sub_str)
-			ft_lstadd_back(&lexer->tokens, ft_lstnew(sub_str));
-	}
+	sub_str = divide_str(line, lexer->start, lexer->end);
+	if (sub_str)
+		ft_lstadd_back(&lexer->tokens, ft_lstnew(sub_str));
 }
 
 t_list	*lexer(char *line)

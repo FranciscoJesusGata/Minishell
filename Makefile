@@ -6,7 +6,7 @@
 #    By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/19 10:34:45 by fgata-va          #+#    #+#              #
-#    Updated: 2021/10/26 12:44:50 by fportalo         ###   ########.fr        #
+#    Updated: 2021/10/26 13:38:59 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ OBJDIR := build/
 SRCDIR := src/
 LIBDIR := libs/
 
-SRC = $(addprefix $(SRCDIR), main.c terminal.c term_utils.c lexer.c lexer_status.c)
+SRC = $(addprefix $(SRCDIR), main.c terminal.c term_utils.c lexer.c \
+	  lexer_status.c lexer_utils.c)
 
 OBJS =  $(patsubst $(SRCDIR)%,$(OBJDIR)%,$(SRC:.c=.o))
 
