@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/26 12:57:48 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/10/27 15:03:44 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,26 @@
 void	is_space(t_lexer *lexer, char *line)
 {
 	create_token(lexer, line);
-	lexer->end += 1;
+	lexer->end++;
 	lexer->start = lexer->end;
 }
 
-//void	is_squote(char *line, int *start, int *end)
-//{
-//	*start++;
-//	while(line[*end] != SQUOTE)
-//	{
-//		//if (line[*end] != )
-//	}
-//}
+void	is_squote(t_lexer *lexer, char *line)
+{
+	if (lexer->start != lexer->end)
+		save_buffer(lexer, line);
+	lexer->end++;
+	lexer->start = lexer->end;
+	while(line[lexer->end] != SQUOTE)
+	{
+		if (!line[lexer->end])
+		{
+			perror("wa wa");
+			exit(1);
+		}
+		lexer->end++;
+	}
+	save_buffer(lexer, line);
+	lexer->end++;
+	lexer->start = lexer->end;
+}

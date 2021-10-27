@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:14:00 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/26 13:42:20 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/27 16:00:39 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,26 @@
 void	create_token(t_lexer *lexer, char *line)
 {
 	char	*sub_str;
+	char	*tmp;
 
 	sub_str = divide_str(line, lexer->start, lexer->end);
-	if (sub_str)
+	if (sub_str || lexer->buffer)
+	{
+		if (sub_str && lexer->buffer)
+		{
+			tmp = sub_str;
+			sub_str = ft_strjoin(lexer->buffer, tmp);
+			free(tmp);
+			free(lexer->buffer);
+			lexer->buffer = NULL;
+		}
+		else if (!sub_str)
+		{
+			sub_str = lexer->buffer;
+			lexer->buffer = NULL;
+		}
 		ft_lstadd_back(&lexer->tokens, ft_lstnew(sub_str));
+	}
 }
 
 t_list	*lexer(char *line)
@@ -36,8 +52,11 @@ t_list	*lexer(char *line)
 			is_space(&lexer, line);
 			continue ;
 		}
-		//if (line[lexer.end] == SQUOTE) // '
-		//	is_squote(&lexer, line);
+		if (line[lexer.end] == SQUOTE)
+		{
+			is_squote(&lexer, line);
+			continue ;
+		}
 		//if (line[lexer.end] == DQUOTE) // ""
 		//{
 
