@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:14:00 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/27 18:04:09 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/28 13:22:46 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ t_list	*lexer(char *line)
 {
 	t_lexer lexer;
 
-	lexer.start = 0;
-	lexer.end = 0;
-	lexer.tokens = NULL;
-	lexer.buffer = NULL;
+	ini_lexer(&lexer);
 	while (line[lexer.end])
 	{
 		if (line[lexer.end] == SPACEX)
@@ -47,10 +44,11 @@ t_list	*lexer(char *line)
 			is_dquote(&lexer, line);
 			continue ;
 		}
-		//if (line[lexer.end] == XPAND) // ·$$
-		//{
-
-		//}
+		if (line[lexer.end] == EXPAND)
+		{
+			is_expand(&lexer, line);
+			continue ;
+		}
 		lexer.end++;
 	}
 	create_token(&lexer, line);

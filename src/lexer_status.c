@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/27 16:13:42 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/10/28 13:42:09 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,33 @@ void	is_dquote(t_lexer *lexer, char *line)
 	save_buffer(lexer, line);
 	lexer->end++;
 	lexer->start = lexer->end;
+}
+
+void	is_expand(t_lexer *lexer, char *line)
+{
+	char *expanded;
+	char *tmp;
+
+	lexer->start = lexer->end;
+	lexer->end++;
+	if (line[lexer->end] == SQUOTE || line[lexer->end] == DQUOTE)
+		return ;
+	if (line[lexer->end] == SPACEX || line[lexer->end] == '\0')
+	{
+		save_buffer(lexer, line);
+		return ;
+	}
+	lexer->start = lexer->end;
+	while (line[lexer->end] != SPACEX || line[lexer->end] != SQUOTE
+			|| line[lexer->end] != DQUOTE)
+		lexer->end;
+
+	tmp = lexer->buffer;
+	lexer->buffer = ft_strjoin(tmp, sub_str);
+	free(tmp);
+	free(sub_str);
+
+	expanded = getenv(expanded);
+	//concat(lexer->buffer, expanded);
+	return ;
 }

@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 13:21:56 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/26 13:36:40 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/28 13:22:57 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+void	ini_lexer(t_lexer *lexer)
+{
+	lexer->start = 0;
+	lexer->end = 0;
+	lexer->tokens = NULL;
+	lexer->buffer = NULL;
+}
 
 char	*divide_str(char *line, int start, int end)
 {
