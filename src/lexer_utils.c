@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 13:21:56 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/28 13:56:47 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/28 16:12:54 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	concat(char **dst, char *src)
 
 	if (src)
 	{
-		if (dst)
+		if (*dst)
 		{
 			tmp = *dst;
 			*dst = ft_strjoin(tmp, src);

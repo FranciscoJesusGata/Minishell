@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/26 13:14:27 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/28 15:32:53 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_tokens(t_list *tokens)
 {
 	while (tokens)
 	{
-		printf("token [%p]: \"%s\"\n", tokens, (char *)tokens->content);
+		printf("token [%p]: \"%s\"\n", tokens->content, (char *)tokens->content);
 		tokens = tokens->next;
 	}
 }

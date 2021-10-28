@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/28 13:57:04 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/28 16:22:02 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ void	is_dquote(t_lexer *lexer, char *line)
 			perror("wa wa");
 			exit(1);
 		}
-		lexer->end++;
+		if (line[lexer->end] == '$')
+			is_expand(lexer, line);
+		else
+			lexer->end++;
 	}
 	save_buffer(lexer, line);
 	lexer->end++;
@@ -67,18 +70,25 @@ void	is_expand(t_lexer *lexer, char *line)
 	lexer->start = lexer->end;
 	lexer->end++;
 	if (line[lexer->end] == SQUOTE || line[lexer->end] == DQUOTE)
+	{
+		lexer->start++;
 		return ;
+	}
 	if (line[lexer->end] == SPACEX || line[lexer->end] == '\0')
 	{
 		save_buffer(lexer, line);
 		return ;
 	}
 	lexer->start = lexer->end;
-	while (line[lexer->end] != SPACEX || line[lexer->end] != SQUOTE
-			|| line[lexer->end] != DQUOTE)
+	while (line[lexer->end] != SPACEX && line[lexer->end] != SQUOTE
+			&& line[lexer->end] != DQUOTE && line[lexer->end])
 		lexer->end++;
 	tmp = divide_str(line, lexer->start, lexer->end);
 	expanded = getenv(tmp);
 	free(tmp);
-	concat(&lexer->buffer, expanded);
+	if (expanded)
+		concat(&lexer->buffer, ft_strdup(expanded));
+	else
+		concat(&lexer->buffer, ft_strdup(""));
+	lexer->start = lexer->end;
 }
