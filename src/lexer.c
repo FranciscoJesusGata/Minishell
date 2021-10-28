@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:14:00 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/28 13:22:46 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/10/28 16:40:13 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,15 @@ t_list	*lexer(char *line)
 	while (line[lexer.end])
 	{
 		if (line[lexer.end] == SPACEX)
-		{
 			is_space(&lexer, line);
-			continue ;
-		}
-		if (line[lexer.end] == SQUOTE)
-		{
+		else if (line[lexer.end] == SQUOTE)
 			is_squote(&lexer, line);
-			continue ;
-		}
-		if (line[lexer.end] == DQUOTE)
-		{
+		else if (line[lexer.end] == DQUOTE)
 			is_dquote(&lexer, line);
-			continue ;
-		}
-		if (line[lexer.end] == EXPAND)
-		{
+		else if (line[lexer.end] == EXPAND)
 			is_expand(&lexer, line);
-			continue ;
-		}
-		lexer.end++;
+		else
+			lexer.end++;
 	}
 	create_token(&lexer, line);
 	return (lexer.tokens);
