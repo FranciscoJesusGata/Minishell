@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/28 13:42:09 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/10/28 13:57:04 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,9 @@ void	is_expand(t_lexer *lexer, char *line)
 	lexer->start = lexer->end;
 	while (line[lexer->end] != SPACEX || line[lexer->end] != SQUOTE
 			|| line[lexer->end] != DQUOTE)
-		lexer->end;
-
-	tmp = lexer->buffer;
-	lexer->buffer = ft_strjoin(tmp, sub_str);
+		lexer->end++;
+	tmp = divide_str(line, lexer->start, lexer->end);
+	expanded = getenv(tmp);
 	free(tmp);
-	free(sub_str);
-
-	expanded = getenv(expanded);
-	//concat(lexer->buffer, expanded);
-	return ;
+	concat(&lexer->buffer, expanded);
 }

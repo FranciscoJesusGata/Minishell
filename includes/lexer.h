@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:25:27 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/28 13:23:08 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/10/28 13:56:32 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ void	is_expand(t_lexer *lexer, char *line);
 void	ini_lexer(t_lexer *lexer);
 char	*divide_str(char *line, int start, int end);
 void	save_buffer(t_lexer *lexer, char *line);
+void	concat(char **dst, char *src);
 
 #endif

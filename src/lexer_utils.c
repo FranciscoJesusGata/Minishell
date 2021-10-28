@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 13:21:56 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/28 13:22:57 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/10/28 13:56:47 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,25 @@ char	*divide_str(char *line, int start, int end)
 void	save_buffer(t_lexer *lexer, char *line)
 {
 	char *sub_str;
-	char *tmp;
 
 	sub_str = divide_str(line, lexer->start, lexer->end);
-	if (sub_str)
+	concat(&lexer->buffer, sub_str);
+}
+
+void	concat(char **dst, char *src)
+{
+	char *tmp;
+
+	if (src)
 	{
-		if (lexer->buffer)
+		if (dst)
 		{
-			tmp = lexer->buffer;
-			lexer->buffer = ft_strjoin(tmp, sub_str);
+			tmp = *dst;
+			*dst = ft_strjoin(tmp, src);
 			free(tmp);
-			free(sub_str);
+			free(src);
 		}
 		else
-			lexer->buffer = sub_str;
+			*dst = src;
 	}
 }
