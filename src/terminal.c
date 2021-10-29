@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   terminal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42madrid>       +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 14:51:58 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/18 17:17:54 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/29 12:01:56 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char		*launch_term(void)
+char	*launch_term(void)
 {
 	char	*line;
 

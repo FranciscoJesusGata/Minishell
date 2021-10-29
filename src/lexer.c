@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:14:00 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/28 16:40:13 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/29 11:59:37 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	create_token(t_lexer *lexer, char *line)
 
 t_list	*lexer(char *line)
 {
-	t_lexer lexer;
+	t_lexer	lexer;
 
 	ini_lexer(&lexer);
 	while (line[lexer.end])
@@ -43,4 +43,3 @@ t_list	*lexer(char *line)
 	create_token(&lexer, line);
 	return (lexer.tokens);
 }
-

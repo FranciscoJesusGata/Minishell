@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/29 11:19:46 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/29 12:00:09 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	is_squote(t_lexer *lexer, char *line)
 		save_buffer(lexer, line);
 	lexer->end++;
 	lexer->start = lexer->end;
-	while(line[lexer->end] != SQUOTE)
+	while (line[lexer->end] != SQUOTE)
 	{
 		if (!line[lexer->end])
 		{
@@ -45,7 +45,7 @@ void	is_dquote(t_lexer *lexer, char *line)
 		save_buffer(lexer, line);
 	lexer->end++;
 	lexer->start = lexer->end;
-	while(line[lexer->end] != DQUOTE)
+	while (line[lexer->end] != DQUOTE)
 	{
 		if (!line[lexer->end])
 		{
@@ -64,8 +64,8 @@ void	is_dquote(t_lexer *lexer, char *line)
 
 void	is_expand(t_lexer *lexer, char *line)
 {
-	char *expanded;
-	char *tmp;
+	char	*expanded;
+	char	*tmp;
 
 	lexer->start = lexer->end;
 	lexer->end++;

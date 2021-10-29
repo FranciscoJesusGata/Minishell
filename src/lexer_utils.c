@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 13:21:56 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/28 16:43:13 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/29 12:00:36 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ini_lexer(t_lexer *lexer)
 
 char	*divide_str(char *line, int start, int end)
 {
-	char *sub_str;
+	char	*sub_str;
 
 	if (start != end)
 	{
@@ -34,7 +34,7 @@ char	*divide_str(char *line, int start, int end)
 
 void	save_buffer(t_lexer *lexer, char *line)
 {
-	char *sub_str;
+	char	*sub_str;
 
 	sub_str = divide_str(line, lexer->start, lexer->end);
 	concat(&lexer->buffer, sub_str);
@@ -42,7 +42,7 @@ void	save_buffer(t_lexer *lexer, char *line)
 
 void	concat(char **dst, char *src)
 {
-	char *tmp;
+	char	*tmp;
 
 	if (src)
 	{

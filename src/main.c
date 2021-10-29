@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/28 15:32:53 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/29 12:02:29 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_tokens(t_list *tokens)
 	}
 }
 
-int		main()
+int	main(void)
 {
 	char	*line;
 	t_list	*tokens;
@@ -31,7 +31,7 @@ int		main()
 	{
 		line = launch_term();
 		if (!line)
-			break;
+			break ;
 		if (*line)
 		{
 			tokens = lexer(line);
