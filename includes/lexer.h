@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:25:27 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/29 12:28:11 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/10/29 15:37:40 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	is_space(t_lexer *lexer, char *line);
 void	is_squote(t_lexer *lexer, char *line);
 void	is_dquote(t_lexer *lexer, char *line);
 void	is_expand(t_lexer *lexer, char *line);
-void	is_meta(t_lexer *lexer, char *line);
+void	is_meta(t_lexer *lexer, line);
 
 
 /*
