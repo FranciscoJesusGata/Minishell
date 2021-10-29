@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/28 16:49:55 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/29 11:19:46 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,9 @@ void	is_expand(t_lexer *lexer, char *line)
 	lexer->start = lexer->end;
 	lexer->end++;
 	if (line[lexer->end] == SPACEX || line[lexer->end] == '\0')
-	{
-		save_buffer(lexer, line);
 		return ;
-	}
 	lexer->start = lexer->end;
-	while (!ft_strchr("$\"' ", line[lexer->end]) && line[lexer->end])
+	while (!ft_strchr("\"' ", line[lexer->end]) && line[lexer->end])
 		lexer->end++;
 	tmp = divide_str(line, lexer->start, lexer->end);
 	expanded = getenv(tmp);
