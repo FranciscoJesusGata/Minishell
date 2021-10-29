@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:25:27 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/28 13:56:32 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/10/29 12:28:11 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@
 
 # define SPACEX 32
 # define DQUOTE 34
-# define SQUOTE 39
 # define EXPAND 36
+# define SQUOTE 39
+# define LESS 60
+# define GREAT 62
+//# define DLESS 120
+//# define DGREAT 124
+# define PIPE 124
 
 typedef struct	s_lexer {
 	int			start;
@@ -35,6 +40,7 @@ void	is_space(t_lexer *lexer, char *line);
 void	is_squote(t_lexer *lexer, char *line);
 void	is_dquote(t_lexer *lexer, char *line);
 void	is_expand(t_lexer *lexer, char *line);
+void	is_meta(t_lexer *lexer, char *line);
 
 
 /*

@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/29 12:00:09 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/10/29 12:27:39 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,10 @@ void	is_expand(t_lexer *lexer, char *line)
 	else
 		concat(&lexer->buffer, ft_strdup(""));
 	lexer->start = lexer->end;
+}
+
+void	is_meta(t_lexer *lexer, char *line)
+{
+	f,eyy-lytktrl.r-t_lexer5rtt5ilt
+	eklkjelj
 }
