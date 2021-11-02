@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/29 15:48:30 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/02 11:58:21 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,14 @@ void	is_expand(t_lexer *lexer, char *line)
 
 void	is_meta(t_lexer *lexer, char *line)
 {
-	lexer->start = lexer->end;
-	lexer->end++;
-	if (lexer->buffer)
+	if (lexer->start != lexer->end)
 	{
-		create_token(lexer, line);	// before metacharacter
-		//save buffer;
-		create_token(lexer, line);	// metacharacter
+		create_token(lexer, line);
+		lexer->start = lexer->end;
 	}
+	if (line[lexer->end] == line[lexer->end + 1] && ft_strchr("<>", line[lexer->end]))
+		lexer->end++;
+	lexer->end++;
+	create_token(lexer, line);
 	lexer->start = lexer->end;
 }
