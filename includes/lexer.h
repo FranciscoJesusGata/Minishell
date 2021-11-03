@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:25:27 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/02 12:03:59 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/03 13:31:14 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,6 @@
 # define DQUOTE 34
 # define EXPAND 36
 # define SQUOTE 39
-# define LESS 60
-# define GREAT 62
-//# define DLESS 120
-//# define DGREAT 124
-# define PIPE 124
-
-typedef struct	s_lexer {
-	int			start;
-	int			end;
-	char		*buffer;
-	t_list		*tokens;
-}				t_lexer;
-
 
 /*
 ** Status functions
