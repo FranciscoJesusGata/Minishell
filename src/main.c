@@ -6,20 +6,11 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/29 12:02:29 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/04 16:23:07 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_tokens(t_list *tokens)
-{
-	while (tokens)
-	{
-		printf("token [%p]: \"%s\"\n", tokens->content, (char *)tokens->content);
-		tokens = tokens->next;
-	}
-}
 
 int	main(void)
 {
@@ -38,7 +29,7 @@ int	main(void)
 			print_tokens(tokens);
 		}
 		free(line);
-		ft_lstclear(&tokens, free);
+		ft_lstclear(&tokens, delete_token);
 	}
 	clear_history();
 	system("leaks minishell");

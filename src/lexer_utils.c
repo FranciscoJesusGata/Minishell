@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 13:21:56 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/29 12:26:21 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/04 14:11:06 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,14 @@ void	concat(char **dst, char *src)
 		}
 		else
 			*dst = src;
+	}
+}
+
+void	print_tokens(t_list *tokens)
+{
+	while (tokens)
+	{
+		printf("token [%p]: \"%s\"\n", tokens->content, (char *)((t_token *)tokens->content)->word);
+		tokens = tokens->next;
 	}
 }

@@ -6,7 +6,7 @@
 #    By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/19 10:34:45 by fgata-va          #+#    #+#              #
-#    Updated: 2021/10/28 15:32:18 by fgata-va         ###   ########.fr        #
+#    Updated: 2021/11/04 14:00:58 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCDIR := src/
 LIBDIR := libs/
 
 SRC = $(addprefix $(SRCDIR), main.c terminal.c term_utils.c lexer.c \
-	  lexer_status.c lexer_utils.c)
+	  lexer_status.c lexer_utils.c token_manager.c)
 
 OBJS =  $(patsubst $(SRCDIR)%,$(OBJDIR)%,$(SRC:.c=.o))
 
