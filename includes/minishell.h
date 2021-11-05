@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/05 13:35:03 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/05 15:48:29 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_env {
 	char		*shlvl;
 }				t_env;
 
-int		main(void);
 char	*launch_term(void);
 t_list	*lexer(char *line);
 
