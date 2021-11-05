@@ -12,15 +12,6 @@
 
 #include "minishell.h"
 
-void	print_tokens(t_list *tokens)
-{
-	while (tokens)
-	{
-		printf("token [%p]: \"%s\"\n", tokens->content, (char *)tokens->content);
-		tokens = tokens->next;
-	}
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -42,7 +33,7 @@ int	main(int argc, char **argv, char **envp)
 			print_tokens(tokens);
 		}
 		free(line);
-		ft_lstclear(&tokens, free);
+		ft_lstclear(&tokens, delete_token);
 	}
 	clear_history();
 	system("leaks minishell");

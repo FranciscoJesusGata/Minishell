@@ -10,10 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUTCS_H
-# define STRUTCS_H
+#ifndef STRUCTS_H
+# define STRUCTS_H
 # include "minishell.h"
 
+/*
+** LEXER STRUCTS
+*/
 typedef struct s_token
 {
 	int			type;
@@ -26,5 +29,17 @@ typedef struct s_lexer {
 	char		*buffer;
 	t_list		*tokens;
 }				t_lexer;
+
+/*
+** ENV STRUCT
+*/
+typedef struct s_env {
+	char		**envp;
+	char		**all;
+	char		*pwd;
+	char		*old_pwd;
+	char		*path;
+	char		*shlvl;
+}				t_env;
 
 #endif

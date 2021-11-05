@@ -22,7 +22,7 @@ SRCDIR := src/
 LIBDIR := libs/
 
 SRC = $(addprefix $(SRCDIR), main.c terminal.c term_utils.c lexer.c \
-	  lexer_status.c lexer_utils.c init_env.c)
+	  lexer_status.c lexer_utils.c token_manager.c init_env.c)
 
 OBJS =  $(patsubst $(SRCDIR)%,$(OBJDIR)%,$(SRC:.c=.o))
 
@@ -44,8 +44,9 @@ $(NAME): libft $(OBJS)
 	@$(CC) $(FLAGS) $(OBJS) -o $(NAME) $(LIBFT) $(READLINE)
 
 norm:
-	$(NORMI) $(SRC)
-	$(NORMI) $(LIBDIR)Libft/
+	-$(NORMI) $(SRC)
+	-$(NORMI) includes/
+	-$(NORMI) $(LIBDIR)Libft/
 
 libft:
 	make -C $(LIBDIR)Libft/ bonus

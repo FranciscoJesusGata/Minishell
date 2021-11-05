@@ -14,6 +14,7 @@
 # define MINISHELL_H
 # include "libft.h"
 # include "structs.h"
+# include "lexer.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -29,15 +30,6 @@
 # define DLESS 120
 # define DGREAT 121
 # define PIPE 124
-
-typedef struct s_env {
-	char		**envp;
-	char		**all;
-	char		*pwd;
-	char		*old_pwd;
-	char		*path;
-	char		*shlvl;
-}				t_env;
 
 char	*launch_term(void);
 t_list	*lexer(char *line);
