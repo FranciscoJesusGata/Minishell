@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/03 12:54:37 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/05 13:32:15 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void	is_meta(t_lexer *lexer, char *line)
 		create_token(lexer, line);
 		lexer->start = lexer->end;
 	}
-	if (line[lexer->end] == line[lexer->end + 1] && ft_strchr("<>", line[lexer->end]))
+	if (line[lexer->end] == line[lexer->end + 1]
+		&& ft_strchr("<>", line[lexer->end]))
 		lexer->end++;
 	lexer->end++;
 	create_token(lexer, line);

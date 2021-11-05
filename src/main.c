@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/10/29 12:02:29 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/05 12:18:59 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,15 @@ void	print_tokens(t_list *tokens)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_list	*tokens;
+	t_env	env;
 
+	argc = 0;
+	argv = NULL;
+	init_env(&env, envp);
 	welcome();
 	while (1)
 	{
