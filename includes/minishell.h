@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/04 13:28:18 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/05 15:27:05 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 # define DGREAT 121
 # define PIPE 124
 
-
-int		main();
 char	*launch_term(void);
 t_list	*lexer(char *line);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 13:27:38 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/04 16:21:21 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/05 13:54:26 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list	*newtkn(char **word, int type)
 {
-	t_token *new;
+	t_token	*new;
 
 	if (type == WORD && !(*word))
 		return (NULL);
@@ -35,7 +35,7 @@ void	create_token(t_lexer *lexer, char *word, int type)
 {
 	t_list	*tkn;
 
-	if (lexer->start != lexer->end)
+	if (lexer->start != lexer->end && type == WORD)
 		save_buffer(lexer, word);
 	tkn = newtkn(&lexer->buffer, type);
 	if (tkn)
@@ -44,6 +44,17 @@ void	create_token(t_lexer *lexer, char *word, int type)
 
 void	delete_token(void *tkn)
 {
-	free(((t_token *)tkn)->word);
+	if (((t_token *)tkn)->type == WORD)
+		free(((t_token *)tkn)->word);
 	free(tkn);
+}
+
+int	get_metatype(char *line, int start, int end)
+{
+	if ((end - start) == 1)
+		return (line[start]);
+	else if (line[start] == '>')
+		return (DGREAT);
+	else
+		return (DLESS);
 }

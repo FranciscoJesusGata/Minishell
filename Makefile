@@ -6,7 +6,7 @@
 #    By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/19 10:34:45 by fgata-va          #+#    #+#              #
-#    Updated: 2021/11/04 14:00:58 by fgata-va         ###   ########.fr        #
+#    Updated: 2021/11/05 12:27:33 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,9 @@ $(NAME): libft $(OBJS)
 	@$(CC) $(FLAGS) $(OBJS) -o $(NAME) $(LIBFT) $(READLINE)
 
 norm:
-	$(NORMI) $(SRC)
-	$(NORMI) $(LIBDIR)Libft/
+	-$(NORMI) $(SRC)
+	-$(NORMI) includes/
+	-$(NORMI) $(LIBDIR)Libft/
 
 libft:
 	make -C $(LIBDIR)Libft/ bonus

@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:14:00 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/04 14:02:15 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/04 17:16:17 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_list	*lexer(char *line)
 			is_dquote(&lexer, line);
 		else if (line[lexer.end] == EXPAND)
 			is_expand(&lexer, line);
-		/*else if (ft_strchr("<|>", line[lexer.end]))
-			is_meta(&lexer, line);*/
+		else if (ft_strchr("<|>", line[lexer.end]))
+			is_meta(&lexer, line);
 		else
 			lexer.end++;
 	}

@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:25:27 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/04 16:22:44 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/05 15:26:04 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	is_dquote(t_lexer *lexer, char *line);
 void	is_expand(t_lexer *lexer, char *line);
 void	is_meta(t_lexer *lexer, char *line);
 
-
 /*
 ** Utils functions
 */
@@ -43,5 +42,6 @@ void	print_tokens(t_list *tokens);
 */
 void	create_token(t_lexer *lexer, char *word, int type);
 void	delete_token(void *tkn);
+int		get_metatype(char *line, int start, int end);
 
 #endif
