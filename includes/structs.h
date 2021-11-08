@@ -6,7 +6,7 @@
 /*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 13:22:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/05 15:28:38 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/08 16:41:07 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ typedef struct s_token
 {
 	int			type;
 	char		*word;
+	int			quoted;
 }				t_token;
 
 typedef struct s_lexer {
