@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/08 16:52:07 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/09 18:09:43 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	is_expand(t_lexer *lexer, char *line)
 	char	*expanded;
 	char	*tmp;
 
+	if (lexer->start != lexer->end)
+		save_buffer(lexer, line);
 	lexer->start = lexer->end;
 	lexer->end++;
 	if (line[lexer->end] == SPACEX || line[lexer->end] == '\0')
