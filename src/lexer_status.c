@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/04 16:46:37 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/08 16:52:07 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	is_space(t_lexer *lexer, char *line)
 
 void	is_squote(t_lexer *lexer, char *line)
 {
+	if (!lexer->quoted)
+		lexer->quoted = 1;
 	if (lexer->start != lexer->end)
 		save_buffer(lexer, line);
 	lexer->end++;
@@ -41,6 +43,8 @@ void	is_squote(t_lexer *lexer, char *line)
 
 void	is_dquote(t_lexer *lexer, char *line)
 {
+	if (!lexer->quoted)
+		lexer->quoted = 1;
 	if (lexer->start != lexer->end)
 		save_buffer(lexer, line);
 	lexer->end++;

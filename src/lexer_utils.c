@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 13:21:56 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/05 13:53:49 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:09:26 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ini_lexer(t_lexer *lexer)
 {
 	lexer->start = 0;
 	lexer->end = 0;
+	lexer->quoted = 0;
 	lexer->tokens = NULL;
 	lexer->buffer = NULL;
 }
@@ -66,8 +67,14 @@ void	print_tokens(t_list *tokens)
 	{
 		type = ((t_token *)tokens->content)->type;
 		if (type == WORD)
-			printf("token [%p]: \"%s\"\n", tokens->content,
-				(char *)((t_token *)tokens->content)->word);
+		{
+			if (((t_token *)tokens->content)->quoted)
+				printf("token [%p]: \"%s\"\n", tokens->content,
+					(char *)((t_token *)tokens->content)->word);
+			else
+				printf("token [%p]: %s\n", tokens->content,
+					(char *)((t_token *)tokens->content)->word);
+		}
 		else
 		{
 			if (type == PIPE)
