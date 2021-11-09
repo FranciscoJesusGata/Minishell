@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/04 16:46:37 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/09 17:32:37 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	is_expand(t_lexer *lexer, char *line)
 	char	*expanded;
 	char	*tmp;
 
+	if (lexer->start != lexer->end)
+		save_buffer(lexer, line);
 	lexer->start = lexer->end;
 	lexer->end++;
 	if (line[lexer->end] == SPACEX || line[lexer->end] == '\0')
