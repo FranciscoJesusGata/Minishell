@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/05 15:27:05 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/10 20:21:34 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/wait.h>
 
 # define WORD 61
 # define LESS 60
