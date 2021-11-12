@@ -6,7 +6,7 @@
 /*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 13:22:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/10 20:27:10 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/12 11:42:08 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ typedef struct s_simpleCmd {
 	char	**argv;
 	int		argc;
 	pid_t	pid;
+	struct s_simpleCmd	*nxt;
 }				t_simpleCmd;
 
 typedef struct s_redir {
 	int		type;
 	char	*path;
+	struct s_redir	*nxt;
 }				t_redir;
 
 typedef struct s_cmds {
