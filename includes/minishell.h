@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/10 20:21:34 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/15 12:20:15 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libft.h"
 # include "structs.h"
 # include "lexer.h"
+# include "parser.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>

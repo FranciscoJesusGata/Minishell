@@ -6,7 +6,7 @@
 /*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 13:22:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/12 11:42:08 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/12 11:50:24 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ typedef struct s_redir {
 	struct s_redir	*nxt;
 }				t_redir;
 
-typedef struct s_cmds {
-	int			n_cmds;
+typedef struct s_cmd {
+	int			count;
 	t_simpleCmd	*cmds;
-	t_redir		*redirections;
-}				t_cmds;
+	t_redir		*redirs;
+}				t_cmd;
 
 #endif
