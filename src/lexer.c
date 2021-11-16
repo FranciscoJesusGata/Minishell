@@ -6,21 +6,11 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:14:00 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/10/29 13:04:19 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/04 17:16:17 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-
-void	create_token(t_lexer *lexer, char *line)
-{
-	if (lexer->start != lexer->end || lexer->buffer)
-	{
-		save_buffer(lexer, line);
-		ft_lstadd_back(&lexer->tokens, ft_lstnew(lexer->buffer));
-		lexer->buffer = NULL;
-	}
-}
+#include "minishell.h"
 
 t_list	*lexer(char *line)
 {
@@ -42,6 +32,6 @@ t_list	*lexer(char *line)
 		else
 			lexer.end++;
 	}
-	create_token(&lexer, line);
+	create_token(&lexer, line, WORD);
 	return (lexer.tokens);
 }
