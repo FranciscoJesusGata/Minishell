@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:05:34 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/17 12:18:23 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/17 14:30:58 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,13 @@ void	get_def_env(t_env *env, int i)
 	while (j < i)
 	{
 		if (ft_strnstr(env->all[j], "PWD", 3))
-			env->pwd = ft_strdup(env->all[j]);
+			env->pwd = ft_strdup(env->all[j]) + 4;
 		if (ft_strnstr(env->all[j], "HOME", 4))
-			env->home = ft_strdup(env->all[j]);
+			env->home = ft_strdup(env->all[j]) + 5;
 		if (ft_strnstr(env->all[j], "USER", 4))
-			env->user = ft_strdup(env->all[j]);
+			env->user = ft_strdup(env->all[j]) + 5;
 		else if (ft_strnstr(env->all[j], "PATH", 4))
 			env->path = chop_paths(env->all[j]);
-		j++;
-	}
-	j = 0;
-	while (env->path[j])
-	{
-		printf("%s\n", env->path[j]);
 		j++;
 	}
 }
