@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 13:22:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/05 13:35:30 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/17 12:16:59 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ typedef struct s_env {
 	char		**all;
 	char		*pwd;
 	char		*old_pwd;
-	char		*path;
+	char		**path;
 	char		*shlvl;
+	char		*home;
+	char		*user;
+	char		*last;
 }				t_env;
 
 #endif
