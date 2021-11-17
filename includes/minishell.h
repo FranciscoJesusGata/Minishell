@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/15 12:20:15 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/17 11:37:09 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ t_list	*lexer(char *line);
 ** Utils
 */
 
-int		ft_putchar(int c);
-int		ft_strcmp(const char *s1, const char *s2);
+void	malloc_error(void);
 
 /*
 ** Term utils

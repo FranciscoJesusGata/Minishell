@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:33:13 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/15 17:59:35 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:16:40 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,86 +18,46 @@ t_cmd	*init_cmds(void)
 
 	commands = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!commands)
-	{
-		perror("Error: allocation error");
-		exit(1);
-	}
+		malloc_error();
 	commands->count = 0;
 	commands->cmds = NULL;
 	commands->redirs = NULL;
 	return (commands);
 }
 
-void		add_cmd(t_list *tokens, int argc, t_simpleCmd **cmds)
-{
-	int i;
-	char **argv;
-
-	argv = malloc(sizeof(char *) * argc + 1);
-	if (!argv)
-	{
-		perror("Error: allocation error");
-		exit(1);
-	}
-	i = 0;
-	while (i < argc)
-	{
-		argv[i] = ((t_token *)tokens->content)->word;
-		tokens = tokens->next;
-		i++;
-	}
-	argv[i] = NULL;
-	new_cmd(argc, argv, cmds);
-}
-
-int		add_redir(t_list *tokens, t_redir **redirs)
-{
-	t_redir	*new_redi;
-	t_redir	*iterable;
-
-	if (tokens->next && ((t_token *)tokens->next->content)->type == WORD)
-	{
-		new_redi = (t_redir *)malloc(sizeof(t_redir));
-		if (!new_redi)
-		{
-			perror("Error: allocation error");
-			exit(1);
-		}
-		new_redi->type = ((t_token *)tokens->content)->type;
-		new_redi->path = ((t_token *)tokens->next)->word;
-		new_redi->nxt = NULL;
-		if (!*redirs)
-			*redirs = new_redi;
-		iterable = *redirs;
-		while (iterable->nxt)
-			iterable = iterable->nxt;
-		iterable->nxt = new_redi;
-		return (0);
-	}
-	return (1);
-}
-
 t_cmd		*parser(t_list *tokens)
 {
 	t_cmd	*commands;
+	t_list	*args;
 	int		argc;
 	int		type;
 
 	commands = init_cmds();
 	argc = 0;
+	args = NULL;
 	while (tokens)
 	{
 		type = ((t_token *)tokens->content)->type;
 		if (type == WORD)
+		{
+			add_arg(&args, ((t_token *)tokens->content)->word);
 			argc++;
+		}
 		else
 		{
-			if (argc)
-				add_cmd(tokens, argc, &commands->cmds);
-			if (add_redir(tokens, &commands->redirs) == 0)
+			if (type == PIPE)
+			{
+				//if (argc)
+					//error bash: syntax error near unexpected token `|'
+				add_cmd(&args, argc, &commands->cmds);
+				argc = 0;
+			}
+			else if (add_redir(tokens, &commands->redirs) == 0) 
 				tokens = tokens->next;
 		}
 		tokens = tokens->next;
 	}
+	if (argc)
+		add_cmd(&args, argc, &commands->cmds);
 	return (commands);
 }

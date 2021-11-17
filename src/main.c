@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/04 16:23:07 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/17 16:35:09 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,23 @@ int	main(void)
 {
 	char	*line;
 	t_list	*tokens;
+	t_cmd	*cmd;
 
 	welcome();
-	while (1)
+	line = launch_term();
+	while (line)
 	{
-		line = launch_term();
-		if (!line)
-			break ;
 		if (*line)
 		{
 			tokens = lexer(line);
 			print_tokens(tokens);
+			cmd = parser(tokens);
+			print_cmd(cmd);
+			delete_cmd(&cmd);
+			ft_lstclear(&tokens, delete_token);
 		}
 		free(line);
-		ft_lstclear(&tokens, delete_token);
+		line = launch_term();
 	}
 	clear_history();
 	system("leaks minishell");
