@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:33:13 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/17 19:16:40 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/18 12:00:08 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_cmd		*parser(t_list *tokens)
 			{
 				//if (argc)
 					//error bash: syntax error near unexpected token `|'
-				add_cmd(&args, argc, &commands->cmds);
+				add_cmd(&args, argc, &commands->cmds, &commands->count);
 				argc = 0;
 			}
 			else if (add_redir(tokens, &commands->redirs) == 0) 
@@ -58,6 +58,6 @@ t_cmd		*parser(t_list *tokens)
 		tokens = tokens->next;
 	}
 	if (argc)
-		add_cmd(&args, argc, &commands->cmds);
+		add_cmd(&args, argc, &commands->cmds, &commands->count);
 	return (commands);
 }

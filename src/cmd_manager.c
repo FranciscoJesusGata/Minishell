@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 12:01:05 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/17 19:16:59 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/18 12:07:48 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	**list2matrix(int count, t_list **lst)
 	return (argv);
 }
 
-void	add_cmd(t_list **args, int argc, t_simpleCmd **cmds)
+void	add_cmd(t_list **args, int argc, t_simpleCmd **cmds, int *count)
 {
 	t_simpleCmd *new;
 	t_simpleCmd *iter;
@@ -66,6 +66,7 @@ void	add_cmd(t_list **args, int argc, t_simpleCmd **cmds)
 		iter = iter->nxt;
 	iter->nxt = new;
 	}
+	(*count)++;
 }
 
 void	add_arg(t_list **args, char *word)
@@ -131,12 +132,13 @@ void	delete_cmd(t_cmd **cmd)
 	*cmd = NULL;
 }
 
-void	print_argv(t_simpleCmd *cmd, int n_cmd)
+void	print_argv(t_simpleCmd *cmd)
 {
 	int	i;
 
 	i = 0;
-	printf("			cmd%d: [", n_cmd);
+	printf("			argc: %d\n", cmd->argc);
+	printf("			argv: [");
 	while (cmd->argv[i])
 	{
 		printf("\"%s\"", cmd->argv[i]);
@@ -156,13 +158,13 @@ void	print_cmd(t_cmd *cmd)
 	printf("cmd	{\n");
 	printf("	count = %d\n", cmd->count);
 	printf("	cmds:\n");
-	printf("		argc: %d\n", cmd->cmds->argc);
-	printf("		argv:\n");
+	
 	i = 0;
 	iter = cmd->cmds;
 	while (iter)
 	{
-		print_argv(iter, i);
+		printf("		cmd%d:\n", i);
+		print_argv(iter);
 		iter = iter->nxt;
 		i++;
 	}
@@ -170,13 +172,14 @@ void	print_cmd(t_cmd *cmd)
 	printf("		redirections:\n");
 	while (r_iter)
 	{
+		printf("			");
 		if (r_iter->type < 77)
-			printf("			%c ", r_iter->type);
-		else if (r_iter->type < DGREAT)
-			printf(">>");
+			printf("%c ", r_iter->type);
+		else if (r_iter->type == DGREAT)
+			printf(">> ");
 		else
-			printf("<<");
-		printf("\"%s\"\n", r_iter->path);
+			printf("<< ");
+		printf("%s\n", r_iter->path);
 		r_iter = r_iter->nxt;
 	}
 	printf("	}\n");
