@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/18 15:21:46 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/18 16:01:47 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,32 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char			*str;
+	unsigned int	i;
+	unsigned int	j;
+
+	if (!s2 || !s1)
+		return (ft_strdup(""));
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (s1[i] != '\0')
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j] != '\0')
+	{
+		str[i + j] = s2[j];
+		j++;
+	}
+	str[i + j] = '\0';
+	return (str);
+}
 
 /////////////////////////////////
 //      DISPLAY STR EXPORT     //
@@ -195,29 +221,42 @@ void display_str(char **splitted, int arr_size)
 	i = 0;
 	while(i < arr_size)
 	{
+		printf("declare -x ");
 		printf("%s\n", splitted[i]);
 		i++;
 	}
 }
 
-char **str_to_temp(char **splitted, char **temp)
+char	*include_quotes(char **env, char *ret, int i)
+{
+	char **split;
+
+	split = ft_split(env[i], '=');
+	ret = ft_strjoin(split[0], "=");
+	ret = ft_strjoin(ret, "\"");
+	ret = ft_strjoin(ret, split[1]);
+	ret = ft_strjoin(ret, "\"");
+	return (ret);
+}
+
+char **env_to_temp(char **env, char **temp)
 {
 	int i;
 
 	i = 0;
-	while (splitted[i])
+	while (env[i])
 		i++;
 	temp = malloc(sizeof(char*) * i);
 	i = 0;
-	while (splitted[i])
+	while (env[i])
 	{
-		temp[i] = ft_strdup(splitted[i]);
+		temp[i] = include_quotes(env, temp[i], i);
 		i++;
 	}
 	return (temp);
 }
 
-char	**bubble_sort(char **arr, int arr_size)
+char	**bubble_sort(char **array, int array_size)
 {
 	int i;
 	int j;
@@ -225,30 +264,30 @@ char	**bubble_sort(char **arr, int arr_size)
 
 	i = 0;
 	j = 0;
-	while (i < arr_size -1)
+	while (i < array_size -1)
 	{
 		j = 0;
-		while (j < arr_size - i - 1)
+		while (j < array_size - i - 1)
 		{
-			if(ft_strncmp(arr[j], arr[j + 1], 4) > 0)
+			if(ft_strncmp(array[j], array[j + 1], 4) > 0)
 			{
-				tmp = arr[j];
-				arr[j] = arr[j+1];
-				arr[j+1] = tmp;
+				tmp = array[j];
+				array[j] = array[j+1];
+				array[j+1] = tmp;
 			}
 			j++;
 		}
 		i++;
 	}
-	return (arr);
+	return (array);
 }
 
-int	get_size(char **splitted)
+int	get_size(char **envs)
 {
 	int i;
 
 	i = 0;
-	while (splitted[i])
+	while (envs[i])
 		i++;
 	return (i);
 }
@@ -260,7 +299,7 @@ int main(int argc, char **argv, char **envp)
 
 	argv = NULL;
 	arr_size = get_size(envp);
-	temp = str_to_temp(envp, temp);
+	temp = env_to_temp(envp, temp);
 	temp = bubble_sort(temp, arr_size);
 	display_str(temp, arr_size);
 	return (0);
