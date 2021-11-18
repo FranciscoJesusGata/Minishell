@@ -6,13 +6,13 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 12:01:05 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/18 12:07:48 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/18 16:50:20 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-t_simpleCmd	*new_cmd(int argc, char **argv)
+t_simpleCmd	*new_cmd(int argc, char **argv, t_redir *redirs)
 {
 	t_simpleCmd *new_cmd;
 
@@ -21,6 +21,7 @@ t_simpleCmd	*new_cmd(int argc, char **argv)
 		malloc_error();
 	new_cmd->argc = argc;
 	new_cmd->argv = argv;
+	new_cmd->redirs = redirs;
 	new_cmd->nxt = NULL;
 	return (new_cmd);
 }
@@ -47,7 +48,7 @@ char	**list2matrix(int count, t_list **lst)
 	return (argv);
 }
 
-void	add_cmd(t_list **args, int argc, t_simpleCmd **cmds, int *count)
+void	add_cmd(t_list **args, int argc, t_redir **redirs, t_cmd *cmd)
 {
 	t_simpleCmd *new;
 	t_simpleCmd *iter;
@@ -56,17 +57,18 @@ void	add_cmd(t_list **args, int argc, t_simpleCmd **cmds, int *count)
 	argv = list2matrix(argc, args);
 	if (!argv)
 		malloc_error();
-	new = new_cmd(argc, argv);
-	if (!*cmds)
-		*cmds = new;
+	new = new_cmd(argc, argv, *redirs);
+	*redirs = NULL;
+	if (!cmd->cmds)
+		cmd->cmds = new;
 	else
 	{
-	iter = *cmds;
-	while (iter->nxt)
-		iter = iter->nxt;
-	iter->nxt = new;
+		iter = cmd->cmds;
+		while (iter->nxt)
+			iter = iter->nxt;
+		iter->nxt = new;
 	}
-	(*count)++;
+	cmd->count++;
 }
 
 void	add_arg(t_list **args, char *word)
@@ -116,18 +118,19 @@ void	delete_cmd(t_cmd **cmd)
 	scmd = (*cmd)->cmds;
 	while (scmd)
 	{
+		redir = scmd->redirs;
 		s_nxt = scmd->nxt;
 		free(scmd->argv);
+		while (redir)
+		{
+			r_nxt = redir->nxt;
+			free(redir);
+			redir = r_nxt;
+		}
 		free(scmd);
 		scmd = s_nxt;
 	}
-	redir = (*cmd)->redirs;
-	while (redir)
-	{
-		r_nxt = redir->nxt;
-		free(redir);
-		redir = r_nxt;
-	}
+	
 	free(*cmd);
 	*cmd = NULL;
 }
@@ -135,6 +138,8 @@ void	delete_cmd(t_cmd **cmd)
 void	print_argv(t_simpleCmd *cmd)
 {
 	int	i;
+	t_redir	*r_iter;
+
 
 	i = 0;
 	printf("			argc: %d\n", cmd->argc);
@@ -147,13 +152,26 @@ void	print_argv(t_simpleCmd *cmd)
 		i++;
 	}
 	printf("]\n");
+	r_iter = cmd->redirs;
+	printf("			redirections:\n");
+	while (r_iter)
+	{
+		printf("				");
+		if (r_iter->type < 77)
+			printf("%c ", r_iter->type);
+		else if (r_iter->type == DGREAT)
+			printf(">> ");
+		else
+			printf("<< ");
+		printf("%s\n", r_iter->path);
+		r_iter = r_iter->nxt;
+	}
 }
 
 void	print_cmd(t_cmd *cmd)
 {
 	int i;
 	t_simpleCmd *iter;
-	t_redir		*r_iter;
 
 	printf("cmd	{\n");
 	printf("	count = %d\n", cmd->count);
@@ -168,19 +186,6 @@ void	print_cmd(t_cmd *cmd)
 		iter = iter->nxt;
 		i++;
 	}
-	r_iter = cmd->redirs;
-	printf("		redirections:\n");
-	while (r_iter)
-	{
-		printf("			");
-		if (r_iter->type < 77)
-			printf("%c ", r_iter->type);
-		else if (r_iter->type == DGREAT)
-			printf(">> ");
-		else
-			printf("<< ");
-		printf("%s\n", r_iter->path);
-		r_iter = r_iter->nxt;
-	}
+	
 	printf("	}\n");
 }
