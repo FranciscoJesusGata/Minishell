@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/18 16:01:47 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/19 13:46:42 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,15 +292,40 @@ int	get_size(char **envs)
 	return (i);
 }
 
+char	**create_env(char **env, int argc, char **argv)
+{
+	int i;
+	char **temp;
+
+	i = 0;
+	temp = calloc(sizeof(char*), (get_size(env) + 2));
+	while (env[i])
+	{
+		temp[i] = ft_strdup(env[i]);
+		i++;
+	}
+	temp[i] = ft_strdup(argv[2]);
+	return (temp);
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	int	arr_size;
 	char **temp;
 
-	argv = NULL;
-	arr_size = get_size(envp);
-	temp = env_to_temp(envp, temp);
-	temp = bubble_sort(temp, arr_size);
-	display_str(temp, arr_size);
+	if (argc > 2)
+	{
+		temp = create_env(envp, argc, argv);
+	}
+	else		//Daré por hecho que argv[1] será siempre "export"
+	{
+		argv = NULL;
+		arr_size = get_size(envp);
+		temp = env_to_temp(envp, temp);
+		temp = bubble_sort(temp, arr_size);
+		display_str(temp, arr_size);
+	}
+	//display_str(temp, get_size(temp));
+
 	return (0);
 }
