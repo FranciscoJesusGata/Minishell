@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/19 13:46:42 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/22 11:15:14 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
-
 
 char	*ft_strdup(const char *s1)
 {
@@ -295,16 +294,23 @@ int	get_size(char **envs)
 char	**create_env(char **env, int argc, char **argv)
 {
 	int i;
+	int c;		// le llamo c porque es un counter de argc
 	char **temp;
 
 	i = 0;
-	temp = calloc(sizeof(char*), (get_size(env) + 2));
+	c = 2;
+	temp = ft_calloc(sizeof(char*), (get_size(env) + (argc - c) + 2));
 	while (env[i])
 	{
 		temp[i] = ft_strdup(env[i]);
 		i++;
 	}
-	temp[i] = ft_strdup(argv[2]);
+	while (c < argc)
+	{
+		temp[i] = ft_strdup(argv[c]);
+		i++;
+		c++;
+	}
 	return (temp);
 }
 
@@ -314,9 +320,7 @@ int main(int argc, char **argv, char **envp)
 	char **temp;
 
 	if (argc > 2)
-	{
 		temp = create_env(envp, argc, argv);
-	}
 	else		//Daré por hecho que argv[1] será siempre "export"
 	{
 		argv = NULL;
@@ -325,7 +329,5 @@ int main(int argc, char **argv, char **envp)
 		temp = bubble_sort(temp, arr_size);
 		display_str(temp, arr_size);
 	}
-	//display_str(temp, get_size(temp));
-
 	return (0);
 }
