@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:33:13 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/18 16:50:56 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/22 15:29:22 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,41 +24,56 @@ t_cmd	*init_cmds(void)
 	return (commands);
 }
 
-t_cmd		*parser(t_list *tokens)
+void	init_parser(t_parser *parser, t_cmd **cmd)
 {
-	t_cmd	*commands;
-	t_list	*args;
-	t_redir	*redirs;
-	int		argc;
-	int		type;
+	parser->argc = 0;
+	parser->args = NULL;
+	parser->redirs = NULL;
+	*cmd = init_cmds();
+}
 
-	commands = init_cmds();
-	argc = 0;
-	args = NULL;
-	redirs = NULL;
-	while (tokens)
+void	free_parser(t_parser *parser)
+{
+	if (parser->args)
+		ft_lstclear(&parser->args, free);
+	delete_redirs(parser->redirs);
+}
+
+int	analyse_tokens(t_list *tokens, t_parser *parser, t_cmd *commands)
+{
+	int	status;
+
+	status = 0;
+	while (tokens && status == 0)
 	{
-		type = ((t_token *)tokens->content)->type;
-		if (type == WORD)
-		{
-			add_arg(&args, ((t_token *)tokens->content)->word);
-			argc++;
-		}
+		parser->type = ((t_token *)tokens->content)->type;
+		if (parser->type == WORD)
+			add_arg(parser, ((t_token *)tokens->content)->word);
+		else if (parser->type == PIPE)
+			status = add_cmd(parser, commands);
 		else
-		{
-			if (type == PIPE)
-			{
-				//if (argc)
-					//error bash: syntax error near unexpected token `|'
-				add_cmd(&args, argc, &redirs, commands);
-				argc = 0;
-			}
-			else if (add_redir(tokens, &redirs) == 0) 
-				tokens = tokens->next;
-		}
+			status = add_redir(&tokens, &parser->redirs);
 		tokens = tokens->next;
 	}
-	if (argc)
-		add_cmd(&args, argc, &redirs, commands);
+	return (status);
+}
+
+t_cmd	*parser(t_list *tokens)
+{
+	t_cmd		*commands;
+	t_parser	parser;
+	int			status;
+
+	init_parser(&parser, &commands);
+	status = analyse_tokens(tokens, &parser, commands);
+	if (status == 0 && (parser.args || parser.redirs))
+		add_cmd(&parser, commands);
+	else
+	{
+		if (status == 0)
+			printf("minishell: syntax error: unexpected end of file\n");
+		delete_cmd(&commands);
+		free_parser(&parser);
+	}
 	return (commands);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 13:22:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/18 16:17:48 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/22 15:36:15 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ typedef struct s_lexer {
 **		[ Parser Structs ]
 */
 typedef struct s_redir {
-	int		type;
-	char	*path;
+	int				type;
+	char			*path;
 	struct s_redir	*nxt;
 }				t_redir;
 
 typedef struct s_simpleCmd {
-	char	**argv;
-	int		argc;
-	pid_t	pid;
-	t_redir		*redirs;
+	char				**argv;
+	int					argc;
+	pid_t				pid;
+	t_redir				*redirs;
 	struct s_simpleCmd	*nxt;
 }				t_simpleCmd;
 
@@ -53,5 +53,12 @@ typedef struct s_cmd {
 	int			count;
 	t_simpleCmd	*cmds;
 }				t_cmd;
+
+typedef struct s_parser {
+	t_list		*args;
+	t_redir		*redirs;
+	int			argc;
+	int			type;
+}				t_parser;
 
 #endif

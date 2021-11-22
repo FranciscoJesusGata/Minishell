@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 13:21:56 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/08 17:09:26 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:29:52 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,9 @@ void	print_tokens(t_list *tokens)
 	{
 		type = ((t_token *)tokens->content)->type;
 		if (type == WORD)
-		{
-			if (((t_token *)tokens->content)->quoted)
-				printf("token [%p]: \"%s\"\n", tokens->content,
-					(char *)((t_token *)tokens->content)->word);
-			else
-				printf("token [%p]: %s\n", tokens->content,
-					(char *)((t_token *)tokens->content)->word);
-		}
+			printf("token [%p]: \"%s\" quoted: %d\n", tokens->content,
+				(char *)((t_token *)tokens->content)->word,
+				((t_token *)tokens->content)->quoted);
 		else
 		{
 			if (type == PIPE)

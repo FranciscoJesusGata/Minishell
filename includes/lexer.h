@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:25:27 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/05 15:26:04 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/22 15:35:10 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 ** Status functions
 */
 void	is_space(t_lexer *lexer, char *line);
-void	is_squote(t_lexer *lexer, char *line);
-void	is_dquote(t_lexer *lexer, char *line);
+int		is_squote(t_lexer *lexer, char *line);
+int		is_dquote(t_lexer *lexer, char *line);
 void	is_expand(t_lexer *lexer, char *line);
 void	is_meta(t_lexer *lexer, char *line);
 

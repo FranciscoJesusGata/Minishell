@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/09 18:09:43 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/22 10:51:45 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	is_space(t_lexer *lexer, char *line)
 	lexer->start = lexer->end;
 }
 
-void	is_squote(t_lexer *lexer, char *line)
+int	is_squote(t_lexer *lexer, char *line)
 {
 	if (!lexer->quoted)
 		lexer->quoted = 1;
@@ -31,17 +31,19 @@ void	is_squote(t_lexer *lexer, char *line)
 	{
 		if (!line[lexer->end])
 		{
-			perror("wa wa");
-			exit(1);
+			printf("minishell: unexpected EOF while looking for matching `''\n\
+minishell: syntax error: unexpected end of file\n");
+			return (1);
 		}
 		lexer->end++;
 	}
 	save_buffer(lexer, line);
 	lexer->end++;
 	lexer->start = lexer->end;
+	return (0);
 }
 
-void	is_dquote(t_lexer *lexer, char *line)
+int	is_dquote(t_lexer *lexer, char *line)
 {
 	if (!lexer->quoted)
 		lexer->quoted = 1;
@@ -53,8 +55,9 @@ void	is_dquote(t_lexer *lexer, char *line)
 	{
 		if (!line[lexer->end])
 		{
-			perror("wa wa");
-			exit(1);
+			printf("minishell: unexpected EOF while looking for matching `\"\n\
+minishell: syntax error: unexpected end of file\n");
+			return (1);
 		}
 		if (line[lexer->end] == '$')
 			is_expand(lexer, line);
@@ -64,6 +67,7 @@ void	is_dquote(t_lexer *lexer, char *line)
 	save_buffer(lexer, line);
 	lexer->end++;
 	lexer->start = lexer->end;
+	return (0);
 }
 
 void	is_expand(t_lexer *lexer, char *line)
