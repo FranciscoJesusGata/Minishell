@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:58:10 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/23 15:54:43 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:13:24 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,21 +262,34 @@ char	**kill_env(char **envp, int dead)
 char	**ft_unset (int argc, char **argv, char **envp)
 {
 	int i;
+	int arg_nb;
 	char **tmp;
 
 	i = 0;
-	tmp = ft_calloc(sizeof(char *), get_size(envp));
-	while (envp[i])
+	arg_nb = 2;
+	if (!tmp)
 	{
-		tmp[i] = ft_strdup(envp[i]);
-		i++;
+		i = 0;
+		tmp = ft_calloc(sizeof(char *), get_size(envp));
+		while (envp[i])
+		{
+			tmp[i] = ft_strdup(envp[i]);
+			i++;
+		}
 	}
-	i = 0;
-	while (envp[i])
+	if (argc > 1)
 	{
-		if (!ft_strncmp(envp[i], argv[2], ft_strlen(argv[2])))
-			tmp = kill_env(tmp, i);
-		i++;
+		while (arg_nb < argc)
+		{
+			i = 0;
+			while (envp[i])
+			{
+				if (!ft_strncmp(envp[i], argv[arg_nb], ft_strlen(argv[arg_nb])))
+					tmp = kill_env(tmp, i);
+				i++;
+			}
+			arg_nb++;
+		}
 	}
 	return (tmp);
 }
@@ -286,6 +299,65 @@ int	main(int argc, char **argv, char **envp)
 	char **tmp;
 
 	tmp = ft_unset(argc, argv, envp);
-	display_str(tmp, get_size(tmp));
+	display_str(tmp, get_size(tmp) - 1);
 	return (0);
 }
+
+
+//char	**kill_env(char **envp, int dead)
+//{
+//	int i;
+//	int j;
+//	char **tmp;
+
+//	i = 0;
+//	j = 0;
+//	tmp = ft_calloc(sizeof(char *), get_size(envp));
+//	while (envp[i])
+//	{
+//		if (i != dead)
+//		{
+//			tmp[j] = ft_strdup(envp[i]);
+//			j++;
+//		}
+//		i++;
+//	}
+//	return (tmp);
+//}
+
+//char	**ft_unset (int argc, char **argv, char **envp)
+//{
+//	int i;
+//	int arg_nbr;
+//	char **tmp;
+
+//	i = 0;
+//	arg_nbr = 0;
+//	tmp = ft_calloc(sizeof(char *), get_size(envp));
+//	while (envp[i])
+//	{
+//		tmp[i] = ft_strdup(envp[i]);
+//		i++;
+//	}
+//	i = 0;
+//	if (1 < arg_nbr < argc)
+//	{
+//		while (envp[i])
+//		{
+//			if (!ft_strncmp(envp[i], argv[2], ft_strlen(argv[2])))
+//				tmp = kill_env(tmp, i);
+//			i++;
+//		}
+//		return (tmp);
+//	}
+//	return (NULL);
+//}
+
+//int	main(int argc, char **argv, char **envp)
+//{
+//	char **tmp;
+
+//	tmp = ft_unset(argc, argv, envp);
+//	display_str(tmp, get_size(tmp));
+//	return (0);
+//}
