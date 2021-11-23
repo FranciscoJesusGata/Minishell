@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:14:00 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/22 12:27:13 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/23 14:43:31 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_list	*lexer(char *line)
 			status = is_squote(&lexer, line);
 		else if (line[lexer.end] == DQUOTE)
 			status = is_dquote(&lexer, line);
-		else if (line[lexer.end] == EXPAND)
+		else if (line[lexer.end] == EXPAND && lexer.expand)
 			is_expand(&lexer, line);
 		else if (ft_strchr("<|>", line[lexer.end]))
 			is_meta(&lexer, line);

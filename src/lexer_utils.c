@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 13:21:56 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/22 12:29:52 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/23 14:43:03 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ini_lexer(t_lexer *lexer)
 	lexer->start = 0;
 	lexer->end = 0;
 	lexer->quoted = 0;
+	lexer->expand = 1;
 	lexer->tokens = NULL;
 	lexer->buffer = NULL;
 }
