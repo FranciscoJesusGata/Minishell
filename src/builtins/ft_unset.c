@@ -1,17 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/22 14:57:32 by fportalo         ###   ########.fr       */
+/*   Created: 2021/11/22 14:58:10 by fportalo          #+#    #+#             */
+/*   Updated: 2021/11/23 15:54:43 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+#include <stdio.h>
 
 /////////////////////////////////
 //         LIBFT STUFF         //
@@ -209,9 +213,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 }
 
 /////////////////////////////////
-//      DISPLAY STR EXPORT     //
+//      DISPLAY STR UNSET      //
 /////////////////////////////////
-
 
 void display_str(char **splitted, int arr_size)
 {
@@ -220,65 +223,9 @@ void display_str(char **splitted, int arr_size)
 	i = 0;
 	while(i < arr_size)
 	{
-		printf("declare -x ");
 		printf("%s\n", splitted[i]);
 		i++;
 	}
-}
-
-char	*include_quotes(char **env, char *ret, int i)
-{
-	char **split;
-
-	split = ft_split(env[i], '=');
-	ret = ft_strjoin(split[0], "=");
-	ret = ft_strjoin(ret, "\"");
-	ret = ft_strjoin(ret, split[1]);
-	ret = ft_strjoin(ret, "\"");
-	return (ret);
-}
-
-char **env_to_temp(char **env, char **temp)
-{
-	int i;
-
-	i = 0;
-	while (env[i])
-		i++;
-	temp = malloc(sizeof(char*) * i);
-	i = 0;
-	while (env[i])
-	{
-		temp[i] = include_quotes(env, temp[i], i);
-		i++;
-	}
-	return (temp);
-}
-
-char	**bubble_sort(char **array, int array_size)
-{
-	int i;
-	int j;
-	char *tmp;
-
-	i = 0;
-	j = 0;
-	while (i < array_size -1)
-	{
-		j = 0;
-		while (j < array_size - i - 1)
-		{
-			if(ft_strncmp(array[j], array[j + 1], 4) > 0)
-			{
-				tmp = array[j];
-				array[j] = array[j+1];
-				array[j+1] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
-	return (array);
 }
 
 int	get_size(char **envs)
@@ -291,44 +238,54 @@ int	get_size(char **envs)
 	return (i);
 }
 
-char	**create_env(char **env, int argc, char **argv)
+char	**kill_env(char **envp, int dead)
 {
 	int i;
-	int c;
-	char **temp;
+	int j;
+	char **tmp;
 
 	i = 0;
-	c = 2;
-	temp = ft_calloc(sizeof(char*), (get_size(env) + (argc - c) + 2));
-	while (env[i])
+	j = 0;
+	tmp = ft_calloc(sizeof(char *), get_size(envp));
+	while (envp[i])
 	{
-		temp[i] = ft_strdup(env[i]);
+		if (i != dead)
+		{
+			tmp[j] = ft_strdup(envp[i]);
+			j++;
+		}
 		i++;
 	}
-	while (c < argc)
-	{
-		temp[i] = ft_strdup(argv[c]);
-		i++;
-		c++;
-	}
-	return (temp);
+	return (tmp);
 }
 
-int main(int argc, char **argv, char **envp)
+char	**ft_unset (int argc, char **argv, char **envp)
 {
-	int	arr_size;
-	char **temp;
+	int i;
+	char **tmp;
 
-	if (argc > 2)
-		temp = create_env(envp, argc, argv);
-	else
+	i = 0;
+	tmp = ft_calloc(sizeof(char *), get_size(envp));
+	while (envp[i])
 	{
-		argv = NULL;
-		arr_size = get_size(envp);
-		temp = env_to_temp(envp, temp);
-		temp = bubble_sort(temp, arr_size);
-		display_str(temp, arr_size);
+		tmp[i] = ft_strdup(envp[i]);
+		i++;
 	}
+	i = 0;
+	while (envp[i])
+	{
+		if (!ft_strncmp(envp[i], argv[2], ft_strlen(argv[2])))
+			tmp = kill_env(tmp, i);
+		i++;
+	}
+	return (tmp);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char **tmp;
+
+	tmp = ft_unset(argc, argv, envp);
+	display_str(tmp, get_size(tmp));
 	return (0);
 }
-
