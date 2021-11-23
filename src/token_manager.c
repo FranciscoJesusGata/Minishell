@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 13:27:38 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/08 16:48:39 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/23 14:54:44 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,11 @@ void	create_token(t_lexer *lexer, char *word, int type)
 		save_buffer(lexer, word);
 	tkn = newtkn(&lexer->buffer, type, lexer->quoted);
 	if (tkn)
+	{
+		if (type == WORD && !lexer->expand)
+			lexer->expand = 1;
 		ft_lstadd_back(&lexer->tokens, tkn);
+	}
 	if (lexer->quoted)
 		lexer->quoted = 0;
 }

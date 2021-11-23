@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 13:22:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/22 15:36:15 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/23 14:42:20 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_lexer {
 	int			start;
 	int			end;
 	int			quoted;
+	int			expand;
 	char		*buffer;
 	t_list		*tokens;
 }				t_lexer;

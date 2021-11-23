@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/23 14:31:16 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/23 14:48:54 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void	is_expand(t_lexer *lexer, char *line)
 
 void	is_meta(t_lexer *lexer, char *line)
 {
+	int		type;
+
 	if (lexer->start != lexer->end || lexer->buffer)
 	{
 		create_token(lexer, line, WORD);
@@ -105,6 +107,9 @@ void	is_meta(t_lexer *lexer, char *line)
 		&& ft_strchr("<>", line[lexer->end]))
 		lexer->end++;
 	lexer->end++;
-	create_token(lexer, line, get_metatype(line, lexer->start, lexer->end));
+	type = get_metatype(line, lexer->start, lexer->end);
+	if (type == DLESS)
+		lexer->expand = 0;
+	create_token(lexer, line, type);
 	lexer->start = lexer->end;
 }
