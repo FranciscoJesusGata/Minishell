@@ -6,13 +6,13 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 13:27:38 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/05 13:54:26 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/23 14:54:44 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*newtkn(char **word, int type)
+t_list	*newtkn(char **word, int type, int quoted)
 {
 	t_token	*new;
 
@@ -24,6 +24,7 @@ t_list	*newtkn(char **word, int type)
 		if (type == WORD)
 		{
 			new->word = *word;
+			new->quoted = quoted;
 			*word = NULL;
 		}
 		new->type = type;
@@ -37,9 +38,15 @@ void	create_token(t_lexer *lexer, char *word, int type)
 
 	if (lexer->start != lexer->end && type == WORD)
 		save_buffer(lexer, word);
-	tkn = newtkn(&lexer->buffer, type);
+	tkn = newtkn(&lexer->buffer, type, lexer->quoted);
 	if (tkn)
+	{
+		if (type == WORD && !lexer->expand)
+			lexer->expand = 1;
 		ft_lstadd_back(&lexer->tokens, tkn);
+	}
+	if (lexer->quoted)
+		lexer->quoted = 0;
 }
 
 void	delete_token(void *tkn)

@@ -6,7 +6,7 @@
 #    By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/19 10:34:45 by fgata-va          #+#    #+#              #
-#    Updated: 2021/11/05 12:16:38 by fportalo         ###   ########.fr        #
+#    Updated: 2021/11/24 12:37:04 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,31 +17,37 @@ CFLAGS := -Wall -Werror -Wextra -I ./includes/ \
 
 NAME := minishell
 
-OBJDIR := build/
-SRCDIR := src/
+OBJDIR := build
+SRCDIR := src
 LIBDIR := libs/
 
-SRC = $(addprefix $(SRCDIR), main.c terminal.c term_utils.c lexer.c \
-	  lexer_status.c lexer_utils.c token_manager.c init_env.c)
+SRC := $(addprefix $(SRCDIR)/, main.c terminal.c utils_1.c term_utils.c lexer.c \
+	  lexer_status.c lexer_utils.c token_manager.c parser.c cmd_manager_1.c \
+	  cmd_manager_2.c init_env.c)
 
-OBJS =  $(patsubst $(SRCDIR)%,$(OBJDIR)%,$(SRC:.c=.o))
+OBJS :=  $(patsubst $(SRCDIR)/%,$(OBJDIR)/%,$(SRC:.c=.o))
 
 NORMI = norminette
 
 LIBFT = -L $(LIBDIR)Libft -lft
 
-READLINE = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
+READLINE := -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 
 all: $(NAME)
+
+$(NAME): libft $(OBJS)
+	@$(CC) $(FLAGS) $(OBJS) -o $(NAME) $(LIBFT) $(READLINE)
+
+echo:
+	echo $(OBJDIR)
+	echo $(SRC)
+	echo $(OBJS)
 
 $(OBJDIR):
 	mkdir $@
 
-$(OBJDIR)%.o: $(SRCDIR)%.c $(OBJDIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-$(NAME): libft $(OBJS)
-	@$(CC) $(FLAGS) $(OBJS) -o $(NAME) $(LIBFT) $(READLINE)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 norm:
 	-$(NORMI) $(SRC)
@@ -52,7 +58,7 @@ libft:
 	make -C $(LIBDIR)Libft/ bonus
 
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(OBJDIR)
 	$(MAKE) -C $(LIBDIR)Libft clean
 
 fclean: clean

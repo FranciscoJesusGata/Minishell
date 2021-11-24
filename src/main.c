@@ -3,37 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/05 12:18:59 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:24:22 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+t_cmd	*lexing_parsing(char *line)
+{
+	t_list	*tokens;
+	t_cmd	*cmd;
+
+	cmd = NULL;
+	tokens = lexer(line);
+	if (tokens)
+	{
+		print_tokens(tokens);
+		cmd = parser(tokens);
+	}
+	ft_lstclear(&tokens, free);
+	if (cmd)
+		print_cmd(cmd);
+	return (cmd);
+}
+
+int	main(void)
 {
 	char	*line;
-	t_list	*tokens;
-	t_env	env;
+	t_cmd	*cmd;
 
 	argc = 0;
 	argv = NULL;
 	init_env(&env, envp);
 	welcome();
-	while (1)
+	line = launch_term();
+	while (line)
 	{
-		line = launch_term();
-		if (!line)
-			break ;
 		if (*line)
 		{
-			tokens = lexer(line);
-			print_tokens(tokens);
+			cmd = lexing_parsing(line);
+			if (cmd)
+				delete_cmd(&cmd);
 		}
 		free(line);
-		ft_lstclear(&tokens, delete_token);
+		line = launch_term();
 	}
 	clear_history();
 	system("leaks minishell");

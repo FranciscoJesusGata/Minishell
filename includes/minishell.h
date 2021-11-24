@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/05 15:48:29 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/17 11:37:09 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libft.h"
 # include "structs.h"
 # include "lexer.h"
+# include "parser.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -23,6 +24,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <limits.h>
+# include <sys/wait.h>
 
 # define WORD 61
 # define LESS 60
@@ -38,8 +40,7 @@ t_list	*lexer(char *line);
 ** Utils
 */
 
-int		ft_putchar(int c);
-int		ft_strcmp(const char *s1, const char *s2);
+void	malloc_error(void);
 
 /*
 ** Term utils

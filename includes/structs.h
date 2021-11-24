@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 13:22:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/17 12:16:59 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/23 14:42:20 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,26 @@
 # include "minishell.h"
 
 /*
-** LEXER STRUCTS
+**		[ Lexer Structs ]
 */
 typedef struct s_token
 {
 	int			type;
 	char		*word;
+	int			quoted;
 }				t_token;
 
 typedef struct s_lexer {
 	int			start;
 	int			end;
+	int			quoted;
+	int			expand;
 	char		*buffer;
 	t_list		*tokens;
 }				t_lexer;
 
 /*
-** ENV STRUCT
+**		[ Env Structs ]
 */
 typedef struct s_env {
 	char		**envp;
@@ -44,5 +47,34 @@ typedef struct s_env {
 	char		*user;
 	char		*last;
 }				t_env;
+
+/*
+**		[ Parser Structs ]
+*/
+typedef struct s_redir {
+	int				type;
+	char			*path;
+	struct s_redir	*nxt;
+}				t_redir;
+
+typedef struct s_simpleCmd {
+	char				**argv;
+	int					argc;
+	pid_t				pid;
+	t_redir				*redirs;
+	struct s_simpleCmd	*nxt;
+}				t_simpleCmd;
+
+typedef struct s_cmd {
+	int			count;
+	t_simpleCmd	*cmds;
+}				t_cmd;
+
+typedef struct s_parser {
+	t_list		*args;
+	t_redir		*redirs;
+	int			argc;
+	int			type;
+}				t_parser;
 
 #endif

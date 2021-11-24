@@ -3,26 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42madrid>       +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 16:21:50 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/05/24 12:40:49 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:31:18 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_putchar(int c)
+void	malloc_error(void)
 {
-	return (write(1, &c, 1));
+	perror("Error: dynamic allocation\n");
+	exit(1);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+void	print_redir(t_simpleCmd *cmd)
 {
-	size_t	i;
+	t_redir	*r_iter;
+
+	r_iter = cmd->redirs;
+	printf("			redirections:\n");
+	while (r_iter)
+	{
+		printf("				");
+		if (r_iter->type < 77)
+			printf("%c ", r_iter->type);
+		else if (r_iter->type == DGREAT)
+			printf(">> ");
+		else
+			printf("<< ");
+		printf("%s\n", r_iter->path);
+		r_iter = r_iter->nxt;
+	}
+}
+
+void	print_argv(t_simpleCmd *cmd)
+{
+	int	i;
 
 	i = 0;
-	while (s1[i] && s2[i] && (unsigned char)s1[i] == (unsigned char)s2[i])
+	printf("			argc: %d\n", cmd->argc);
+	printf("			argv: [");
+	while (cmd->argv[i])
+	{
+		printf("\"%s\"", cmd->argv[i]);
+		if (cmd->argv[i + 1])
+			printf(", ");
 		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+	printf("]\n");
+}
+
+void	print_cmd(t_cmd *cmd)
+{
+	int			i;
+	t_simpleCmd	*iter;
+
+	printf("cmd	{\n");
+	printf("	count = %d\n", cmd->count);
+	printf("	cmds:\n");
+	i = 0;
+	iter = cmd->cmds;
+	while (iter)
+	{
+		printf("		cmd%d:\n", i);
+		print_argv(iter);
+		print_redir(iter);
+		iter = iter->nxt;
+		i++;
+	}
+	printf("	}\n");
 }

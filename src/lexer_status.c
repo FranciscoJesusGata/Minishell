@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/04 16:46:37 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/23 14:48:54 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void	is_space(t_lexer *lexer, char *line)
 	lexer->start = lexer->end;
 }
 
-void	is_squote(t_lexer *lexer, char *line)
+int	is_squote(t_lexer *lexer, char *line)
 {
+	if (!lexer->quoted)
+		lexer->quoted = 1;
 	if (lexer->start != lexer->end)
 		save_buffer(lexer, line);
 	lexer->end++;
@@ -29,18 +31,22 @@ void	is_squote(t_lexer *lexer, char *line)
 	{
 		if (!line[lexer->end])
 		{
-			perror("wa wa");
-			exit(1);
+			printf("minishell: unexpected EOF while looking for matching `''\n\
+minishell: syntax error: unexpected end of file\n");
+			return (1);
 		}
 		lexer->end++;
 	}
 	save_buffer(lexer, line);
 	lexer->end++;
 	lexer->start = lexer->end;
+	return (0);
 }
 
-void	is_dquote(t_lexer *lexer, char *line)
+int	is_dquote(t_lexer *lexer, char *line)
 {
+	if (!lexer->quoted)
+		lexer->quoted = 1;
 	if (lexer->start != lexer->end)
 		save_buffer(lexer, line);
 	lexer->end++;
@@ -49,8 +55,9 @@ void	is_dquote(t_lexer *lexer, char *line)
 	{
 		if (!line[lexer->end])
 		{
-			perror("wa wa");
-			exit(1);
+			printf("minishell: unexpected EOF while looking for matching `\"\n\
+minishell: syntax error: unexpected end of file\n");
+			return (1);
 		}
 		if (line[lexer->end] == '$')
 			is_expand(lexer, line);
@@ -60,6 +67,7 @@ void	is_dquote(t_lexer *lexer, char *line)
 	save_buffer(lexer, line);
 	lexer->end++;
 	lexer->start = lexer->end;
+	return (0);
 }
 
 void	is_expand(t_lexer *lexer, char *line)
@@ -67,6 +75,8 @@ void	is_expand(t_lexer *lexer, char *line)
 	char	*expanded;
 	char	*tmp;
 
+	if (lexer->start != lexer->end)
+		save_buffer(lexer, line);
 	lexer->start = lexer->end;
 	lexer->end++;
 	if (line[lexer->end] == SPACEX || line[lexer->end] == '\0')
@@ -86,6 +96,8 @@ void	is_expand(t_lexer *lexer, char *line)
 
 void	is_meta(t_lexer *lexer, char *line)
 {
+	int		type;
+
 	if (lexer->start != lexer->end || lexer->buffer)
 	{
 		create_token(lexer, line, WORD);
@@ -95,6 +107,9 @@ void	is_meta(t_lexer *lexer, char *line)
 		&& ft_strchr("<>", line[lexer->end]))
 		lexer->end++;
 	lexer->end++;
-	create_token(lexer, line, get_metatype(line, lexer->start, lexer->end));
+	type = get_metatype(line, lexer->start, lexer->end);
+	if (type == DLESS)
+		lexer->expand = 0;
+	create_token(lexer, line, type);
 	lexer->start = lexer->end;
 }
