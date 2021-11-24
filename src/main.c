@@ -35,6 +35,9 @@ int	main(void)
 	char	*line;
 	t_cmd	*cmd;
 
+	argc = 0;
+	argv = NULL;
+	init_env(&env, envp);
 	welcome();
 	line = launch_term();
 	while (line)

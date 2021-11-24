@@ -34,6 +34,21 @@ typedef struct s_lexer {
 }				t_lexer;
 
 /*
+**		[ Env Structs ]
+*/
+typedef struct s_env {
+	char		**envp;
+	char		**all;
+	char		*pwd;
+	char		*old_pwd;
+	char		**path;
+	char		*shlvl;
+	char		*home;
+	char		*user;
+	char		*last;
+}				t_env;
+
+/*
 **		[ Parser Structs ]
 */
 typedef struct s_redir {

@@ -23,6 +23,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <limits.h>
 # include <sys/wait.h>
 
 # define WORD 61
@@ -46,5 +47,6 @@ void	malloc_error(void);
 */
 
 void	welcome(void);
+void	init_env(t_env *env, char **envp);
 
 #endif
