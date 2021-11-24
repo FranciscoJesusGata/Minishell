@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/22 12:24:22 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/24 17:05:14 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ t_cmd	*lexing_parsing(char *line)
 	return (cmd);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_cmd	*cmd;
+	t_env	env;
 
 	argc = 0;
 	argv = NULL;
