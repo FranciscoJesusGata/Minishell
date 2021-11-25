@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/24 17:05:14 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/11/25 15:07:55 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ int	main(int argc, char **argv, char **envp)
 		{
 			cmd = lexing_parsing(line);
 			if (cmd)
+			{
+				executor(&env, cmd);
 				delete_cmd(&cmd);
+			}
 		}
 		free(line);
 		line = launch_term();
