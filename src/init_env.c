@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:05:34 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/17 14:30:58 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/26 16:26:45 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	save_env(t_env *env, char **envp, int i)
 {
-	env->all = malloc(sizeof(char *) * i);
+	env->all = ft_calloc(sizeof(char *), (i + 1));
 	i = 0;
 	while (envp[i])
 	{

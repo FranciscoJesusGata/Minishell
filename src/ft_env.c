@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.h                                         :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 15:16:22 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/26 16:44:56 by fportalo         ###   ########.fr       */
+/*   Created: 2021/11/03 12:20:28 by fportalo          #+#    #+#             */
+/*   Updated: 2021/11/26 16:29:38 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTOR
-# define EXECUTOR
-# include "minishell.h"
+#include "executor.h"
 
+int	get_size(char **envs)
+{
+	int i;
 
-void	executor(t_env *env, t_cmd *cmd);
-void	ft_pwd(void);
-void	ft_env(t_env *env);
-void	ft_echo(int argc, char **argv);
+	i = 0;
+	while (envs[i])
+		i++;
+	return (i);
+}
 
+void ft_env (t_env *env)
+{
+	int i;
 
-#endif
+	i = 0;
+
+	while(i < get_size(env->all))
+	{
+		printf("%s\n", env->all[i]);
+		i++;
+	}
+}
+

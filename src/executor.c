@@ -6,11 +6,11 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/26 12:46:08 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/26 16:45:15 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executor.h"
 
 void	is_error(t_cmd *cmd)
 {
@@ -19,14 +19,13 @@ void	is_error(t_cmd *cmd)
 
 int	is_builtin(t_cmd *cmd, t_env *env)
 {
-	env = NULL;
 	printf("\n");
 	if (!ft_strncmp(cmd->cmds->argv[0], "pwd", 3))
-		printf("executing pwd...\n");
+		ft_pwd();
 	else if (!ft_strncmp(cmd->cmds->argv[0], "env", 3))
-		printf("executing env...\n");
+		ft_env(env);
 	else if (!ft_strncmp(cmd->cmds->argv[0], "echo", 4))
-		printf("executing echo...\n");
+		ft_echo(cmd->cmds->argc, cmd->cmds->argv);
 	else if (!ft_strncmp(cmd->cmds->argv[0], "export", 6))
 		printf("executing export...\n");
 	else if (!ft_strncmp(cmd->cmds->argv[0], "unset", 5))
