@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 12:20:28 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/29 12:28:29 by fportalo         ###   ########.fr       */
+/*   Created: 2021/11/29 12:26:30 by fportalo          #+#    #+#             */
+/*   Updated: 2021/11/29 12:27:22 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-void ft_env (t_env *env)
+int	get_size(t_env *env)
 {
 	int i;
 
 	i = 0;
-
-	while(i < get_size(env))
-	{
-		printf("%s\n", env->all[i]);
+	while (env->all[i])
 		i++;
-	}
+	return (i);
 }
-

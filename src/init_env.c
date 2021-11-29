@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:05:34 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/26 16:26:45 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/29 12:25:45 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	get_def_env(t_env *env, int i)
 	}
 }
 
-void	create_env(t_env *env)
+void	create_init_env(t_env *env)
 {
 	char	cwd[PATH_MAX];
 
@@ -75,5 +75,5 @@ void	init_env(t_env *env, char **envp)
 		get_def_env(env, i);
 	}
 	else
-		create_env(env);
+		create_init_env(env);
 }
