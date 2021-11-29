@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/29 12:43:26 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/29 17:57:32 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ char **env_to_temp(t_env *env, char **temp)
 	int i;
 
 	i = 0;
-	while (env->all[i])
-		i++;
-	temp = malloc(sizeof(char*) * i);
-	i = 0;
+	temp = ft_calloc(sizeof(char*), get_size(env) + 1);
 	while (env->all[i])
 	{
 		temp[i] = include_quotes(env, temp[i], i);
@@ -80,6 +77,16 @@ char	**bubble_sort(char **array, int array_size)
 	return (array);
 }
 
+int	check_env_exists(char *env, char *argv)
+{
+	char **tmp;
+
+	tmp = ft_split(argv, '=');
+	if (!ft_strncmp(env, tmp[0], ft_strlen(tmp[0])))
+		return (1);
+	return (0);
+}
+
 char	**create_env(t_env *env, int argc, char **argv)
 {
 	int i;
@@ -91,7 +98,15 @@ char	**create_env(t_env *env, int argc, char **argv)
 	temp = ft_calloc(sizeof(char*), (get_size(env) + (argc - c) + 2));
 	while (env->all[i])
 	{
-		temp[i] = ft_strdup(env->all[i]);
+		if(argv[c] && check_env_exists(env->all[i], argv[c]))
+		{
+			temp[i] = ft_strdup(argv[c]);
+			c++;
+			//if (c < argc)
+			//	i = -1;
+		}
+		else
+			temp[i] = ft_strdup(env->all[i]);
 		i++;
 	}
 	while (c < argc)
@@ -105,17 +120,21 @@ char	**create_env(t_env *env, int argc, char **argv)
 
 int ft_export(int argc, char **argv, t_env *env)
 {
-	int	arr_size;
+	// Falla cuando haces: export PATH="hola" PATH="adios".
+	// Debería guardarse solo PATH="adios"
 
+	int	arr_size;
+	char **tmp;
+
+	tmp = NULL;
 	if (argc > 1)
 		env->all = create_env(env, argc, argv);
 	else
 	{
-		argv = NULL;
 		arr_size = get_size(env);
-		env->all = env_to_temp(env, env->all);
-		env->all = bubble_sort(env->all, arr_size);
-		display_str(env->all, arr_size);
+		tmp = env_to_temp(env, env->all);
+		tmp = bubble_sort(tmp, arr_size);
+		display_str(tmp, arr_size);
 	}
 	return (0);
 }
