@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/26 16:45:15 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/29 12:53:28 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ void	is_error(t_cmd *cmd)
 int	is_builtin(t_cmd *cmd, t_env *env)
 {
 	printf("\n");
-	if (!ft_strncmp(cmd->cmds->argv[0], "pwd", 3))
+	if (!ft_strncmp(cmd->cmds->argv[0], "pwd", ft_strlen(cmd->cmds->argv[0])))
 		ft_pwd();
-	else if (!ft_strncmp(cmd->cmds->argv[0], "env", 3))
+	else if (!ft_strncmp(cmd->cmds->argv[0], "env", ft_strlen(cmd->cmds->argv[0])))
 		ft_env(env);
-	else if (!ft_strncmp(cmd->cmds->argv[0], "echo", 4))
+	else if (!ft_strncmp(cmd->cmds->argv[0], "echo", ft_strlen(cmd->cmds->argv[0])))
 		ft_echo(cmd->cmds->argc, cmd->cmds->argv);
-	else if (!ft_strncmp(cmd->cmds->argv[0], "export", 6))
-		printf("executing export...\n");
-	else if (!ft_strncmp(cmd->cmds->argv[0], "unset", 5))
+	else if (!ft_strncmp(cmd->cmds->argv[0], "export", ft_strlen(cmd->cmds->argv[0])))
+		ft_export(cmd->cmds->argc, cmd->cmds->argv, env);										//		<--MADRE MIA VAYA CODIGO LOCO DE LA MUERTE
+	else if (!ft_strncmp(cmd->cmds->argv[0], "unset", ft_strlen(cmd->cmds->argv[0])))
 		printf("executing unset...\n");
-	else if (!ft_strncmp(cmd->cmds->argv[0], "cd", 2))
+	else if (!ft_strncmp(cmd->cmds->argv[0], "cd", ft_strlen(cmd->cmds->argv[0])))
 		printf("executing cd...\n");
-	else if(!ft_strncmp(cmd->cmds->argv[0], "exit", 4))
-		printf("executing exit...\n");
+	else if(!ft_strncmp(cmd->cmds->argv[0], "exit", ft_strlen(cmd->cmds->argv[0])))
+		ft_exit(1);
 	else
 		return (0);
 	return (1);
