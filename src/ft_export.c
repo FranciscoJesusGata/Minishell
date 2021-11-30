@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/30 16:57:09 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/11/30 17:56:55 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,37 @@ void display_str(char **splitted, int arr_size)
 	}
 }
 
+char	*get_eq_num(char *argv)
+{
+	int i;
+	int j;
+	char *ret;
+	char **split;
+
+	i = ft_strlen(argv) - 1;
+	j = ft_strlen(argv) - 1;
+
+	while (argv[i - 1] == '=')
+		i--;
+	if ((j - i) == 1)
+		return NULL;
+	split = ft_split(argv, '=');
+	ret = ft_strjoin(split[0], "=\"");
+	while (i != j)
+	{
+		ret = ft_strjoin(ret, "=");
+		j--;
+	}
+	ret = ft_strjoin(ret, "\"");
+	return (ret);
+}
+
 char	*include_quotes(t_env *env, char *ret, int i)
 {
 	char **split;
+	int eq;
 
+	eq = 0;
 	split = ft_split(env->all[i], '=');
 	if (split[1])
 	{
@@ -38,7 +65,12 @@ char	*include_quotes(t_env *env, char *ret, int i)
 		ret = ft_strjoin(ret, "\"");
 	}
 	else if((ft_strchr(env->all[i], '=')))
-		ret = ft_strjoin(env->all[i], "\"\"");
+	{
+		if (get_eq_num(env->all[i]))
+			ret = get_eq_num(env->all[i]);
+		else
+			ret = ft_strjoin(env->all[i], "\"\"");
+	}
 	else
 		ret = ft_strdup(env->all[i]);
 	return (ret);
