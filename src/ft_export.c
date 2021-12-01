@@ -6,24 +6,11 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/30 17:56:55 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/01 11:58:10 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
-
-void display_str(char **splitted, int arr_size)
-{
-	int i;
-
-	i = 0;
-	while(i < arr_size)
-	{
-		printf("declare -x ");
-		printf("%s\n", splitted[i]);
-		i++;
-	}
-}
 
 char	*get_eq_num(char *argv)
 {
@@ -38,7 +25,7 @@ char	*get_eq_num(char *argv)
 	while (argv[i - 1] == '=')
 		i--;
 	if ((j - i) == 1)
-		return NULL;
+		return (ft_strjoin(argv, "\"\""));
 	split = ft_split(argv, '=');
 	ret = ft_strjoin(split[0], "=\"");
 	while (i != j)
@@ -65,12 +52,7 @@ char	*include_quotes(t_env *env, char *ret, int i)
 		ret = ft_strjoin(ret, "\"");
 	}
 	else if((ft_strchr(env->all[i], '=')))
-	{
-		if (get_eq_num(env->all[i]))
 			ret = get_eq_num(env->all[i]);
-		else
-			ret = ft_strjoin(env->all[i], "\"\"");
-	}
 	else
 		ret = ft_strdup(env->all[i]);
 	return (ret);
@@ -82,7 +64,7 @@ char **env_to_temp(t_env *env, char **temp)
 	int i;
 
 	i = 0;
-	temp = ft_calloc(sizeof(char*), get_size(env) + 1);
+	temp = ft_calloc(sizeof(char*), get_size(env->all) + 1);
 	while (env->all[i])
 	{
 		temp[i] = include_quotes(env, temp[i], i);
@@ -135,15 +117,15 @@ char	**create_env(t_env *env, int argc, char **argv)
 
 	i = 0;
 	c = 1;
-	temp = ft_calloc(sizeof(char*), (get_size(env) + (argc - c) + 2));
+	temp = ft_calloc(sizeof(char*), (get_size(env->all) + (argc - c) + 2));
 	while (env->all[i])
 	{
 		if(argv[c] && check_env_exists(env->all[i], argv[c]))
 		{
 			temp[i] = ft_strdup(argv[c]);
 			c++;
-			//if (c < argc)
-			//	i = -1;
+			if (c < argc)
+				i = -1;
 		}
 		else
 			temp[i] = ft_strdup(env->all[i]);
@@ -160,8 +142,9 @@ char	**create_env(t_env *env, int argc, char **argv)
 
 int ft_export(int argc, char **argv, t_env *env)
 {
-	// Falla cuando haces: export PATH="hola" PATH="adios".
-	// Debería guardarse solo PATH="adios"
+	//Falla cuando:
+	// input: PATH=hola pepe
+	// output: no hace PATH
 
 	int	arr_size;
 	char **tmp;
@@ -171,10 +154,10 @@ int ft_export(int argc, char **argv, t_env *env)
 		env->all = create_env(env, argc, argv);
 	else
 	{
-		arr_size = get_size(env);
+		arr_size = get_size(env->all);
 		tmp = env_to_temp(env, env->all);
 		tmp = bubble_sort(tmp, arr_size);
-		display_str(tmp, arr_size);
+		display_str(tmp, arr_size, 1);
 	}
 	return (0);
 }
