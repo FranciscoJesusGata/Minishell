@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:58:10 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/01 16:00:14 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/01 17:43:38 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,25 @@ char	**kill_env(char **env, int dead)
 	return (tmp);
 }
 
+int		equal_id(char *argv, char *env)
+{
+	int len;
+	int diff;
+
+	if (!argv || !env)
+		return (0);
+	len = ft_strlen(argv);
+	diff = ft_strncmp(env, argv, len);
+	if (!diff && env[len] == '=')
+		return (1);
+	return (0);
+}
+
 void	ft_unset(int argc, char **argv, t_env *env)
 {
 	int i;
 	int arg_nb;
 	char **tmp;
-	int diff;
 
 	i = 0;
 	arg_nb = 1;
@@ -56,22 +69,18 @@ void	ft_unset(int argc, char **argv, t_env *env)
 		while (arg_nb < argc)
 		{
 			i = 0;
-			while (env->all[i])
+			while (tmp[i])
 			{
-				diff = ft_strncmp(env->all[i], argv[arg_nb], ft_strlen(env->all[i]));
-				if (diff == '=' || !diff)
+				if (equal_id(argv[arg_nb], tmp[i]))
+				{
 					tmp = kill_env(tmp, i);
+				}
 				i++;
 			}
 			arg_nb++;
 		}
 	}
 	i = 0;
-
-	//printf("\n\n-----------------------------------WAWAWAWAWAWA-----------------------------------\n\n");
-	//display_str(tmp, get_size(tmp), 0);
-	//printf("\n\n-----------------------------------WAWAWAWAWAWA-----------------------------------\n\n");
-
 	ft_freearray(env->all);
 	env->all = tmp;
 	display_str(env->all, get_size(env->all), 0);
