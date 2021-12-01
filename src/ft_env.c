@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 12:20:28 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/29 12:28:29 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/01 14:52:50 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void ft_env (t_env *env)
 
 	i = 0;
 
-	while(i < get_size(env))
+	while(i < get_size(env->all))
 	{
 		printf("%s\n", env->all[i]);
 		i++;
