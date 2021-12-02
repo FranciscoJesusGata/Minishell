@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/02 16:56:02 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/02 17:00:09 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ char	**create_env(t_env *env, int argc, char **argv)
 	int i;
 	int c;
 	char **temp;
-	//char *tmp;
 
 	i = 0;
 	c = 1;
@@ -168,9 +167,7 @@ int ft_export(int argc, char **argv, t_env *env)
 		tmp = env_to_temp(env, env->all);
 		tmp = bubble_sort(tmp, arr_size);
 		display_str(tmp, arr_size, 1);
-		//ft_freearray(tmp);
 	}
-	system("leaks minishell");
 	return (0);
 }
 
