@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:16:22 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/02 16:19:01 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/02 16:43:43 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ int		get_size(char **env);
 void	display_str(char **splitted, int arr_size, int export_flag);
 void	ft_freearray(char **array);
 char	*clean_strjoin(char *ret, char *join);
+char	*clean_strdup(char *s);
+
 
 #endif
