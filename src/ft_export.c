@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/02 12:35:38 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/02 16:21:19 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*get_eq_num(char *argv)
 		return (ft_strjoin(argv, "\"\""));
 	split = ft_split(argv, '=');
 	ret = ft_strjoin(split[0], "=\"");
+	ft_freearray(split);
 	while (i != j)
 	{
 		ret = ft_strjoin(ret, "=");
@@ -46,15 +47,16 @@ char	*include_quotes(t_env *env, char *ret, int i)
 	split = ft_split(env->all[i], '=');
 	if (split[1])
 	{
-		ret = ft_strjoin(split[0], "=");
-		ret = ft_strjoin(ret, "\"");
+		ret = clean_strjoin(split[0], "=");
+		ret = clean_strjoin(ret, "\"");
 		ret = ft_strjoin(ret, split[1]);
-		ret = ft_strjoin(ret, "\"");
+		ret = clean_strjoin(ret, "\"");
 	}
 	else if((ft_strchr(env->all[i], '=')))
 			ret = get_eq_num(env->all[i]);
 	else
 		ret = ft_strdup(env->all[i]);
+	ft_freearray(split);
 	return (ret);
 }
 
@@ -105,7 +107,11 @@ int	check_env_exists(char *env, char *argv)
 
 	tmp = ft_split(argv, '=');
 	if (!ft_strncmp(env, tmp[0], ft_strlen(tmp[0])))
+	{
+		ft_freearray(tmp);
 		return (1);
+	}
+	ft_freearray(tmp);
 	return (0);
 }
 
@@ -148,10 +154,6 @@ char	**create_env(t_env *env, int argc, char **argv)
 
 int ft_export(int argc, char **argv, t_env *env)
 {
-	//Falla cuando:
-	// input: PATH=hola pepe
-	// output: no hace PATH
-
 	int	arr_size;
 	char **tmp;
 
@@ -164,7 +166,9 @@ int ft_export(int argc, char **argv, t_env *env)
 		tmp = env_to_temp(env, env->all);
 		tmp = bubble_sort(tmp, arr_size);
 		display_str(tmp, arr_size, 1);
+		//ft_freearray(tmp);
 	}
+	system("leaks minishell");
 	return (0);
 }
 

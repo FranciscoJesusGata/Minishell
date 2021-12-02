@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:26:30 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/01 15:29:38 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/02 16:18:35 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ void display_str(char **splitted, int arr_size, int export_flag)
 		if (export_flag)
 			printf("declare -x ");
 		printf("%s\n", splitted[i]);
+		free(splitted[i]);
 		i++;
 	}
+	free(splitted);
 }
 
-void ft_freearray(char **array)
+void	ft_freearray(char **array)
 {
 	int i;
 
@@ -49,4 +51,15 @@ void ft_freearray(char **array)
 	}
 	free(array[i]);
 	free(array);
+}
+
+char	*clean_strjoin(char *s1, char *s2)
+{
+	char *tmp;
+	char *ret;
+
+	tmp = s1;
+	ret = ft_strjoin(s1, s2);
+	free(tmp);
+	return (ret);
 }
