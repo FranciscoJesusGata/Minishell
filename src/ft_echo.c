@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 11:49:41 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/02 12:42:46 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/02 17:11:32 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_echo_flag(int argc, char **argv, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (i < argc && argv[i][j] == '-')
@@ -35,14 +35,14 @@ int	ft_echo_flag(int argc, char **argv, int i)
 
 void	ft_echo(int argc, char **argv)
 {
-	int i;
-	int n;
+	int	i;
+	int	n;
 
 	i = 1;
 	n = 0;
 	if (argc == 1)
 		write(1, "\n", 1);
-	else if(argc > 1)
+	else if (argc > 1)
 	{
 		i = ft_echo_flag(argc, argv, i);
 		if (i >= 2)
@@ -58,4 +58,3 @@ void	ft_echo(int argc, char **argv)
 			write(1, "\n", 1);
 	}
 }
-
