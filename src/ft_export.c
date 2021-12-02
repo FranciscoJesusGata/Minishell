@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/01 11:58:10 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/02 12:35:38 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,13 @@ char	**create_env(t_env *env, int argc, char **argv)
 	temp = ft_calloc(sizeof(char*), (get_size(env->all) + (argc - c) + 2));
 	while (env->all[i])
 	{
-		if(argv[c] && check_env_exists(env->all[i], argv[c]))
+		temp[i] = ft_strdup(env->all[i]);
+		i++;
+	}
+	i = 0;
+	while (temp[i])
+	{
+		if(argv[c] && check_env_exists(temp[i], argv[c]))
 		{
 			temp[i] = ft_strdup(argv[c]);
 			c++;
@@ -128,7 +134,7 @@ char	**create_env(t_env *env, int argc, char **argv)
 				i = -1;
 		}
 		else
-			temp[i] = ft_strdup(env->all[i]);
+			temp[i] = ft_strdup(temp[i]);
 		i++;
 	}
 	while (c < argc)
