@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:26:30 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/02 16:18:35 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/02 16:43:35 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,17 @@ char	*clean_strjoin(char *s1, char *s2)
 
 	tmp = s1;
 	ret = ft_strjoin(s1, s2);
+	free(tmp);
+	return (ret);
+}
+
+char	*clean_strdup(char *s)
+{
+	char	*tmp;
+	char	*ret;
+
+	tmp = s;
+	ret = ft_strdup(s);
 	free(tmp);
 	return (ret);
 }
