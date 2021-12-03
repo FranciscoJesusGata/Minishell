@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:05:34 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/29 12:25:45 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:33:48 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	create_init_env(t_env *env)
 	env->all[0] = ft_strjoin("PATH=", cwd);
 	env->all[1] = ft_strdup("SHLVL=1");
 	env->all[2] = ft_strdup("_= Aquí va el último comando usado o su dirección");
+	env->all[3] = NULL;
 }
 
 void	init_env(t_env *env, char **envp)

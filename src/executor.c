@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/30 19:34:05 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:27:25 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_builtin(t_cmd *cmd, t_env *env)
 	else if (!ft_strncmp(cmd->cmds->argv[0], "unset", ft_strlen(cmd->cmds->argv[0])))
 		ft_unset(cmd->cmds->argc, cmd->cmds->argv, env);
 	else if (!ft_strncmp(cmd->cmds->argv[0], "cd", ft_strlen(cmd->cmds->argv[0])))
-		printf("executing cd...\n");
+		ft_cd(cmd->cmds->argc, cmd->cmds->argv, env);
 	else if(!ft_strncmp(cmd->cmds->argv[0], "exit", ft_strlen(cmd->cmds->argv[0])))
 		ft_exit(1);
 	else
