@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/09 12:29:38 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/09 15:14:28 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 # define DGREAT 121
 # define PIPE 124
 
+# define READ_END 0
+# define WRITE_END 1
+
 char	*launch_term(void);
 t_list	*lexer(char *line);
 
@@ -41,7 +44,7 @@ t_list	*lexer(char *line);
 */
 
 void	malloc_error(void);
-
+int		minishell_perror(int exit_code, char *name, char *msg);
 /*
 ** Term utils
 */

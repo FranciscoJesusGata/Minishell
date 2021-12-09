@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 16:21:50 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/22 12:31:18 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/09 15:14:05 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,22 @@ void	print_cmd(t_cmd *cmd)
 		i++;
 	}
 	printf("	}\n");
+}
+
+int	minishell_perror(int exit_code, char *name, char *msg)
+{
+	ft_putstr_fd("minishell: ", 2);
+	if (name)
+	{
+		ft_putstr_fd(name, 2);
+		write(2, ": ", 2);
+	}
+	else
+		ft_putstr_fd("minishell: ", 2);
+	if (msg)
+		ft_putstr_fd(msg, 2);
+	else
+		ft_putstr_fd(strerror(errno), 2);
+	write(1, "\n", 1);
+	return (exit_code);
 }
