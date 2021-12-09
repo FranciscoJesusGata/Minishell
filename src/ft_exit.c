@@ -6,14 +6,13 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:14:30 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/02 17:12:13 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/09 17:26:53 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-int	ft_exit(int i)
+void	ft_exit(int i)
 {
 	exit(i);
-	return (0);
 }
