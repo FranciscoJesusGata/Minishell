@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/17 11:37:09 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/09 12:29:38 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <errno.h>
 # include <sys/wait.h>
 
 # define WORD 61

@@ -6,11 +6,25 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/22 12:24:22 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/09 12:35:48 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	create_pipes(t_simpleCmd *cmds)
+{
+	while (cmds->nxt)
+	{
+		if ((pipe(cmds->fds)) < 0)
+		{
+			printf("minishell: pipe error: %s", strerror(errno));
+			exit(1);
+		}
+		cmds->nxt->prev = cmds->fds;
+		cmds = cmds->nxt;
+	}
+}
 
 t_cmd	*lexing_parsing(char *line)
 {
