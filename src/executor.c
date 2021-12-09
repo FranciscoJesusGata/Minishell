@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/02 18:27:25 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/09 16:06:21 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ void	is_error(t_cmd *cmd)
 int	is_builtin(t_cmd *cmd, t_env *env)
 {
 	printf("\n");
-	if (!ft_strncmp(cmd->cmds->argv[0], "pwd", ft_strlen(cmd->cmds->argv[0])))
+	if (!ft_strncmp(cmd->cmds->argv[0], "pwd", ft_strlen("pwd")))
 		ft_pwd();
-	else if (!ft_strncmp(cmd->cmds->argv[0], "env", ft_strlen(cmd->cmds->argv[0])))
+	else if (!ft_strncmp(cmd->cmds->argv[0], "env", ft_strlen("env")))
 		ft_env(env);
-	else if (!ft_strncmp(cmd->cmds->argv[0], "echo", ft_strlen(cmd->cmds->argv[0])))
+	else if (!ft_strncmp(cmd->cmds->argv[0], "echo", ft_strlen("echo")))
 		ft_echo(cmd->cmds->argc, cmd->cmds->argv);
-	else if (!ft_strncmp(cmd->cmds->argv[0], "export", ft_strlen(cmd->cmds->argv[0])))
+	else if (!ft_strncmp(cmd->cmds->argv[0], "export", ft_strlen("export")))
 		ft_export(cmd->cmds->argc, cmd->cmds->argv, env);
-	else if (!ft_strncmp(cmd->cmds->argv[0], "unset", ft_strlen(cmd->cmds->argv[0])))
+	else if (!ft_strncmp(cmd->cmds->argv[0], "unset", ft_strlen("unset")))
 		ft_unset(cmd->cmds->argc, cmd->cmds->argv, env);
-	else if (!ft_strncmp(cmd->cmds->argv[0], "cd", ft_strlen(cmd->cmds->argv[0])))
+	else if (!ft_strncmp(cmd->cmds->argv[0], "cd", ft_strlen("cd")))
 		ft_cd(cmd->cmds->argc, cmd->cmds->argv, env);
-	else if(!ft_strncmp(cmd->cmds->argv[0], "exit", ft_strlen(cmd->cmds->argv[0])))
+	else if(!ft_strncmp(cmd->cmds->argv[0], "exit", ft_strlen("exit")))
 		ft_exit(1);
 	else
 		return (0);
@@ -49,8 +49,8 @@ char	*find_binary(t_cmd *cmd, t_env *env)
 	while (env->path[i])
 	{
 		path = ft_strdup(env->path[i]);
-		path = ft_strjoin(path, "/");
-		path = ft_strjoin(path, cmd->cmds->argv[0]);
+		path = clean_strjoin(path, "/");
+		path = clean_strjoin(path, cmd->cmds->argv[0]);
 		fd = open(path, O_RDONLY);
 		if (fd > 0)
 			return (path);
@@ -72,6 +72,7 @@ int	is_binary(t_cmd *cmd, t_env *env, int i)
 		if (path)
 		{
 			printf("\nPath is: %s\n",path);
+			free(path);
 			return (1);
 		}
 	}
@@ -89,4 +90,5 @@ void	executor(t_env *env, t_cmd *cmd)
 		i = 1;
 	if (i == 0)
 		is_error(cmd);
+	system("leaks minishell");
 }

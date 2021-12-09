@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:24:04 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/02 17:24:35 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/09 14:40:28 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ char	**env_to_temp(t_env *env, char **temp)
 		temp[i] = include_quotes(env, temp[i], i);
 		i++;
 	}
+	temp[i] = NULL;
 	return (temp);
 }
