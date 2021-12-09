@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/09 16:06:21 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/09 17:11:57 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	is_builtin(t_cmd *cmd, t_env *env)
 		ft_unset(cmd->cmds->argc, cmd->cmds->argv, env);
 	else if (!ft_strncmp(cmd->cmds->argv[0], "cd", ft_strlen("cd")))
 		ft_cd(cmd->cmds->argc, cmd->cmds->argv, env);
-	else if(!ft_strncmp(cmd->cmds->argv[0], "exit", ft_strlen("exit")))
+	else if (!ft_strncmp(cmd->cmds->argv[0], "exit", ft_strlen("exit")))
 		ft_exit(1);
 	else
 		return (0);
@@ -41,9 +41,9 @@ int	is_builtin(t_cmd *cmd, t_env *env)
 
 char	*find_binary(t_cmd *cmd, t_env *env)
 {
-	int i;
-	int fd;
-	char *path;
+	int		i;
+	int		fd;
+	char	*path;
 
 	i = 0;
 	while (env->path[i])
@@ -64,14 +64,14 @@ char	*find_binary(t_cmd *cmd, t_env *env)
 
 int	is_binary(t_cmd *cmd, t_env *env, int i)
 {
-	char *path;
+	char	*path;
 
 	if (!i)
 	{
 		path = find_binary(cmd, env);
 		if (path)
 		{
-			printf("\nPath is: %s\n",path);
+			printf("\nPath is: %s\n", path);
 			free(path);
 			return (1);
 		}
@@ -81,12 +81,12 @@ int	is_binary(t_cmd *cmd, t_env *env, int i)
 
 void	executor(t_env *env, t_cmd *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (is_builtin(cmd, env))
 		i = 1;
-	else if(is_binary(cmd, env, i))
+	else if (is_binary(cmd, env, i))
 		i = 1;
 	if (i == 0)
 		is_error(cmd);
