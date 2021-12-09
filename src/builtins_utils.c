@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:26:30 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/02 16:43:35 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/09 17:12:28 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	get_size(char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[i])
@@ -22,12 +22,12 @@ int	get_size(char **env)
 	return (i);
 }
 
-void display_str(char **splitted, int arr_size, int export_flag)
+void	display_str(char **splitted, int arr_size, int export_flag)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < arr_size)
+	while (i < arr_size)
 	{
 		printf("%d %d ", i, arr_size);
 		if (export_flag)
@@ -41,7 +41,7 @@ void display_str(char **splitted, int arr_size, int export_flag)
 
 void	ft_freearray(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i])
@@ -55,8 +55,8 @@ void	ft_freearray(char **array)
 
 char	*clean_strjoin(char *s1, char *s2)
 {
-	char *tmp;
-	char *ret;
+	char	*tmp;
+	char	*ret;
 
 	tmp = s1;
 	ret = ft_strjoin(s1, s2);

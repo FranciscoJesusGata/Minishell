@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:05:34 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/09 15:46:25 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/09 17:10:05 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	save_env(t_env *env, char **envp, int i)
 
 char	**chop_paths(char *raw_path)
 {
-	char **paths;
+	char	**paths;
 
 	raw_path += 5;
 	paths = ft_split(raw_path, ':');
@@ -60,7 +60,7 @@ void	create_init_env(t_env *env)
 	printf("cwd set on: %s\n", cwd);
 	env->all[0] = ft_strjoin("PATH=", cwd);
 	env->all[1] = ft_strdup("SHLVL=1");
-	env->all[2] = ft_strdup("_= Aquí va el último comando usado o su dirección");
+	env->all[2] = ft_strdup("_= aquí qué va?");
 	env->all[3] = NULL;
 }
 
