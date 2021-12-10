@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:14:30 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/09 17:26:53 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/09 18:05:28 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-void	ft_exit(int i)
+void	ft_exit(char *arg)
 {
+	int i;
+	if (arg)
+		i = ft_atoi(arg);
+	else
+		i = 0;
 	exit(i);
 }

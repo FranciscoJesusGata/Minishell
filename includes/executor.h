@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:16:22 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/09 17:27:04 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/10 12:41:15 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 # include "minishell.h"
 
 
-void	executor(t_env *env, t_cmd *cmd);
+int		executor(t_env *env, t_cmd *cmd);
 void	ft_pwd(void);
 void	ft_env(t_env *env);
 void	ft_echo(int argc, char **argv);
 int		ft_export(int argc, char **argv, t_env *env);
 void	ft_unset(int argc, char **argv, t_env *envp);
-void	ft_exit(int i);
+void	ft_exit(char *arg);
 void	ft_cd(int argc, char **argv, t_env *env);
 int		get_size(char **env);
 void	display_str(char **splitted, int arr_size, int export_flag);
