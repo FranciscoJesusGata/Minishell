@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/23 14:48:54 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/10 12:09:00 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ minishell: syntax error: unexpected end of file\n");
 	return (0);
 }
 
-int	is_dquote(t_lexer *lexer, char *line)
+int	is_dquote(t_lexer *lexer, char *line, t_env *env)
 {
 	if (!lexer->quoted)
 		lexer->quoted = 1;
@@ -60,7 +60,7 @@ minishell: syntax error: unexpected end of file\n");
 			return (1);
 		}
 		if (line[lexer->end] == '$')
-			is_expand(lexer, line);
+			is_expand(lexer, line, env);
 		else
 			lexer->end++;
 	}
@@ -70,7 +70,7 @@ minishell: syntax error: unexpected end of file\n");
 	return (0);
 }
 
-void	is_expand(t_lexer *lexer, char *line)
+void	is_expand(t_lexer *lexer, char *line, t_env *env)
 {
 	char	*expanded;
 	char	*tmp;
@@ -85,13 +85,14 @@ void	is_expand(t_lexer *lexer, char *line)
 	while (!ft_strchr("\"' ", line[lexer->end]) && line[lexer->end])
 		lexer->end++;
 	tmp = divide_str(line, lexer->start, lexer->end);
-	expanded = getenv(tmp);
+	expanded = ft_getenv(tmp, env);
 	free(tmp);
 	if (expanded)
 		concat(&lexer->buffer, ft_strdup(expanded));
 	else
 		concat(&lexer->buffer, ft_strdup(""));
 	lexer->start = lexer->end;
+	free(expanded);
 }
 
 void	is_meta(t_lexer *lexer, char *line)

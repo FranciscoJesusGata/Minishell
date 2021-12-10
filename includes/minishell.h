@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/02 18:23:49 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/10 11:16:00 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define PIPE 124
 
 char	*launch_term(void);
-t_list	*lexer(char *line);
+t_list	*lexer(char *line, t_env *env);
 
 /*
 ** Utils
