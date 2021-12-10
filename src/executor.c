@@ -6,15 +6,18 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/10 14:54:01 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:39:36 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-void	is_error(t_simpleCmd *cmd)
+void	is_error(t_simpleCmd *cmd, char **env_path)
 {
-	printf("minishell: %s: command not found\n", cmd->argv[0]);
+	if (!ft_strchr(cmd->argv[0], '/') || !env_path)
+		printf("minishell: %s: No such file or directory\n", cmd->argv[0]);
+	else
+		printf("minishell: %s: command not found\n", cmd->argv[0]);
 }
 
 int	is_builtin(t_simpleCmd *cmd, t_env *env)
@@ -61,60 +64,103 @@ char	*find_binary(t_simpleCmd *cmd, t_env *env)
 	return (NULL);
 }
 
-int	is_binary(t_simpleCmd *cmd, t_env *env)
+int	is_binary(t_simpleCmd *cmd, t_env *env, char **path)
 {
-	char	*path;
-
-	path = find_binary(cmd, env);
-	if (path)
+	*path = find_binary(cmd, env);
+	if (*path)
 	{
-		printf("Path is: %s\n", path);
-		free(path);
+		printf("Path is: %s\n", *path);
+		free(*path);
+		*path = NULL;
 		return (1);
 	}
 	return (0);
 }
 
-int	executor(t_env *env, t_cmd *cmd)
+int	single_cmd(t_env *env, t_simpleCmd *cmd)
 {
-	t_simpleCmd	*s_cmd;
-	pid_t		pid;
+	char		*bin_path;
+	int			pid;
 	int			exit_code;
 
-	s_cmd = cmd->cmds;
-	exit_code = 0;
-	if (cmd->count == 1)
+	if (is_binary(cmd, env, &bin_path))
 	{
-		//Perform redirections
-		if (!is_builtin(s_cmd, env) && !is_binary(s_cmd, env))
+		pid = fork();
+		if (!pid)
 		{
-			is_error(s_cmd);
-			return (127);
+			//redirect
+			//exec
+			exit (0);
 		}
+		exit_code = waitpid(pid, NULL, 0);
+		exit_code = get_exit_code(exit_code);
 	}
 	else
 	{
-		while (s_cmd)
+		//redirect
+		if (!is_builtin(cmd, env))
+			is_error(cmd, env->path);
+		exit_code = 127;
+		//recover stdin and stdout
+	}
+	return (exit_code);
+}
+
+void	multiple_cmds(t_env *env, t_simpleCmd *cmd)
+{
+	char	*bin_path;
+	int		pid;
+
+	while (cmd)
+	{
+		pid = fork();
+		if (!pid)
 		{
-			pid = fork();
-			if (!pid)
+			//redirections
+			if (!is_builtin(cmd, env))
 			{
-				if (!is_builtin(s_cmd, env) && !is_binary(s_cmd, env))
+				if (!is_binary(cmd, env, &bin_path))
 				{
-					is_error(s_cmd);
+					is_error(cmd, env->path);
 					exit(127);
 				}
-				exit(0);
+				//execute
 			}
-			s_cmd->pid = pid;
-			s_cmd = s_cmd->nxt;
+			exit(0);
 		}
+		cmd->pid = pid;
+		cmd = cmd->nxt;
+	}
+	
+}
+
+char	**chop_paths(char *raw_path)
+{
+	char	**paths;
+
+	raw_path += 5;
+	paths = ft_split(raw_path, ':');
+	return (paths);
+}
+
+int	executor(t_env *env, t_cmd *cmd)
+{
+	t_simpleCmd	*s_cmd;
+	int			exit_code;
+	
+	s_cmd = cmd->cmds;
+	exit_code = 0;
+	if (cmd->count == 1)
+		exit_code = single_cmd(env, cmd->cmds);
+	else
+	{
 		s_cmd = cmd->cmds;
 		while (s_cmd)
 		{
 			exit_code = waitpid(s_cmd->pid, NULL, 0);
 			s_cmd = s_cmd->nxt;
 		}
+		exit_code = get_exit_code(exit_code);
 	}
 	return (exit_code);
 }

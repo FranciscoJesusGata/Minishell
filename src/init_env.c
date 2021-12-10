@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:05:34 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/09 17:10:05 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:39:25 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,34 +20,6 @@ void	save_env(t_env *env, char **envp, int i)
 	{
 		env->all[i] = ft_strdup(envp[i]);
 		i++;
-	}
-}
-
-char	**chop_paths(char *raw_path)
-{
-	char	**paths;
-
-	raw_path += 5;
-	paths = ft_split(raw_path, ':');
-	return (paths);
-}
-
-void	get_def_env(t_env *env, int i)
-{
-	int	j;
-
-	j = 0;
-	while (j < i)
-	{
-		if (ft_strnstr(env->all[j], "PWD", 3))
-			env->pwd = ft_strdup(env->all[j]) + 4;
-		if (ft_strnstr(env->all[j], "HOME", 4))
-			env->home = ft_strdup(env->all[j]) + 5;
-		if (ft_strnstr(env->all[j], "USER", 4))
-			env->user = ft_strdup(env->all[j]) + 5;
-		else if (ft_strnstr(env->all[j], "PATH", 4))
-			env->path = chop_paths(env->all[j]);
-		j++;
 	}
 }
 
@@ -72,10 +44,7 @@ void	init_env(t_env *env, char **envp)
 	while (envp[i])
 		i++;
 	if (i)
-	{
 		save_env(env, envp, i);
-		get_def_env(env, i);
-	}
 	else
 		create_init_env(env);
 }
