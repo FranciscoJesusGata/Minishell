@@ -6,19 +6,19 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/26 16:27:34 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/10 12:08:42 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd	*lexing_parsing(char *line)
+t_cmd	*lexing_parsing(char *line, t_env *env)
 {
 	t_list	*tokens;
 	t_cmd	*cmd;
 
 	cmd = NULL;
-	tokens = lexer(line);
+	tokens = lexer(line, env);
 	if (tokens)
 	{
 		print_tokens(tokens);
@@ -45,7 +45,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (*line)
 		{
-			cmd = lexing_parsing(line);
+			cmd = lexing_parsing(line, &env);
 			if (cmd)
 			{
 				executor(&env, cmd);
@@ -56,5 +56,4 @@ int	main(int argc, char **argv, char **envp)
 		line = launch_term();
 	}
 	clear_history();
-	system("leaks minishell");
 }

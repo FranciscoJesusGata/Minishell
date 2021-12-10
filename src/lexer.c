@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:14:00 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/23 14:43:31 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/10 12:08:00 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_lexer(t_lexer *lexer)
 	ft_lstclear(&lexer->tokens, delete_token);
 }
 
-t_list	*lexer(char *line)
+t_list	*lexer(char *line, t_env *env)
 {
 	t_lexer	lexer;
 	int		status;
@@ -33,9 +33,9 @@ t_list	*lexer(char *line)
 		else if (line[lexer.end] == SQUOTE)
 			status = is_squote(&lexer, line);
 		else if (line[lexer.end] == DQUOTE)
-			status = is_dquote(&lexer, line);
+			status = is_dquote(&lexer, line, env);
 		else if (line[lexer.end] == EXPAND && lexer.expand)
-			is_expand(&lexer, line);
+			is_expand(&lexer, line, env);
 		else if (ft_strchr("<|>", line[lexer.end]))
 			is_meta(&lexer, line);
 		else

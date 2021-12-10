@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/09 17:11:57 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/10 12:07:41 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,4 @@ void	executor(t_env *env, t_cmd *cmd)
 		i = 1;
 	if (i == 0)
 		is_error(cmd);
-	system("leaks minishell");
 }
