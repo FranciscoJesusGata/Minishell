@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 18:15:42 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/11 20:24:54 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <string.h>
 # include <limits.h>
 # include <sys/wait.h>
+# include <errno.h>
 
 # define WORD 61
 # define LESS 60

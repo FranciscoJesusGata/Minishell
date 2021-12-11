@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 18:52:02 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/11 19:57:07 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,11 +150,11 @@ int	executor(char ***env, t_cmd *cmd)
 {
 	t_simpleCmd	*s_cmd;
 	int			exit_code;
-	char		**path;
+	//char		**path;
 	
 	s_cmd = cmd->cmds;
-	exit_code = 0;
-	path = get_path(*env);
+	exit_code = is_builtin(cmd->cmds, env);
+	/*path = get_path(*env);
 	if (cmd->count == 1)
 		exit_code = single_cmd(env, path, cmd->cmds);
 	else
@@ -168,6 +168,6 @@ int	executor(char ***env, t_cmd *cmd)
 		}
 		//exit_code = get_exit_code(exit_code);
 	}
-	ft_freearray(path);
+	ft_freearray(path);*/
 	return (exit_code);
 }

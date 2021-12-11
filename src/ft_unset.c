@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:58:10 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 18:55:47 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/11 20:26:39 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ void	ft_unset(int argc, char **argv, char ***env)
 	i = 0;
 	arg_nb = 1;
 	tmp = ft_calloc(sizeof(char *), get_size(*env) + 1);
-	while (*env[i])
+	while ((*env)[i])
 	{
-		tmp[i] = ft_strdup(*env[i]);
+		tmp[i] = ft_strdup((*env)[i]);
 		i++;
 	}
 	tmp = if_some_argc(tmp, argc, argv);

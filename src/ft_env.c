@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 12:20:28 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 18:21:40 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/11 20:03:11 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 void	ft_env(char **env)
 {
 	int	i;
+	int	size;
 
 	i = 0;
-	while (i < get_size(env))
+	size = get_size(env);
+	while (i < size)
 	{
 		printf("%s\n", env[i]);
 		i++;

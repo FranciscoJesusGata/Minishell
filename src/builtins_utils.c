@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:26:30 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/09 17:12:28 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/11 20:27:31 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	display_str(char **splitted, int arr_size, int export_flag)
 	i = 0;
 	while (i < arr_size)
 	{
-		printf("%d %d ", i, arr_size);
 		if (export_flag)
 			printf("declare -x ");
 		printf("%s\n", splitted[i]);
