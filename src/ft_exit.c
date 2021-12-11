@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:14:30 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/09 18:05:28 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/11 19:13:21 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	ft_exit(char *arg)
 {
-	int i;
+	int	i;
+
 	if (arg)
 		i = ft_atoi(arg);
 	else

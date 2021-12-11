@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 17:55:40 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/11 19:14:15 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	main(int argc, char **argv, char **envp)
 		free(line);
 		line = launch_term();
 	}
-	printf("\001\e[38;5;38m\002MiniShell ~ 👉  \001\033[39mexit\n  \e[0m\002\e[2D\e[0K");
+	printf("\x1b[1F");
+	printf("\001\e[38;5;38m\002MiniShell ~ 👉  \001\033[39mexit\n");
 	clear_history();
 }
