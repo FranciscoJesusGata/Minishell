@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/02 18:03:16 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/11 18:52:34 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	**copy_envs(char **temp, char **argv, int argc, int c)
 	return (temp);
 }
 
-char	**create_env(t_env *env, int argc, char **argv)
+char	**create_env(char **env, int argc, char **argv)
 {
 	int		i;
 	int		c;
@@ -88,30 +88,30 @@ char	**create_env(t_env *env, int argc, char **argv)
 
 	i = 0;
 	c = 1;
-	temp = ft_calloc(sizeof(char *), (get_size(env->all) + (argc - c) + 2));
-	while (env->all[i])
+	temp = ft_calloc(sizeof(char *), (get_size(env) + (argc - c) + 2));
+	while (env[i])
 	{
-		temp[i] = clean_strdup(env->all[i]);
+		temp[i] = clean_strdup(env[i]);
 		i++;
 	}
-	free(env->all);
+	free(env);
 	i = 0;
 	temp = copy_envs(temp, argv, argc, c);
 	return (temp);
 }
 
-int	ft_export(int argc, char **argv, t_env *env)
+int	ft_export(int argc, char **argv, char ***env)
 {
 	int		arr_size;
 	char	**tmp;
 
 	tmp = NULL;
 	if (argc > 1)
-		env->all = create_env(env, argc, argv);
+		*env = create_env(*env, argc, argv);
 	else
 	{
-		arr_size = get_size(env->all);
-		tmp = env_to_temp(env, env->all);
+		arr_size = get_size(*env);
+		tmp = env_to_temp(*env);
 		tmp = bubble_sort(tmp, arr_size);
 		display_str(tmp, arr_size, 1);
 	}

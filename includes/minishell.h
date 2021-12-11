@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/10 11:16:00 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/11 18:15:42 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "lexer.h"
 # include "parser.h"
 # include "executor.h"
+# include "builtin.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -35,7 +36,7 @@
 # define PIPE 124
 
 char	*launch_term(void);
-t_list	*lexer(char *line, t_env *env);
+t_list	*lexer(char *line, char **env);
 
 /*
 ** Utils
@@ -48,6 +49,6 @@ void	malloc_error(void);
 */
 
 void	welcome(void);
-void	init_env(t_env *env, char **envp);
+char	**init_env(char **envp);
 
 #endif

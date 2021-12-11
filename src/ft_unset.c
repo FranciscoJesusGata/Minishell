@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:58:10 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/02 18:04:49 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/11 18:55:47 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	**if_some_argc(char **tmp, int argc, char **argv)
 	return (tmp);
 }
 
-void	ft_unset(int argc, char **argv, t_env *env)
+void	ft_unset(int argc, char **argv, char ***env)
 {
 	int		i;
 	int		arg_nb;
@@ -81,13 +81,13 @@ void	ft_unset(int argc, char **argv, t_env *env)
 
 	i = 0;
 	arg_nb = 1;
-	tmp = ft_calloc(sizeof(char *), get_size(env->all) + 1);
-	while (env->all[i])
+	tmp = ft_calloc(sizeof(char *), get_size(*env) + 1);
+	while (*env[i])
 	{
-		tmp[i] = ft_strdup(env->all[i]);
+		tmp[i] = ft_strdup(*env[i]);
 		i++;
 	}
 	tmp = if_some_argc(tmp, argc, argv);
-	ft_freearray(env->all);
-	env->all = tmp;
+	ft_freearray(*env);
+	*env = tmp;
 }
