@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/10 11:16:00 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/11 16:52:59 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "lexer.h"
 # include "parser.h"
 # include "executor.h"
+# include "signs.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -26,6 +27,7 @@
 # include <string.h>
 # include <limits.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 # define WORD 61
 # define LESS 60
