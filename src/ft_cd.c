@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:17:46 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 20:57:44 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/11 21:17:56 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,40 @@ void	change_pwd(char **env, char *cwd)
 	ft_freearray(split);
 }
 
+char	*join_home(char **env, char *path)
+{
+	int		i;
+	char	**split;
+	char	*join;
+
+	i = 0;
+	join = NULL;
+	split = NULL;
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], "HOME=", ft_strlen("HOME=")))
+			split = ft_split(env[i], '=');
+		i++;
+	}
+	if (split)
+	{
+		join = ft_strjoin(split[1], path + 1);
+		ft_freearray(split);
+	}
+	return (join);
+}
+
+
 void	check_path(char **env, char *path)
 {
 	char	cwd[PATH_MAX];
 
+	if (!ft_strncmp(path, "~", 1))
+	{
+		path = join_home(env, path);
+		if (!path)
+			return ;
+	}
 	if (!chdir(path))
 	{
 		getcwd(cwd, sizeof(cwd));
@@ -90,7 +120,7 @@ void	check_path(char **env, char *path)
 
 void	ft_cd(int argc, char **argv, char ***env)
 {
-	if (argc > 1 && ft_strncmp(argv[1], "~", 1))
+	if (argc > 1)
 		check_path(*env, argv[1]);
 	else
 	{
