@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
 /*   Updated: 2021/12/11 18:13:20 by fgata-va         ###   ########.fr       */
@@ -44,7 +44,7 @@ int	main(int argc, char **argv, char **envp)
 	while (line)
 	{
 		if (*line)
-		{
+    {
 			cmd = lexing_parsing(line, env);
 			if (cmd)
 			{
