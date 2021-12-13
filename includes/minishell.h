@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 20:24:54 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/11 16:52:59 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "lexer.h"
 # include "parser.h"
 # include "executor.h"
+# include "signs.h"
 # include "builtin.h"
 # include <stdio.h>
 # include <readline/readline.h>
@@ -27,6 +28,7 @@
 # include <string.h>
 # include <limits.h>
 # include <sys/wait.h>
+# include <signal.h>
 # include <errno.h>
 
 # define WORD 61

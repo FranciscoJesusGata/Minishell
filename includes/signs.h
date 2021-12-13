@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   signs.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 13:14:30 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 19:13:21 by fportalo         ###   ########.fr       */
+/*   Created: 2021/12/11 16:51:46 by fportalo          #+#    #+#             */
+/*   Updated: 2021/12/11 16:53:14 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#ifndef SIGNS_H
+# define SIGNS_H
 
-void	ft_exit(char *arg)
-{
-	int	i;
+# include "minishell.h"
 
-	if (arg)
-		i = ft_atoi(arg);
-	else
-		i = 0;
-	exit(i);
-}
+void handle_sigquit(int signo);
+void handle_sigint(int signo);
+
+#endif
