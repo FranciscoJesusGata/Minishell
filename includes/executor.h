@@ -14,7 +14,6 @@
 # define EXECUTOR
 # include "minishell.h"
 
-
 int		executor(char ***env, t_cmd *cmd);
 void	ft_pwd(void);
 
