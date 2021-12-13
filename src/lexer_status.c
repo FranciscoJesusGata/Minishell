@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 18:02:04 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/13 19:00:53 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	is_dquote(t_lexer *lexer, char *line, char **env)
 	{
 		if (!line[lexer->end])
 		{
-			printf("minishell: unexpected EOF while looking for matching `\"\n\
+			printf("minishell: unexpected EOF while looking for matching `\"'\n\
 minishell: syntax error: unexpected end of file\n");
 			return (1);
 		}
@@ -72,27 +72,22 @@ minishell: syntax error: unexpected end of file\n");
 
 void	is_expand(t_lexer *lexer, char *line, char **env)
 {
-	char	*expanded;
-	char	*tmp;
-
 	if (lexer->start != lexer->end)
 		save_buffer(lexer, line);
 	lexer->start = lexer->end;
 	lexer->end++;
+	if (line[lexer->end] == '?')
+	{
+		expand_exclamation(lexer);
+		return ;
+	}
 	if (line[lexer->end] == SPACEX || line[lexer->end] == '\0')
 		return ;
 	lexer->start = lexer->end;
-	while (!ft_strchr("\"' ", line[lexer->end]) && line[lexer->end])
+	while ((ft_isalnum(line[lexer->end]) || line[lexer->end] == '_')
+		&& line[lexer->end])
 		lexer->end++;
-	tmp = divide_str(line, lexer->start, lexer->end);
-	expanded = ft_getenv(tmp, env);
-	free(tmp);
-	if (expanded)
-		concat(&lexer->buffer, ft_strdup(expanded));
-	else
-		concat(&lexer->buffer, ft_strdup(""));
-	lexer->start = lexer->end;
-	free(expanded);
+	expand(lexer, line, env);
 }
 
 void	is_meta(t_lexer *lexer, char *line)

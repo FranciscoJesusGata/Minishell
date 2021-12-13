@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 16:52:59 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/13 18:31:59 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define DLESS 120
 # define DGREAT 121
 # define PIPE 124
+
+extern int	g_exit_code;
 
 char	*launch_term(void);
 t_list	*lexer(char *line, char **env);
