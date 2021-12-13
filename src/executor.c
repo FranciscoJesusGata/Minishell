@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/13 16:18:16 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/13 16:23:03 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,12 @@ char	*find_binary(t_simpleCmd *cmd, char **path)
 int	is_binary(t_simpleCmd *cmd, char **path, char **bin_path)
 {
 	*bin_path = find_binary(cmd, path);
-	printf("%s\n", *bin_path);
-	if (*bin_path)
+	if (!(*bin_path))
 	{
-		printf("Path is: %s\n", *bin_path);
-		return (1);
+		printf("minishell: %s: command not found\n", cmd->argv[0]);
+		return (0);
 	}
-	printf("minishell: %s: command not found\n", cmd->argv[0]);
-	return (0);
+	return (1);
 }
 
 int		exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)

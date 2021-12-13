@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 18:02:04 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/13 16:25:24 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	is_dquote(t_lexer *lexer, char *line, char **env)
 	{
 		if (!line[lexer->end])
 		{
-			printf("minishell: unexpected EOF while looking for matching `\"\n\
+			printf("minishell: unexpected EOF while looking for matching `\"'\n\
 minishell: syntax error: unexpected end of file\n");
 			return (1);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 18:13:20 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/13 16:20:54 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ t_cmd	*lexing_parsing(char *line, char **env)
 	tokens = lexer(line, env);
 	if (tokens)
 	{
-		print_tokens(tokens);
+		//print_tokens(tokens);
 		cmd = parser(tokens);
 	}
 	ft_lstclear(&tokens, free);
-	if (cmd)
-		print_cmd(cmd);
+	/*if (cmd)
+		print_cmd(cmd);*/
 	return (cmd);
 }
 
