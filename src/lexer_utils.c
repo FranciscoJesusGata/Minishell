@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 13:21:56 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/23 14:43:03 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/13 16:53:54 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	save_buffer(t_lexer *lexer, char *line)
 	char	*sub_str;
 
 	sub_str = divide_str(line, lexer->start, lexer->end);
+	if (!sub_str)
+		sub_str = ft_strdup("");
 	concat(&lexer->buffer, sub_str);
 }
 

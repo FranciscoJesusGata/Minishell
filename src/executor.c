@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/13 16:23:03 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/13 17:14:07 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int is_builtin(char *cmd)
 	int	len;
 
 	len = ft_strlen(cmd);
-	if (!ft_strncmp(cmd, "pwd", len) || !ft_strncmp(cmd, "env", len) ||
-		!ft_strncmp(cmd, "echo", len) || !ft_strncmp(cmd, "export", len) ||
-		!ft_strncmp(cmd, "unset", len) || !ft_strncmp(cmd, "cd", len) ||
-		!ft_strncmp(cmd, "exit", len))
+	if (len > 0 && (!ft_strncmp(cmd, "pwd", len) ||
+		!ft_strncmp(cmd, "env", len) || !ft_strncmp(cmd, "echo", len) ||
+		!ft_strncmp(cmd, "export", len) || !ft_strncmp(cmd, "unset", len)
+		|| !ft_strncmp(cmd, "cd", len) || !ft_strncmp(cmd, "exit", len)))
 		return (1);
 	return (0);
 }
@@ -65,32 +65,22 @@ char	*find_binary(t_simpleCmd *cmd, char **path)
 	}
 	else
 	{
-		while (path[i] && found < 0)
+		while (path[i])
 		{
-			if (bin_path)
-			{
-				free(bin_path);
-				bin_path = NULL;
-			}
 			bin_path = ft_strdup(path[i]);
 			bin_path = clean_strjoin(bin_path, "/");
 			bin_path = clean_strjoin(bin_path, cmd->argv[0]);
 			found = access(bin_path, X_OK);
+			if (!found)
+				break ;
+			free(bin_path);
+			bin_path = NULL;
 			i++;
 		}
+		if (!bin_path)
+			printf("minishell: %s: command not found\n", cmd->argv[0]);
 	}
 	return (bin_path);
-}
-
-int	is_binary(t_simpleCmd *cmd, char **path, char **bin_path)
-{
-	*bin_path = find_binary(cmd, path);
-	if (!(*bin_path))
-	{
-		printf("minishell: %s: command not found\n", cmd->argv[0]);
-		return (0);
-	}
-	return (1);
 }
 
 int		exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
@@ -101,12 +91,20 @@ int		exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
 	bin_path = NULL;
 	exit_status = 0;
 	//redirections
+	if (!ft_strlen(cmd->argv[0]))
+	{
+		printf("minishell: %s: command not found\n", cmd->argv[0]);
+		return (127);
+	}
 	if (is_builtin)
 		exec_builtin(cmd, env);
-	else if (is_binary(cmd, path, &bin_path))
-		execve(bin_path, cmd->argv, *env);
 	else
+	{
+		bin_path = find_binary(cmd, path);
+		if (bin_path)
+			execve(bin_path, cmd->argv, *env);
 		exit_status = 127;
+	}
 	return (exit_status);
 }
 

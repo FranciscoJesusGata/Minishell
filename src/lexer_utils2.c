@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:09:21 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 18:05:53 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/13 17:18:56 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,26 @@ char	*expand(char *env)
 	return (expanded);
 }
 
-char	*ft_getenv(char *tmp, char **env)
+char	*ft_getenv(char *search, char **env)
 {
 	int		i;
 	char	*expanded;
 
 	i = 0;
 	expanded = NULL;
-	if (!ft_strncmp(tmp, "$", ft_strlen("$")))
-		return (ft_strdup("$"));
-	while (env[i])
+	if (search)
 	{
-		if (!ft_strncmp(env[i], tmp, ft_strlen(tmp)))
+		if (!ft_strncmp(search, "$", ft_strlen("$")))
+			return (ft_strdup("$"));
+		while (env[i])
 		{
-			expanded = expand(env[i]);
-			return (expanded);
+			if (!ft_strncmp(env[i], search, ft_strlen(search)))
+			{
+				expanded = expand(env[i]);
+				return (expanded);
+			}
+			i++;
 		}
-		i++;
 	}
-	return (ft_strdup("\n"));
+	return (expanded);
 }
