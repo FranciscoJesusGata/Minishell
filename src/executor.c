@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/13 17:14:07 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/13 18:28:03 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ int		exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
 	else
 	{
 		bin_path = find_binary(cmd, path);
-		if (bin_path)
-			execve(bin_path, cmd->argv, *env);
-		exit_status = 127;
+		if (!bin_path)
+			exit_status = 127;
+		execve(bin_path, cmd->argv, *env);
 	}
 	return (exit_status);
 }
@@ -126,7 +126,19 @@ char	**get_path(char **envp)
 	return (paths);
 }
 
-int	executor(char ***env, t_cmd *cmd)
+int		get_exit_code(int exit_code)
+{
+	if (WIFEXITED(exit_code))
+		return (WEXITSTATUS(exit_code));
+	else if (WIFSIGNALED(exit_code))
+		return (WTERMSIG(exit_code));
+	else if (WIFSTOPPED(exit_code))
+		return (WSTOPSIG(exit_code));
+	else
+		return (exit_code);
+}
+
+int		executor(char ***env, t_cmd *cmd)
 {
 	t_simpleCmd	*s_cmd;
 	int			exit_code;
@@ -159,10 +171,10 @@ int	executor(char ***env, t_cmd *cmd)
 		s_cmd = cmd->cmds;
 		while (s_cmd)
 		{
-			exit_code = waitpid(s_cmd->pid, NULL, 0);
+			waitpid(s_cmd->pid, &exit_code, 0);
 			s_cmd = s_cmd->nxt;
 		}
-		//exit_code = get_exit_code(exit_code);
+		exit_code = get_exit_code(exit_code);
 	}
 	ft_freearray(path);
 	return (exit_code);
