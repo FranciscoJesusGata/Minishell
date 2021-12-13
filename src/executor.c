@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/13 18:28:03 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/13 20:07:52 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,8 +157,8 @@ int		executor(char ***env, t_cmd *cmd)
 		s_cmd = cmd->cmds;
 		while (s_cmd)
 		{
-			//redirections
-			if (!is_builtin(cmd, env))
+			pid = fork();
+			if (!pid)
 			{
 				exit_code = exec_cmd(s_cmd, builtin, env, path);
 				exit (exit_code);
@@ -168,8 +168,14 @@ int		executor(char ***env, t_cmd *cmd)
 			if (s_cmd)
 				builtin = is_builtin(s_cmd->argv[0]);
 		}
-		cmd->pid = pid;
-		cmd = cmd->nxt;
+		s_cmd = cmd->cmds;
+		while (s_cmd)
+		{
+			waitpid(s_cmd->pid, &exit_code, 0);
+			s_cmd = s_cmd->nxt;
+			if (s_cmd)
+				builtin = is_builtin(s_cmd->argv[0]);
+		}
 		exit_code = get_exit_code(exit_code);
 	}
 	ft_freearray(path);
