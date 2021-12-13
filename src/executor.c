@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/13 16:10:22 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/13 16:18:16 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,15 @@ char	*find_binary(t_simpleCmd *cmd, char **path)
 	{
 		while (path[i] && found < 0)
 		{
+			if (bin_path)
+			{
+				free(bin_path);
+				bin_path = NULL;
+			}
 			bin_path = ft_strdup(path[i]);
 			bin_path = clean_strjoin(bin_path, "/");
 			bin_path = clean_strjoin(bin_path, cmd->argv[0]);
 			found = access(bin_path, X_OK);
-			free(bin_path);
-			bin_path = NULL;
 			i++;
 		}
 	}
@@ -82,6 +85,7 @@ char	*find_binary(t_simpleCmd *cmd, char **path)
 int	is_binary(t_simpleCmd *cmd, char **path, char **bin_path)
 {
 	*bin_path = find_binary(cmd, path);
+	printf("%s\n", *bin_path);
 	if (*bin_path)
 	{
 		printf("Path is: %s\n", *bin_path);
@@ -91,7 +95,7 @@ int	is_binary(t_simpleCmd *cmd, char **path, char **bin_path)
 	return (0);
 }
 
-int		exec_cmd(t_simpleCmd *cmd, int is_builtin, char *env[][], char **path)
+int		exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
 {
 	char	*bin_path;
 	int		exit_status;
@@ -137,7 +141,7 @@ int	executor(char ***env, t_cmd *cmd)
 	s_cmd = cmd->cmds;
 	path = get_path(*env);
 	exit_code = 0;
-	builtin = is_builtin(s_cmd);
+	builtin = is_builtin(s_cmd->argv[0]);
 	if (cmd->count == 1 && builtin)
 		exec_builtin(s_cmd, env);
 	else
@@ -148,11 +152,13 @@ int	executor(char ***env, t_cmd *cmd)
 			pid = fork();
 			if (!pid)
 			{
-				exit_code = exec_cmd(cmd, builtin, env, path);
+				exit_code = exec_cmd(s_cmd, builtin, env, path);
 				exit (exit_code);
 			}
 			s_cmd->pid = pid;
 			s_cmd = s_cmd->nxt;
+			if (s_cmd)
+				builtin = is_builtin(s_cmd->argv[0]);
 		}
 		s_cmd = cmd->cmds;
 		while (s_cmd)
