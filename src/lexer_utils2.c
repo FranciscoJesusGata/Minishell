@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:09:21 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/10 12:09:42 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/11 18:05:53 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expand(char *env, char *expanded)
+char	*expand(char *env)
 {
 	char	**split;
+	char	*expanded;
 
 	split = ft_split(env, '=');
 	expanded = ft_strdup(split[1]);
@@ -22,7 +23,7 @@ char	*expand(char *env, char *expanded)
 	return (expanded);
 }
 
-char	*ft_getenv(char *tmp, t_env *env)
+char	*ft_getenv(char *tmp, char **env)
 {
 	int		i;
 	char	*expanded;
@@ -31,11 +32,11 @@ char	*ft_getenv(char *tmp, t_env *env)
 	expanded = NULL;
 	if (!ft_strncmp(tmp, "$", ft_strlen("$")))
 		return (ft_strdup("$"));
-	while (env->all[i])
+	while (env[i])
 	{
-		if (!ft_strncmp(env->all[i], tmp, ft_strlen(tmp)))
+		if (!ft_strncmp(env[i], tmp, ft_strlen(tmp)))
 		{
-			expanded = expand(env->all[i], expanded);
+			expanded = expand(env[i]);
 			return (expanded);
 		}
 		i++;

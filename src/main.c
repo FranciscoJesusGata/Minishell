@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_cmd	*lexing_parsing(char *line, t_env *env)
+t_cmd	*lexing_parsing(char *line, char **env)
 {
 	t_list	*tokens;
 	t_cmd	*cmd;
@@ -34,11 +34,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_cmd	*cmd;
-	t_env	env;
+	char	**env;
 
 	argc = 0;
 	argv = NULL;
-	init_env(&env, envp);
+	env = init_env(envp);
 	welcome();
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
@@ -48,8 +48,8 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGINT, handle_sigint);
 		signal(SIGQUIT, handle_sigquit);
 		if (*line)
-		{
-			cmd = lexing_parsing(line, &env);
+    {
+			cmd = lexing_parsing(line, env);
 			if (cmd)
 			{
 				executor(&env, cmd);

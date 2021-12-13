@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:17:46 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/09 16:53:56 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/11 21:17:56 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#include "minishell.h"
 
 char	**create_oldpwd(char **env)
 {
@@ -42,16 +42,18 @@ int	ft_chdir(char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (!ft_strncmp(env[i], "PWD=", ft_strlen("PWD=")))
+		if (!ft_strncmp(env[i], "HOME=", ft_strlen("HOME=")))
 			split = ft_split(env[i], '=');
 		i++;
 	}
 	dir_nbr = chdir(split[1]);
+	if (dir_nbr != 0)
+		printf("cd: %s: %s\n", strerror(errno), split[1]);
 	ft_freearray(split);
 	return (dir_nbr);
 }
 
-char	**change_pwd(char **env, char *cwd)
+void	change_pwd(char **env, char *cwd)
 {
 	int		i;
 	char	**split;
@@ -71,37 +73,64 @@ char	**change_pwd(char **env, char *cwd)
 		i++;
 	}
 	ft_freearray(split);
-	return (env);
 }
 
-char	**check_path(char **env, char *path)
+char	*join_home(char **env, char *path)
+{
+	int		i;
+	char	**split;
+	char	*join;
+
+	i = 0;
+	join = NULL;
+	split = NULL;
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], "HOME=", ft_strlen("HOME=")))
+			split = ft_split(env[i], '=');
+		i++;
+	}
+	if (split)
+	{
+		join = ft_strjoin(split[1], path + 1);
+		ft_freearray(split);
+	}
+	return (join);
+}
+
+
+void	check_path(char **env, char *path)
 {
 	char	cwd[PATH_MAX];
 
+	if (!ft_strncmp(path, "~", 1))
+	{
+		path = join_home(env, path);
+		if (!path)
+			return ;
+	}
 	if (!chdir(path))
 	{
 		getcwd(cwd, sizeof(cwd));
 		change_pwd(env, cwd);
 	}
 	else
-		printf("cd: no such file or directory: %s\n", path);
-	return (env);
+		printf("cd: %s: %s\n", strerror(errno), path);
 }
 
-void	ft_cd(int argc, char **argv, t_env *env)
+void	ft_cd(int argc, char **argv, char ***env)
 {
-	if (argc > 1 && ft_strncmp(argv[1], "~", 1))
-		check_path(env->all, argv[1]);
+	if (argc > 1)
+		check_path(*env, argv[1]);
 	else
 	{
-		if (is_home(env->all))
+		if (is_home(*env) && ft_chdir(*env) >= 0)
 		{
-			if (look_for_oldpwd(env->all))
-				env->all = create_oldpwd(env->all);
+			if (look_for_oldpwd(*env))
+				*env = create_oldpwd(*env);
 			else
-				env->all = edit_oldpwd(env->all);
-			env->all = home_to_pwd(env->all);
+				*env = edit_oldpwd(*env);
+			*env = home_to_pwd(*env);
 		}
-		ft_chdir(env->all);
 	}
 }
