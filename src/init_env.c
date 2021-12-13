@@ -15,7 +15,6 @@
 char	**save_env(char **envp, int i)
 {
 	char	**env;
-
 	env = ft_calloc(sizeof(char *), (i + 1));
 	i = 0;
 	while (envp[i])

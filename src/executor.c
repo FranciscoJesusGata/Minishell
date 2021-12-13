@@ -157,8 +157,8 @@ int		executor(char ***env, t_cmd *cmd)
 		s_cmd = cmd->cmds;
 		while (s_cmd)
 		{
-			pid = fork();
-			if (!pid)
+			//redirections
+			if (!is_builtin(cmd, env))
 			{
 				exit_code = exec_cmd(s_cmd, builtin, env, path);
 				exit (exit_code);
@@ -168,12 +168,8 @@ int		executor(char ***env, t_cmd *cmd)
 			if (s_cmd)
 				builtin = is_builtin(s_cmd->argv[0]);
 		}
-		s_cmd = cmd->cmds;
-		while (s_cmd)
-		{
-			waitpid(s_cmd->pid, &exit_code, 0);
-			s_cmd = s_cmd->nxt;
-		}
+		cmd->pid = pid;
+		cmd = cmd->nxt;
 		exit_code = get_exit_code(exit_code);
 	}
 	ft_freearray(path);

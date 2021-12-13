@@ -17,6 +17,7 @@
 # include "lexer.h"
 # include "parser.h"
 # include "executor.h"
+# include "signs.h"
 # include "builtin.h"
 # include <stdio.h>
 # include <readline/readline.h>
@@ -27,6 +28,7 @@
 # include <string.h>
 # include <limits.h>
 # include <sys/wait.h>
+# include <signal.h>
 # include <errno.h>
 
 # define WORD 61

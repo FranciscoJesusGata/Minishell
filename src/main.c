@@ -35,9 +35,13 @@ int	main(int argc, char **argv, char **envp)
 	argv = NULL;
 	env = init_env(envp);
 	welcome();
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit);
 	line = launch_term();
 	while (line)
 	{
+		signal(SIGINT, handle_sigint);
+		signal(SIGQUIT, handle_sigquit);
 		if (*line)
 		{
 			cmd = lexing_parsing(line, env);
@@ -50,6 +54,8 @@ int	main(int argc, char **argv, char **envp)
 		free(line);
 		line = launch_term();
 	}
+	printf("\x1b[1F");
+	printf("\001\e[38;5;38m\002MiniShell ~ 👉  \001\033[39mexit\n");
 	clear_history();
 	return (g_exit_code);
 }
