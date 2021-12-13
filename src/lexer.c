@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:14:00 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/10 12:08:00 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/11 18:01:54 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_lexer(t_lexer *lexer)
 	ft_lstclear(&lexer->tokens, delete_token);
 }
 
-t_list	*lexer(char *line, t_env *env)
+t_list	*lexer(char *line, char **env)
 {
 	t_lexer	lexer;
 	int		status;

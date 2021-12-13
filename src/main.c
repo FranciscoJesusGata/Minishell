@@ -6,13 +6,13 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/10 12:08:42 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/11 18:13:20 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd	*lexing_parsing(char *line, t_env *env)
+t_cmd	*lexing_parsing(char *line, char **env)
 {
 	t_list	*tokens;
 	t_cmd	*cmd;
@@ -34,18 +34,18 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_cmd	*cmd;
-	t_env	env;
+	char	**env;
 
 	argc = 0;
 	argv = NULL;
-	init_env(&env, envp);
+	env = init_env(envp);
 	welcome();
 	line = launch_term();
 	while (line)
 	{
 		if (*line)
-		{
-			cmd = lexing_parsing(line, &env);
+    {
+			cmd = lexing_parsing(line, env);
 			if (cmd)
 			{
 				executor(&env, cmd);

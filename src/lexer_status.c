@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/10 12:09:00 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/11 18:02:04 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ minishell: syntax error: unexpected end of file\n");
 	return (0);
 }
 
-int	is_dquote(t_lexer *lexer, char *line, t_env *env)
+int	is_dquote(t_lexer *lexer, char *line, char **env)
 {
 	if (!lexer->quoted)
 		lexer->quoted = 1;
@@ -70,7 +70,7 @@ minishell: syntax error: unexpected end of file\n");
 	return (0);
 }
 
-void	is_expand(t_lexer *lexer, char *line, t_env *env)
+void	is_expand(t_lexer *lexer, char *line, char **env)
 {
 	char	*expanded;
 	char	*tmp;

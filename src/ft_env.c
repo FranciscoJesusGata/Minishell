@@ -3,23 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 12:20:28 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/02 17:12:40 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/11 20:03:11 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#include "minishell.h"
 
-void	ft_env(t_env *env)
+void	ft_env(char **env)
 {
 	int	i;
+	int	size;
 
 	i = 0;
-	while (i < get_size(env->all))
+	size = get_size(env);
+	while (i < size)
 	{
-		printf("%s\n", env->all[i]);
+		printf("%s\n", env[i]);
 		i++;
 	}
 }

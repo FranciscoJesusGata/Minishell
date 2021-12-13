@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 13:22:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/23 14:42:20 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/11 18:54:34 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,6 @@ typedef struct s_lexer {
 	char		*buffer;
 	t_list		*tokens;
 }				t_lexer;
-
-/*
-**		[ Env Structs ]
-*/
-typedef struct s_env {
-	char		**envp;
-	char		**all;
-	char		*pwd;
-	char		*old_pwd;
-	char		**path;
-	char		*shlvl;
-	char		*home;
-	char		*user;
-	char		*last;
-}				t_env;
 
 /*
 **		[ Parser Structs ]
