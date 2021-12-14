@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/14 17:59:32 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/14 18:30:44 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,15 @@ char	**bubble_sort(char **array, int array_size)
 
 int	check_env_exists(char *env, char *argv)
 {
+	//env:	HOLA=
+	//argv:	HOLA
 	char	**tmp;
 
 	tmp = ft_split(argv, '=');
 	if (!ft_strncmp(env, tmp[0], ft_strlen(tmp[0])))	//YA EXISTE LA VARIABLE
 	{
+		if (argv[ft_strlen(tmp[0])] != '=')
+			return (2);
 		ft_freearray(tmp);
 		return (1);
 	}
@@ -63,8 +67,11 @@ char	**copy_envs(char **temp, char **argv, int argc, int c)
 		{
 			if (argv[c] && check_env_exists(temp[i], argv[c]))
 			{
-				free(temp[i]);
-				temp[i] = ft_strdup(argv[c]);
+				if (check_env_exists(temp[i], argv[c]) == 1)
+				{
+					free(temp[i]);
+					temp[i] = ft_strdup(argv[c]);
+				}
 				c++;
 				if (c < argc)
 					i = -1;
