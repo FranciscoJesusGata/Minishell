@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/13 20:00:21 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/14 16:06:06 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	exec_builtin(t_simpleCmd *cmd, char ***env)
 	else if (!ft_strncmp(cmd->argv[0], "cd", len))
 		ft_cd(cmd->argc, cmd->argv, env);
 	else if (!ft_strncmp(cmd->argv[0], "exit", len))
-		ft_exit(cmd->argv[1]);
+		ft_exit(cmd->argv, cmd->argc);
 }
 
 char	*find_binary(t_simpleCmd *cmd, char **path)
@@ -145,7 +145,7 @@ int		executor(char ***env, t_cmd *cmd)
 	char		**path;
 	int			builtin;
 	pid_t		pid;
-	
+
 	s_cmd = cmd->cmds;
 	path = get_path(*env);
 	exit_code = 0;

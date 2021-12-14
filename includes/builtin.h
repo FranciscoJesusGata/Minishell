@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:09:06 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 18:53:19 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/14 16:10:13 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_env(char **env);
 void	ft_echo(int argc, char **argv);
 int		ft_export(int argc, char **argv, char ***env);
 void	ft_unset(int argc, char **argv, char ***envp);
-void	ft_exit(char *arg);
+void	ft_exit(char **argv, int argc);
 void	ft_cd(int argc, char **argv, char ***env);
 int		get_size(char **env);
 void	display_str(char **splitted, int arr_size, int export_flag);

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/13 19:08:15 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/14 15:57:09 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
 
 t_cmd	*lexing_parsing(char *line, char **env)
 {
@@ -25,6 +27,8 @@ t_cmd	*lexing_parsing(char *line, char **env)
 	return (cmd);
 }
 
+int		g_exit_code;
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -33,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 
 	argc = 0;
 	argv = NULL;
+	g_exit_code = 0;
 	env = init_env(envp);
 	welcome();
 	signal(SIGINT, handle_sigint);
