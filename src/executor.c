@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 11:34:54 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/15 12:58:13 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,8 @@ int		executor(char ***env, t_cmd *cmd)
 		s_cmd = cmd->cmds;
 		while (s_cmd)
 		{
+			signal(SIGINT, SIG_IGN);
+			signal(SIGQUIT, SIG_IGN);
 			waitpid(s_cmd->pid, &exit_code, 0);
 			s_cmd = s_cmd->nxt;
 		}
