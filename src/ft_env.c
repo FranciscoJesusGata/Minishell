@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminal.c                                         :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/19 14:51:58 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/13 20:01:31 by fgata-va         ###   ########.fr       */
+/*   Created: 2021/11/03 12:20:28 by fportalo          #+#    #+#             */
+/*   Updated: 2021/12/11 20:03:11 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*launch_term(void)
+void	ft_env(char **env)
 {
-	char	*line;
+	int	i;
+	int	size;
 
-	line = readline("\001\e[38;5;38m\002MiniShell ~ 👉  \001\e[0m\002");
-	if (line && *line)
-		add_history(line);
-	else if (line && !*line)
-		g_exit_code = 0;
-	return (line);
+	i = 0;
+	size = get_size(env);
+	while (i < size)
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
 }
