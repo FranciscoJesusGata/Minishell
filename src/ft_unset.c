@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:58:10 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 20:26:39 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/15 10:51:46 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,22 @@ int	equal_id(char *argv, char *env)
 	return (0);
 }
 
+int		valid_unset(char *arg)
+{
+	int i;
+
+	if (arg[0] < 'A' || arg[0] > 'z')
+		return (0);
+	i = 1;
+	while(arg[i])
+	{
+		if (arg[i] < '0' || arg[i] > 'z' || (arg[i] > '9' && arg[i] < 'A'))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 char	**if_some_argc(char **tmp, int argc, char **argv)
 {
 	int	i;
@@ -61,12 +77,17 @@ char	**if_some_argc(char **tmp, int argc, char **argv)
 		while (arg_nb < argc)
 		{
 			i = 0;
-			while (tmp[i])
+			if (valid_unset(argv[arg_nb]))
 			{
-				if (equal_id(argv[arg_nb], tmp[i]))
-					tmp = kill_env(tmp, i);
-				i++;
+				while (tmp[i])
+				{
+					if (equal_id(argv[arg_nb], tmp[i]))
+						tmp = kill_env(tmp, i);
+					i++;
+				}
 			}
+			else
+				printf("minishell: unset: '%s': not a valid identifier\n", argv[arg_nb]);
 			arg_nb++;
 		}
 	}
