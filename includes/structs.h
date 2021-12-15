@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 13:22:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/11 18:54:34 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/15 12:08:45 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct s_simpleCmd {
 	char				**argv;
 	int					argc;
 	pid_t				pid;
+	int					fds[2];
+	int					*prev;
 	t_redir				*redirs;
 	struct s_simpleCmd	*nxt;
 }				t_simpleCmd;

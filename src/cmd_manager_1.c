@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 12:01:05 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/22 15:31:47 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/09 12:46:52 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ t_simpleCmd	*new_cmd(int *argc, char **argv, t_redir **redirs)
 	new_cmd->nxt = NULL;
 	*redirs = NULL;
 	*argc = 0;
+	new_cmd->fds[0] = -1;
+	new_cmd->fds[1] = -1;
 	return (new_cmd);
 }
 
@@ -91,12 +93,11 @@ void	delete_cmd(t_cmd **cmd)
 		redir = scmd->redirs;
 		s_nxt = scmd->nxt;
 		i = 0;
-		while (i < scmd->argc)
-		{
-			free(scmd->argv[i]);
-			i++;
-		}
-		free(scmd->argv);
+		if (scmd->fds[0] >= 0)
+			close(scmd->fds[0]);
+		if (scmd->fds[1] >= 0)
+			close(scmd->fds[1]);
+		delete_matrix(scmd->argv, scmd->argc);
 		delete_redirs(redir);
 		free(scmd);
 		scmd = s_nxt;
