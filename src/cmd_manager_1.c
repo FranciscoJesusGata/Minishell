@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 12:01:05 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/09 12:46:52 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/15 22:19:13 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_simpleCmd	*new_cmd(int *argc, char **argv, t_redir **redirs)
 	*argc = 0;
 	new_cmd->fds[0] = -1;
 	new_cmd->fds[1] = -1;
+	new_cmd->prev = NULL;
 	return (new_cmd);
 }
 

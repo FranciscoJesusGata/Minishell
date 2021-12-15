@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/13 20:07:52 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/15 22:22:52 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,20 @@ char	*find_binary(t_simpleCmd *cmd, char **path)
 	}
 	else
 	{
-		while (path[i])
+		if (ft_strlen(cmd->argv[0]))
 		{
-			bin_path = ft_strdup(path[i]);
-			bin_path = clean_strjoin(bin_path, "/");
-			bin_path = clean_strjoin(bin_path, cmd->argv[0]);
-			found = access(bin_path, X_OK);
-			if (!found)
-				break ;
-			free(bin_path);
-			bin_path = NULL;
-			i++;
+			while (path[i])
+			{
+				bin_path = ft_strdup(path[i]);
+				bin_path = clean_strjoin(bin_path, "/");
+				bin_path = clean_strjoin(bin_path, cmd->argv[0]);
+				found = access(bin_path, X_OK);
+				if (!found)
+					break ;
+				free(bin_path);
+				bin_path = NULL;
+				i++;
+			}
 		}
 		if (!bin_path)
 			printf("minishell: %s: command not found\n", cmd->argv[0]);
@@ -90,12 +93,8 @@ int		exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
 
 	bin_path = NULL;
 	exit_status = 0;
-	//redirections
-	if (!ft_strlen(cmd->argv[0]))
-	{
-		printf("minishell: %s: command not found\n", cmd->argv[0]);
-		return (127);
-	}
+	if (!redirections(cmd->redirs,(int *)&cmd->fds))
+		return (1);
 	if (is_builtin)
 		exec_builtin(cmd, env);
 	else
@@ -103,7 +102,12 @@ int		exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
 		bin_path = find_binary(cmd, path);
 		if (!bin_path)
 			exit_status = 127;
-		execve(bin_path, cmd->argv, *env);
+		else
+		{
+		redirect(cmd);
+		if (execve(bin_path, cmd->argv, *env) < 0)
+			return (minishell_perror(1, bin_path, NULL));
+		}
 	}
 	return (exit_status);
 }
@@ -128,56 +132,84 @@ char	**get_path(char **envp)
 
 int		get_exit_code(int exit_code)
 {
-	if (WIFEXITED(exit_code))
-		return (WEXITSTATUS(exit_code));
-	else if (WIFSIGNALED(exit_code))
-		return (WTERMSIG(exit_code));
+	if (WIFSIGNALED(exit_code))
+		return(128 + WTERMSIG(exit_code));
 	else if (WIFSTOPPED(exit_code))
 		return (WSTOPSIG(exit_code));
+	else if (WIFEXITED(exit_code))
+		return (WEXITSTATUS(exit_code));
 	else
 		return (exit_code);
 }
 
+int		wait_cmds(t_simpleCmd *s_cmd)
+{
+	int exit_code;
+
+	exit_code = 0;
+	while (s_cmd)
+	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, SIG_IGN);
+		waitpid(s_cmd->pid, &exit_code, 0);
+		s_cmd = s_cmd->nxt;
+	}
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit);
+	return (get_exit_code(exit_code));
+}
+
+void	fork_cmds(t_simpleCmd *s_cmd, char **path, char ***env, int builtin)
+{
+	pid_t		pid;
+
+	while (s_cmd)
+	{
+		pid = fork();
+		if (!pid)
+			exit(exec_cmd(s_cmd, builtin, env, path));
+		close(s_cmd->fds[READ_END]);
+		close(s_cmd->fds[WRITE_END]);
+		s_cmd->pid = pid;
+		s_cmd = s_cmd->nxt;
+		if (s_cmd)
+			builtin = is_builtin(s_cmd->argv[0]);
+	}
+}
+
 int		executor(char ***env, t_cmd *cmd)
 {
-	t_simpleCmd	*s_cmd;
 	int			exit_code;
 	char		**path;
 	int			builtin;
-	pid_t		pid;
-	
-	s_cmd = cmd->cmds;
+	int			tmpin;
+	int			tmpout;
+
 	path = get_path(*env);
 	exit_code = 0;
-	builtin = is_builtin(s_cmd->argv[0]);
+	builtin = is_builtin(cmd->cmds->argv[0]);
 	if (cmd->count == 1 && builtin)
-		exec_builtin(s_cmd, env);
+	{
+		if (!redirections(cmd->cmds->redirs, (int *)&cmd->cmds->fds))
+			exit_code = 1;
+		else
+		{
+			tmpin = dup(STDIN_FILENO);
+			tmpout = dup(STDIN_FILENO);
+			redirect(cmd->cmds);
+			exec_builtin(cmd->cmds, env);
+			dup2(tmpin, STDIN_FILENO);
+			dup2(tmpout, STDOUT_FILENO);
+			close(tmpin);
+			close(tmpout);
+		}
+	}
 	else
 	{
-		s_cmd = cmd->cmds;
-		while (s_cmd)
-		{
-			pid = fork();
-			if (!pid)
-			{
-				exit_code = exec_cmd(s_cmd, builtin, env, path);
-				exit (exit_code);
-			}
-			s_cmd->pid = pid;
-			s_cmd = s_cmd->nxt;
-			if (s_cmd)
-				builtin = is_builtin(s_cmd->argv[0]);
-		}
-		s_cmd = cmd->cmds;
-		while (s_cmd)
-		{
-			waitpid(s_cmd->pid, &exit_code, 0);
-			s_cmd = s_cmd->nxt;
-			if (s_cmd)
-				builtin = is_builtin(s_cmd->argv[0]);
-		}
-		exit_code = get_exit_code(exit_code);
+		fork_cmds(cmd->cmds, path, env, builtin);
+		exit_code = wait_cmds(cmd->cmds);
 	}
-	ft_freearray(path);
+	if (path)
+		ft_freearray(path);
 	return (exit_code);
 }

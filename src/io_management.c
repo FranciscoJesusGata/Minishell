@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io_management.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:41:10 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/09 15:59:47 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/15 22:23:22 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,28 @@ int	heredoc(char *delimiter)
 	char	*line;
 	int		fd;
 
+	signal(SIGINT, SIG_DFL);
 	fd = open("/tmp/heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (fd < 0)
 		return (fd);
 	line = readline("> ");
-	while (!line || ft_strncmp(line, delimiter, ft_strlen(line)))
+	while (line)
 	{
+		if (!ft_strncmp(line, delimiter, ft_strlen(line)))
+			break ;
 		ft_putstr_fd(line, fd);
 		write(fd, "\n", 1);
 		free(line);
 		line = NULL;
-		write(1, "> ", 2);
 		line = readline("> ");
 	}
-	free(line);
 	close(fd);
 	fd = open("/tmp/heredoc", O_RDONLY);
+	signal(SIGINT, SIG_IGN);
 	return (fd);
 }
 
-int	open_file(int type, char *path)
+int	create_fd(int type, char *path)
 {
 	int	file;
 
@@ -69,36 +71,65 @@ int	open_file(int type, char *path)
 	else
 		file = heredoc(path);
 	if (file < 0)
-		exit(minishell_perror(1, path, NULL));
+		printf("pipex: %s: %s\n", path, strerror(errno));
 	return (file);
 }
 
-void	redirections(t_redir *redirections, int **fds)
+int	open_files(t_redir *redirections, int *in, int *out)
+{
+	while (redirections)
+	{
+		if (redirections->type == LESS || redirections->type == DLESS)
+		{
+			*in = create_fd(redirections->type, redirections->path);
+			if (*in < 0)
+				return (0);
+		}
+		else
+		{
+			*out = create_fd(redirections->type, redirections->path);
+			if (*out < 0)
+				return (0);
+		}
+		redirections = redirections->nxt;
+	}
+	return (1);
+}
+
+void	link_fds(int *fds, int file, int io)
+{
+	if (file >= 0)
+	{
+		if (fds[io] >= 0)
+			close(fds[io]);
+		fds[io] = file;
+	}
+}
+
+int	redirections(t_redir *redirections, int *fds)
 {
 	int	in;
 	int	out;
 
 	in = -1;
 	out = -1;
-	while (redirections)
-	{
-		if (redirections->type == GREAT || redirections->type == DGREAT)
-			in = open_file(redirections->type, redirections->path);
-		else
-			out = open_file(redirections->type, redirections->path);
-		redirections = redirections->nxt;
-	}
-	if (in >= 0)
-	{
-		if (*fds[READ_END] >= 0)
-			close(*fds[READ_END]);
-		*fds[READ_END] = in;
-	}
-	if (out >= 0)
-	{
-		if (*fds[WRITE_END] >= 0)
-			close(*fds[WRITE_END]);
-		*fds[WRITE_END] = out;
-	}
+	if (!open_files(redirections, &in, &out))
+		return (0);
+	link_fds(fds, in, READ_END);
+	link_fds(fds, out, WRITE_END);
+	return (1);
+}
 
+void	redirect(t_simpleCmd *cmd)
+{
+	if (cmd->fds[READ_END] >= 0 && (dup2(cmd->fds[READ_END], STDIN_FILENO)) < 0)
+		exit(minishell_perror(1, "minishell", NULL));
+	close(cmd->fds[READ_END]);
+	if (cmd->fds[WRITE_END] >= 0 && (dup2(cmd->fds[WRITE_END], STDOUT_FILENO)) < 0)
+		exit(minishell_perror(1, "minishell" , NULL));
+	close(cmd->fds[WRITE_END]);
+	if (cmd->prev)
+		close(cmd->prev[WRITE_END]);
+	if (cmd->nxt)
+		close(cmd->nxt->fds[READ_END]);
 }

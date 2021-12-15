@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 12:08:16 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/15 21:11:36 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_cmd	*lexing_parsing(char *line, char **env)
 	tokens = lexer(line, env);
 	if (tokens)
 		cmd = parser(tokens);
+	if (cmd)
+		create_pipes(cmd->cmds);
 	ft_lstclear(&tokens, free);
 	return (cmd);
 }
@@ -48,6 +50,7 @@ int	main(int argc, char **argv, char **envp)
 
 	argc = 0;
 	argv = NULL;
+	g_exit_code = 0;
 	env = init_env(envp);
 	welcome();
 	signal(SIGINT, handle_sigint);
@@ -72,5 +75,6 @@ int	main(int argc, char **argv, char **envp)
 	printf("\x1b[1F");
 	printf("\001\e[38;5;38m\002MiniShell ~ 👉  \001\033[39mexit\n");
 	clear_history();
+	unlink("/tmp/heredoc");
 	return (g_exit_code);
 }
