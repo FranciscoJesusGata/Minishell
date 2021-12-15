@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 12:09:15 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/15 12:18:18 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 # define PIPE 124
 # define READ_END 0
 # define WRITE_END 1
+
+int		g_exit_code;
 
 char	*launch_term(void);
 t_list	*lexer(char *line, char **env);
