@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:58:10 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 11:33:46 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/15 14:46:14 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ int	equal_id(char *argv, char *env)
 	return (0);
 }
 
-int		valid_unset(char *arg)
+int	valid_unset(char *arg)
 {
-	int i;
+	int	i;
 
 	if (arg[0] < 'A' || arg[0] > 'z')
 		return (0);
 	i = 1;
-	while(arg[i])
+	while (arg[i])
 	{
 		if (arg[i] < '0' || arg[i] > 'z' || (arg[i] > '9' && arg[i] < 'A'))
 			return (0);
@@ -68,27 +68,27 @@ int		valid_unset(char *arg)
 char	**if_some_argc(char **tmp, int argc, char **argv)
 {
 	int	i;
-	int	arg_nb;
+	int	nb;
 
-	i = 0;
-	arg_nb = 1;
+	nb = 1;
 	if (argc > 1)
 	{
-		while (arg_nb < argc)
+		while (nb < argc)
 		{
 			i = 0;
-			if (valid_unset(argv[arg_nb]))
+			if (valid_unset(argv[nb]))
 			{
 				while (tmp[i])
 				{
-					if (equal_id(argv[arg_nb], tmp[i]))
+					if (equal_id(argv[nb], tmp[i]))
 						tmp = kill_env(tmp, i);
 					i++;
 				}
 			}
 			else
-				printf("minishell: unset: '%s': not a valid identifier\n", argv[arg_nb]);
-			arg_nb++;
+				printf("minishell: unset: '%s': not a valid identifier\n", \
+						argv[nb]);
+			nb++;
 		}
 	}
 	return (tmp);

@@ -6,11 +6,32 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:53:43 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/09 17:09:12 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/15 14:30:57 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**create_oldpwd(char **env)
+{
+	int		i;
+	char	cwd[PATH_MAX];
+	char	**tmp;
+
+	i = 0;
+	getcwd(cwd, sizeof(cwd));
+	tmp = ft_calloc(sizeof(char *), get_size(env) + 1);
+	while (env[i])
+	{
+		tmp[i] = env[i];
+		i++;
+	}
+	free(env);
+	tmp[i] = ft_strdup("OLDPWD=");
+	tmp[i] = clean_strjoin(tmp[i], cwd);
+	tmp[i + 1] = NULL;
+	return (tmp);
+}
 
 char	**chop_pwd(char **env, char *cwd)
 {

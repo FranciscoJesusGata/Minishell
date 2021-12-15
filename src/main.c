@@ -6,13 +6,11 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 12:56:28 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/15 15:05:47 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 t_cmd	*lexing_parsing(char *line, char **env)
 {
@@ -29,6 +27,13 @@ t_cmd	*lexing_parsing(char *line, char **env)
 
 int		g_exit_code;
 
+void	ending_minishell(void)
+{
+	printf("\x1b[1F");
+	printf("\001\e[38;5;38m\002MiniShell ~ 👉  \001\033[39mexit\n");
+	clear_history();
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -40,13 +45,9 @@ int	main(int argc, char **argv, char **envp)
 	g_exit_code = 0;
 	env = init_env(envp);
 	welcome();
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigquit);
 	line = launch_term();
 	while (line)
 	{
-		signal(SIGINT, handle_sigint);
-		signal(SIGQUIT, handle_sigquit);
 		if (*line)
 		{
 			cmd = lexing_parsing(line, env);
@@ -59,8 +60,6 @@ int	main(int argc, char **argv, char **envp)
 		free(line);
 		line = launch_term();
 	}
-	printf("\x1b[1F");
-	printf("\001\e[38;5;38m\002MiniShell ~ 👉  \001\033[39mexit\n");
-	clear_history();
+	ending_minishell();
 	return (g_exit_code);
 }

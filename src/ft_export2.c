@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:24:04 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 18:26:10 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/15 14:46:49 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,15 @@ char	**env_to_temp(char **env)
 		i++;
 	}
 	temp[i] = NULL;
+	return (temp);
+}
+
+char	*if_exist_copy(char *temp, char *argv)
+{
+	if (check_env_exists(temp, argv) == 1)
+	{
+		free(temp);
+		temp = ft_strdup(argv);
+	}
 	return (temp);
 }
