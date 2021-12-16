@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 14:42:55 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/16 15:40:40 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ char	**copy_envs(char **temp, char **argv, int argc, int c)
 				temp[i] = clean_strdup(temp[i]);
 			i++;
 		}
-		if (c != argc)
-			temp[i] = ft_strdup(argv[c]);
+		temp[i] = new_env(argc, argv, temp[i], c);
 		c++;
 	}
 	return (temp);
