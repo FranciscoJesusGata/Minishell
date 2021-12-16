@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:17:46 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 21:17:56 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/15 14:31:51 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	**create_oldpwd(char **env)
-{
-	int		i;
-	char	cwd[PATH_MAX];
-	char	**tmp;
-
-	i = 0;
-	getcwd(cwd, sizeof(cwd));
-	tmp = ft_calloc(sizeof(char *), get_size(env) + 1);
-	while (env[i])
-	{
-		tmp[i] = env[i];
-		i++;
-	}
-	free(env);
-	tmp[i] = ft_strdup("OLDPWD=");
-	tmp[i] = clean_strjoin(tmp[i], cwd);
-	tmp[i + 1] = NULL;
-	return (tmp);
-}
 
 int	ft_chdir(char **env)
 {
@@ -97,7 +76,6 @@ char	*join_home(char **env, char *path)
 	}
 	return (join);
 }
-
 
 void	check_path(char **env, char *path)
 {

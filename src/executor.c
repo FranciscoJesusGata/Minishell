@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
 /*   Updated: 2021/12/15 22:22:52 by fgata-va         ###   ########.fr       */
@@ -43,7 +43,7 @@ void	exec_builtin(t_simpleCmd *cmd, char ***env)
 	else if (!ft_strncmp(cmd->argv[0], "cd", len))
 		ft_cd(cmd->argc, cmd->argv, env);
 	else if (!ft_strncmp(cmd->argv[0], "exit", len))
-		ft_exit(cmd->argv[1]);
+		ft_exit(cmd->argv, cmd->argc);
 }
 
 char	*find_binary(t_simpleCmd *cmd, char **path)
@@ -201,7 +201,7 @@ int		executor(char ***env, t_cmd *cmd)
 			dup2(tmpin, STDIN_FILENO);
 			dup2(tmpout, STDOUT_FILENO);
 			close(tmpin);
-			close(tmpout);
+			close(tmpout)
 		}
 	}
 	else

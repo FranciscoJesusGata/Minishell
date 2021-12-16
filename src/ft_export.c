@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 18:52:34 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/15 14:42:55 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	check_env_exists(char *env, char *argv)
 	tmp = ft_split(argv, '=');
 	if (!ft_strncmp(env, tmp[0], ft_strlen(tmp[0])))
 	{
+		if (argv[ft_strlen(tmp[0])] != '=')
+			return (2);
 		ft_freearray(tmp);
 		return (1);
 	}
@@ -56,25 +58,24 @@ char	**copy_envs(char **temp, char **argv, int argc, int c)
 {
 	int	i;
 
-	i = 0;
-	while (temp[i])
-	{
-		if (argv[c] && check_env_exists(temp[i], argv[c]))
-		{
-			free(temp[i]);
-			temp[i] = ft_strdup(argv[c]);
-			c++;
-			if (c < argc)
-				i = -1;
-		}
-		else
-			temp[i] = clean_strdup(temp[i]);
-		i++;
-	}
 	while (c < argc)
 	{
-		temp[i] = ft_strdup(argv[c]);
-		i++;
+		i = 0;
+		while (temp[i])
+		{
+			if (argv[c] && check_env_exists(temp[i], argv[c]))
+			{
+				temp[i] = if_exist_copy(temp[i], argv[c]);
+				c++;
+				if (c < argc)
+					i = -1;
+			}
+			else
+				temp[i] = clean_strdup(temp[i]);
+			i++;
+		}
+		if (c != argc)
+			temp[i] = ft_strdup(argv[c]);
 		c++;
 	}
 	return (temp);

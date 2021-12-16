@@ -27,7 +27,6 @@ SRC := $(addprefix $(SRCDIR)/, main.c terminal.c utils_1.c term_utils.c lexer.c 
 	  ft_export2.c ft_unset.c ft_cd.c ft_cd2.c ft_cd3.c ft_exit.c builtins_utils.c signs.c \
 	  io_management.c)
 
-
 OBJS :=  $(patsubst $(SRCDIR)/%,$(OBJDIR)/%,$(SRC:.c=.o))
 
 NORMI = norminette

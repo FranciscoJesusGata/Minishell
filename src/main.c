@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
 /*   Updated: 2021/12/15 21:11:36 by fgata-va         ###   ########.fr       */
@@ -42,6 +42,15 @@ t_cmd	*lexing_parsing(char *line, char **env)
 	return (cmd);
 }
 
+int		g_exit_code;
+
+void	ending_minishell(void)
+{
+	printf("\x1b[1F");
+	printf("\001\e[38;5;38m\002MiniShell ~ 👉  \001\033[39mexit\n");
+	clear_history();
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -53,13 +62,9 @@ int	main(int argc, char **argv, char **envp)
 	g_exit_code = 0;
 	env = init_env(envp);
 	welcome();
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigquit);
 	line = launch_term();
 	while (line)
 	{
-		signal(SIGINT, handle_sigint);
-		signal(SIGQUIT, handle_sigquit);
 		if (*line)
 		{
 			cmd = lexing_parsing(line, env);
@@ -72,9 +77,6 @@ int	main(int argc, char **argv, char **envp)
 		free(line);
 		line = launch_term();
 	}
-	printf("\x1b[1F");
-	printf("\001\e[38;5;38m\002MiniShell ~ 👉  \001\033[39mexit\n");
-	clear_history();
-	unlink("/tmp/heredoc");
+	ending_minishell();
 	return (g_exit_code);
 }
