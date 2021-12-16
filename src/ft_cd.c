@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:17:46 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/16 15:53:40 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/16 17:11:28 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	change_pwd(char **env, char *cwd)
 		}
 		i++;
 	}
-	ft_freearray(split);
+	if (split)
+		ft_freearray(split);
 }
 
 char	*join_home(char **env, char *path)

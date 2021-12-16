@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 21:11:36 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/16 17:11:52 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	main(int argc, char **argv, char **envp)
 	argc = 0;
 	argv = NULL;
 	g_exit_code = 0;
+	//env = init_env(ft_split("", ' '));
+	//(void)envp;
 	env = init_env(envp);
 	welcome();
 	line = launch_term();
