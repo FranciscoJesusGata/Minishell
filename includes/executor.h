@@ -22,5 +22,4 @@ void	ft_pwd(void);
 */
 int		redirections(t_redir *redirections, int *fds);
 void	redirect(t_simpleCmd *cmd);
-
 #endif

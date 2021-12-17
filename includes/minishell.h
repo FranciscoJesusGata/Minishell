@@ -43,6 +43,8 @@
 
 int		g_exit_code;
 
+extern int	g_exit_code;
+
 char	*launch_term(void);
 t_list	*lexer(char *line, char **env);
 

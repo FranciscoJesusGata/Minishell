@@ -60,13 +60,15 @@ int	main(int argc, char **argv, char **envp)
 	argc = 0;
 	argv = NULL;
 	g_exit_code = 0;
-	//env = init_env(ft_split("", ' '));
-	//(void)envp;
 	env = init_env(envp);
 	welcome();
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit);
 	line = launch_term();
 	while (line)
 	{
+		signal(SIGINT, handle_sigint);
+		signal(SIGQUIT, handle_sigquit);
 		if (*line)
 		{
 			cmd = lexing_parsing(line, env);
@@ -80,5 +82,6 @@ int	main(int argc, char **argv, char **envp)
 		line = launch_term();
 	}
 	ending_minishell();
+
 	return (g_exit_code);
 }

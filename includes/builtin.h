@@ -44,5 +44,4 @@ int		valid_export(char *arg);
 char	*new_env(int argc, char **argv, char *temp, int c);
 int		looking_for_home(char **env);
 
-
 #endif
