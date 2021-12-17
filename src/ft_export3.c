@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 15:14:58 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/16 15:19:26 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/17 16:12:45 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 int	valid_export(char *arg)
 {
 	int	i;
+	int	count;
 
+	count = 0;
 	if (arg[0] < 'A' || arg[0] > 'z')
 		return (0);
 	i = 1;
-	while (arg[i])
+	while (arg[count] != '=')
+		count++;
+	while (arg[i] && i < count)
 	{
 		if ((arg[i] < '0' || arg[i] > 'z' || (arg[i] > '9' && arg[i] < 'A')))
 		{
