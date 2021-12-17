@@ -6,7 +6,7 @@
 #    By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/19 10:34:45 by fgata-va          #+#    #+#              #
-#    Updated: 2021/12/17 18:35:58 by fgata-va         ###   ########.fr        #
+#    Updated: 2021/12/17 19:03:59 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ LIBDIR := libs/
 SRC := $(addprefix $(SRCDIR)/, main.c terminal.c utils_1.c term_utils.c lexer.c \
 	  lexer_status.c lexer_utils.c lexer_utils2.c token_manager.c parser.c cmd_manager_1.c \
 	  cmd_manager_2.c init_env.c executor.c ft_pwd.c ft_env.c ft_echo.c ft_export.c \
-	  ft_export2.c ft_unset.c ft_cd.c ft_cd2.c ft_cd3.c ft_exit.c builtins_utils.c signs.c \
-	  io_management.c executor_utils_1.c launch_commands.c)
+	  ft_export2.c ft_export3.c ft_unset.c ft_cd.c ft_cd2.c ft_cd3.c ft_exit.c builtins_utils.c \
+	  signs.c io_management.c executor_utils_1.c launch_commands.c)
 
 OBJS :=  $(patsubst $(SRCDIR)/%,$(OBJDIR)/%,$(SRC:.c=.o))
 
