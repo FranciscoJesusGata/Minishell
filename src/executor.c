@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/16 15:33:39 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/17 17:54:45 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@ int	is_builtin(char *cmd)
 void	exec_builtin(t_simpleCmd *cmd, char ***env)
 {
 	if (!ft_strncmp(cmd->argv[0], "pwd", ft_strlen("pwd")))
-		ft_pwd();
+		g_exit_code = ft_pwd();
 	else if (!ft_strncmp(cmd->argv[0], "env", ft_strlen("env")))
-		ft_env(*env);
+		g_exit_code = ft_env(*env, cmd->argv, cmd->argc);
 	else if (!ft_strncmp(cmd->argv[0], "echo", ft_strlen("echo")))
-		ft_echo(cmd->argc, cmd->argv);
+		g_exit_code = ft_echo(cmd->argc, cmd->argv);
 	else if (!ft_strncmp(cmd->argv[0], "export", ft_strlen("export")))
-		ft_export(cmd->argc, cmd->argv, env);
+		g_exit_code = ft_export(cmd->argc, cmd->argv, env);
 	else if (!ft_strncmp(cmd->argv[0], "unset", ft_strlen("unset")))
-		ft_unset(cmd->argc, cmd->argv, env);
+		g_exit_code = ft_unset(cmd->argc, cmd->argv, env);
 	else if (!ft_strncmp(cmd->argv[0], "cd", ft_strlen("cd")))
-		ft_cd(cmd->argc, cmd->argv, env);
+		g_exit_code = ft_cd(cmd->argc, cmd->argv, env);
 	else if (!ft_strncmp(cmd->argv[0], "exit", ft_strlen("exit")))
-		ft_exit(cmd->argv, cmd->argc);
+		g_exit_code = ft_exit(cmd->argv, cmd->argc);
 }
 
 char	*find_binary(t_simpleCmd *cmd, char **path)

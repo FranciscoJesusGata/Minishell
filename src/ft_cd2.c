@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:44:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/09 17:08:36 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/17 17:46:05 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	is_home(char **env)
 		i++;
 	}
 	printf("minishell: cd: HOME not set\n");
+	//g_exit_code = 1;
 	return (0);
 }
 

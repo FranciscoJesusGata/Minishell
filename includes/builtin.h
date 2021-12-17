@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:09:06 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/16 15:53:33 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/17 17:56:18 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 # define BUILTIN_H
 # include "minishell.h"
 
-void	ft_env(char **env);
-void	ft_echo(int argc, char **argv);
+int		ft_env(char **env, char **argv, int argc);
+int		ft_echo(int argc, char **argv);
 int		ft_export(int argc, char **argv, char ***env);
-void	ft_unset(int argc, char **argv, char ***envp);
-void	ft_exit(char **argv, int argc);
-void	ft_cd(int argc, char **argv, char ***env);
+int		ft_unset(int argc, char **argv, char ***envp);
+int		ft_exit(char **argv, int argc);
+int		ft_cd(int argc, char **argv, char ***env);
+int		ft_pwd(void);
 int		get_size(char **env);
 void	display_str(char **splitted, int arr_size, int export_flag);
 void	ft_freearray(char **array);

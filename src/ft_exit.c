@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:14:30 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 14:35:02 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/17 17:05:14 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	all_digit(const char *arg)
 	return (1);
 }
 
-void	ft_exit(char **argv, int argc)
+int	ft_exit(char **argv, int argc)
 {
 	if (argv[1])
 	{
@@ -39,7 +39,7 @@ void	ft_exit(char **argv, int argc)
 			else
 			{
 				printf("minishell: exit: too many argumenteiros\n");
-				return ;
+				return (1);
 			}
 		}
 		else
@@ -50,5 +50,6 @@ void	ft_exit(char **argv, int argc)
 		}
 	}
 	printf("exit\n");
-	exit(0);
+	exit(0); // <-- cambiar por el g_exit_code <--
+	return (0);
 }
