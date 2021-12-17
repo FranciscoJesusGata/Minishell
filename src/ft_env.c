@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 12:20:28 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 20:03:11 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/17 15:50:51 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 void	ft_env(char **env)
 {
-	int	i;
-	int	size;
+	int		i;
+	int		size;
+	char	**split;
 
 	i = 0;
 	size = get_size(env);
 	while (i < size)
 	{
-		printf("%s\n", env[i]);
+		split = ft_split(env[i], '=');
+		if (env[i][ft_strlen(split[0])] == '=')
+			printf("%s\n", env[i]);
+		ft_freearray(split);
 		i++;
 	}
 }
