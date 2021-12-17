@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:16:22 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/17 11:50:34 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/17 16:39:27 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ void	ft_pwd(void);
 */
 int		redirections(t_redir *redirections, int *fds);
 void	redirect(t_simpleCmd *cmd);
+void	create_pipes(t_simpleCmd *cmds);
 
 #endif

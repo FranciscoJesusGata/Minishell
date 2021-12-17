@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 21:11:36 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/17 16:41:04 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	create_pipes(t_simpleCmd *cmds)
-{
-	int	pipe_fds[2];
-
-	while (cmds->nxt)
-	{
-		if ((pipe(pipe_fds)) < 0)
-			exit(minishell_perror(1, "pipe error", NULL));
-		cmds->fds[WRITE_END] = pipe_fds[WRITE_END];
-		cmds->nxt->fds[READ_END] = pipe_fds[READ_END];
-		cmds->nxt->prev = cmds->fds;
-		cmds = cmds->nxt;
-	}
-}
 
 t_cmd	*lexing_parsing(char *line, char **env)
 {
@@ -36,8 +21,6 @@ t_cmd	*lexing_parsing(char *line, char **env)
 	tokens = lexer(line, env);
 	if (tokens)
 		cmd = parser(tokens);
-	if (cmd)
-		create_pipes(cmd->cmds);
 	ft_lstclear(&tokens, free);
 	return (cmd);
 }
