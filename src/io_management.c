@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:41:10 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/15 22:23:22 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/17 17:09:40 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,14 +122,29 @@ int	redirections(t_redir *redirections, int *fds)
 
 void	redirect(t_simpleCmd *cmd)
 {
-	if (cmd->fds[READ_END] >= 0 && (dup2(cmd->fds[READ_END], STDIN_FILENO)) < 0)
-		exit(minishell_perror(1, "minishell", NULL));
-	close(cmd->fds[READ_END]);
-	if (cmd->fds[WRITE_END] >= 0 && (dup2(cmd->fds[WRITE_END], STDOUT_FILENO)) < 0)
-		exit(minishell_perror(1, "minishell" , NULL));
-	close(cmd->fds[WRITE_END]);
-	if (cmd->prev)
-		close(cmd->prev[WRITE_END]);
 	if (cmd->nxt)
 		close(cmd->nxt->fds[READ_END]);
+	if (cmd->fds[READ_END] >= 0)
+	{
+		if ((dup2(cmd->fds[READ_END], STDIN_FILENO)) < 0)
+			exit(minishell_perror(1, "minishell", NULL));
+		close(cmd->fds[READ_END]);
+	}
+	if (cmd->fds[WRITE_END] >= 0)
+	{
+		if ((dup2(cmd->fds[WRITE_END], STDOUT_FILENO)) < 0)
+			exit(minishell_perror(1, "minishell" , NULL));
+		close(cmd->fds[WRITE_END]);
+	}
+}
+
+void	create_pipes(t_simpleCmd *cmds)
+{
+	int	pipe_fds[2];
+
+	if ((pipe(pipe_fds)) < 0)
+		exit(minishell_perror(1, "pipe error", NULL));
+	cmds->fds[WRITE_END] = pipe_fds[WRITE_END];
+	cmds->nxt->fds[READ_END] = pipe_fds[READ_END];
+	cmds->nxt->prev = cmds->fds;
 }
