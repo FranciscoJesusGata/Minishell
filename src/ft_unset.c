@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:58:10 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 14:46:14 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/16 15:16:05 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	equal_id(char *argv, char *env)
 	return (0);
 }
 
+
 int	valid_unset(char *arg)
 {
 	int	i;
@@ -58,7 +59,7 @@ int	valid_unset(char *arg)
 	i = 1;
 	while (arg[i])
 	{
-		if (arg[i] < '0' || arg[i] > 'z' || (arg[i] > '9' && arg[i] < 'A'))
+		if ((arg[i] < '0' || arg[i] > 'z' || (arg[i] > '9' && arg[i] < 'A')))
 			return (0);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:24:04 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 14:46:49 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/16 15:41:59 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,18 @@ char	*if_exist_copy(char *temp, char *argv)
 	{
 		free(temp);
 		temp = ft_strdup(argv);
+	}
+	return (temp);
+}
+
+char	*new_env(int argc, char **argv, char *temp, int c)
+{
+	if (c != argc)
+	{
+		if (valid_export(argv[c]))
+			temp = ft_strdup(argv[c]);
+		else
+			printf("minishell: export: %s: not a valid identifier\n", argv[c]);
 	}
 	return (temp);
 }

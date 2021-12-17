@@ -34,4 +34,9 @@ int		redirections(t_redir *redirections, int *fds);
 void	redirect(t_simpleCmd *cmd);
 void	create_pipes(t_simpleCmd *cmds);
 
+/*
+** File redirection and pipes management functions
+*/
+int		redirections(t_redir *redirections, int *fds);
+void	redirect(t_simpleCmd *cmd);
 #endif

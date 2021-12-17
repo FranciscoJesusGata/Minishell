@@ -12,6 +12,21 @@
 
 #include "minishell.h"
 
+void	create_pipes(t_simpleCmd *cmds)
+{
+	int	pipe_fds[2];
+
+	while (cmds->nxt)
+	{
+		if ((pipe(pipe_fds)) < 0)
+			exit(minishell_perror(1, "pipe error", NULL));
+		cmds->fds[WRITE_END] = pipe_fds[WRITE_END];
+		cmds->nxt->fds[READ_END] = pipe_fds[READ_END];
+		cmds->nxt->prev = cmds->fds;
+		cmds = cmds->nxt;
+	}
+}
+
 t_cmd	*lexing_parsing(char *line, char **env)
 {
 	t_list	*tokens;
@@ -21,6 +36,8 @@ t_cmd	*lexing_parsing(char *line, char **env)
 	tokens = lexer(line, env);
 	if (tokens)
 		cmd = parser(tokens);
+	if (cmd)
+		create_pipes(cmd->cmds);
 	ft_lstclear(&tokens, free);
 	return (cmd);
 }
@@ -45,9 +62,13 @@ int	main(int argc, char **argv, char **envp)
 	g_exit_code = 0;
 	env = init_env(envp);
 	welcome();
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit);
 	line = launch_term();
 	while (line)
 	{
+		signal(SIGINT, handle_sigint);
+		signal(SIGQUIT, handle_sigquit);
 		if (*line)
 		{
 			cmd = lexing_parsing(line, env);
@@ -61,5 +82,6 @@ int	main(int argc, char **argv, char **envp)
 		line = launch_term();
 	}
 	ending_minishell();
+
 	return (g_exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:53:43 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 14:30:57 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/16 15:53:23 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,18 @@ char	*new_oldpwd(char **env, char *tmp, char *cwd, int i)
 	ft_freearray(split);
 	free(env[i]);
 	return (tmp);
+}
+
+int	looking_for_home(char **env)
+{
+	int i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], "HOME=", ft_strlen("HOME=")))
+			return (1);
+		i++;
+	}
+	return (0);
 }

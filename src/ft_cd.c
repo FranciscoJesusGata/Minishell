@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:17:46 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 14:31:51 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/16 17:11:28 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ int	ft_chdir(char **env)
 	char	**split;
 
 	i = 0;
+	dir_nbr = 0;
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], "HOME=", ft_strlen("HOME=")))
 			split = ft_split(env[i], '=');
 		i++;
 	}
-	dir_nbr = chdir(split[1]);
+	if (looking_for_home(env))
+		dir_nbr = chdir(split[1]);
 	if (dir_nbr != 0)
 		printf("cd: %s: %s\n", strerror(errno), split[1]);
 	ft_freearray(split);
@@ -51,7 +53,8 @@ void	change_pwd(char **env, char *cwd)
 		}
 		i++;
 	}
-	ft_freearray(split);
+	if (split)
+		ft_freearray(split);
 }
 
 char	*join_home(char **env, char *path)
