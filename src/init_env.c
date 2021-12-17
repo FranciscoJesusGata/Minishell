@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:05:34 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/13 19:08:52 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/15 14:44:06 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	**save_env(char **envp, int i)
 {
 	char	**env;
+
 	env = ft_calloc(sizeof(char *), (i + 1));
 	i = 0;
 	while (envp[i])

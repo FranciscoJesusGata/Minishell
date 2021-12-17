@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/14 18:30:44 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/16 15:40:40 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,17 @@ char	**bubble_sort(char **array, int array_size)
 
 int	check_env_exists(char *env, char *argv)
 {
-	//env:	HOLA=
-	//argv:	HOLA
 	char	**tmp;
 
 	tmp = ft_split(argv, '=');
-	if (!ft_strncmp(env, tmp[0], ft_strlen(tmp[0])))	//YA EXISTE LA VARIABLE
+	if (!ft_strncmp(env, tmp[0], ft_strlen(tmp[0])))
 	{
 		if (argv[ft_strlen(tmp[0])] != '=')
 			return (2);
 		ft_freearray(tmp);
 		return (1);
 	}
-	ft_freearray(tmp);									// NO EXISTE A VARIABLE
+	ft_freearray(tmp);
 	return (0);
 }
 
@@ -67,11 +65,7 @@ char	**copy_envs(char **temp, char **argv, int argc, int c)
 		{
 			if (argv[c] && check_env_exists(temp[i], argv[c]))
 			{
-				if (check_env_exists(temp[i], argv[c]) == 1)
-				{
-					free(temp[i]);
-					temp[i] = ft_strdup(argv[c]);
-				}
+				temp[i] = if_exist_copy(temp[i], argv[c]);
 				c++;
 				if (c < argc)
 					i = -1;
@@ -80,9 +74,7 @@ char	**copy_envs(char **temp, char **argv, int argc, int c)
 				temp[i] = clean_strdup(temp[i]);
 			i++;
 		}
-		if (c != argc)
-			temp[i] = ft_strdup(argv[c]);
-		//i++;
+		temp[i] = new_env(argc, argv, temp[i], c);
 		c++;
 	}
 	return (temp);

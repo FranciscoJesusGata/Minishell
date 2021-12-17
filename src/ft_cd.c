@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:17:46 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 21:17:56 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/16 17:11:28 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	**create_oldpwd(char **env)
-{
-	int		i;
-	char	cwd[PATH_MAX];
-	char	**tmp;
-
-	i = 0;
-	getcwd(cwd, sizeof(cwd));
-	tmp = ft_calloc(sizeof(char *), get_size(env) + 1);
-	while (env[i])
-	{
-		tmp[i] = env[i];
-		i++;
-	}
-	free(env);
-	tmp[i] = ft_strdup("OLDPWD=");
-	tmp[i] = clean_strjoin(tmp[i], cwd);
-	tmp[i + 1] = NULL;
-	return (tmp);
-}
 
 int	ft_chdir(char **env)
 {
@@ -40,13 +19,15 @@ int	ft_chdir(char **env)
 	char	**split;
 
 	i = 0;
+	dir_nbr = 0;
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], "HOME=", ft_strlen("HOME=")))
 			split = ft_split(env[i], '=');
 		i++;
 	}
-	dir_nbr = chdir(split[1]);
+	if (looking_for_home(env))
+		dir_nbr = chdir(split[1]);
 	if (dir_nbr != 0)
 		printf("cd: %s: %s\n", strerror(errno), split[1]);
 	ft_freearray(split);
@@ -72,7 +53,8 @@ void	change_pwd(char **env, char *cwd)
 		}
 		i++;
 	}
-	ft_freearray(split);
+	if (split)
+		ft_freearray(split);
 }
 
 char	*join_home(char **env, char *path)
@@ -97,7 +79,6 @@ char	*join_home(char **env, char *path)
 	}
 	return (join);
 }
-
 
 void	check_path(char **env, char *path)
 {

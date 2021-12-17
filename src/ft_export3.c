@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_export3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 13:33:57 by fportalo          #+#    #+#             */
-/*   Updated: 2021/11/04 11:22:02 by fportalo         ###   ########.fr       */
+/*   Created: 2021/12/16 15:14:58 by fportalo          #+#    #+#             */
+/*   Updated: 2021/12/16 15:19:26 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <limits.h>
-#include <stdio.h>
+#include "minishell.h"
 
-int	main(void)
+int	valid_export(char *arg)
 {
-	char cwd[PATH_MAX];
+	int	i;
 
-	getcwd(cwd, sizeof(cwd));
-	if (cwd != NULL)
-		printf("PWD=%s\n", cwd);
-	else
-		perror("bad pwd");
-	return (0);
+	if (arg[0] < 'A' || arg[0] > 'z')
+		return (0);
+	i = 1;
+	while (arg[i])
+	{
+		if ((arg[i] < '0' || arg[i] > 'z' || (arg[i] > '9' && arg[i] < 'A')))
+		{
+			if (arg[i] != '=' && (i != (int)ft_strlen(arg)))
+				return (0);
+		}
+		i++;
+	}
+	return (1);
 }
