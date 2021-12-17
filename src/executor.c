@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/17 16:43:06 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/17 18:17:22 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ int is_builtin(char *cmd)
 {
 	int	len;
 
-	len = ft_strlen(cmd);
-	if (len > 0 && (!ft_strncmp(cmd, "pwd", len) ||
-		!ft_strncmp(cmd, "env", len) || !ft_strncmp(cmd, "echo", len) ||
-		!ft_strncmp(cmd, "export", len) || !ft_strncmp(cmd, "unset", len)
-		|| !ft_strncmp(cmd, "cd", len) || !ft_strncmp(cmd, "exit", len)))
-		return (1);
+	if (cmd)
+	{
+		len = ft_strlen(cmd);
+		if (len > 0 && (!ft_strncmp(cmd, "pwd", len) ||
+			!ft_strncmp(cmd, "env", len) || !ft_strncmp(cmd, "echo", len) ||
+			!ft_strncmp(cmd, "export", len) || !ft_strncmp(cmd, "unset", len)
+			|| !ft_strncmp(cmd, "cd", len) || !ft_strncmp(cmd, "exit", len)))
+			return (1);
+	}
 	return (0);
 }
 
@@ -55,33 +58,36 @@ char	*find_binary(t_simpleCmd *cmd, char **path)
 	i = 0;
 	found = -1;
 	bin_path = NULL;
-	if (!path || ft_strchr(cmd->argv[0], '/'))
+	if (cmd->argv[0])
 	{
-		found = access(cmd->argv[0], X_OK);
-		if (found < 0)
-			printf("minishell: %s: No such file or directory\n", cmd->argv[0]);
-		else
-			bin_path = cmd->argv[0];
-	}
-	else
-	{
-		if (ft_strlen(cmd->argv[0]))
+		if (!path || ft_strchr(cmd->argv[0], '/'))
 		{
-			while (path[i])
-			{
-				bin_path = ft_strdup(path[i]);
-				bin_path = clean_strjoin(bin_path, "/");
-				bin_path = clean_strjoin(bin_path, cmd->argv[0]);
-				found = access(bin_path, X_OK);
-				if (!found)
-					break ;
-				free(bin_path);
-				bin_path = NULL;
-				i++;
-			}
+			found = access(cmd->argv[0], X_OK);
+			if (found < 0)
+				printf("minishell: %s: No such file or directory\n", cmd->argv[0]);
+			else
+				bin_path = cmd->argv[0];
 		}
-		if (!bin_path)
-			printf("minishell: %s: command not found\n", cmd->argv[0]);
+		else
+		{
+			if (ft_strlen(cmd->argv[0]))
+			{
+				while (path[i])
+				{
+					bin_path = ft_strdup(path[i]);
+					bin_path = clean_strjoin(bin_path, "/");
+					bin_path = clean_strjoin(bin_path, cmd->argv[0]);
+					found = access(bin_path, X_OK);
+					if (!found)
+						break ;
+					free(bin_path);
+					bin_path = NULL;
+					i++;
+				}
+			}
+			if (!bin_path)
+				printf("minishell: %s: command not found\n", cmd->argv[0]);
+		}
 	}
 	return (bin_path);
 }
@@ -100,13 +106,12 @@ int		exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
 	else
 	{
 		bin_path = find_binary(cmd, path);
-		if (!bin_path)
+		if (!bin_path && cmd->argv[0])
 			exit_status = 127;
 		else
 		{
-		redirect(cmd);
-		if (execve(bin_path, cmd->argv, *env) < 0)
-			return (minishell_perror(1, bin_path, NULL));
+			redirect(cmd);
+			execve(bin_path, cmd->argv, *env);
 		}
 	}
 	return (exit_status);
@@ -133,7 +138,7 @@ char	**get_path(char **envp)
 int		get_exit_code(int exit_code)
 {
 	if (WIFSIGNALED(exit_code))
-		return(128 + WTERMSIG(exit_code));
+		return (128 + WTERMSIG(exit_code));
 	else if (WIFSTOPPED(exit_code))
 		return (WSTOPSIG(exit_code));
 	else if (WIFEXITED(exit_code))
