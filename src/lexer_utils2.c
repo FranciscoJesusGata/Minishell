@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:09:21 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 15:08:32 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/18 15:43:37 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	expand(t_lexer *lexer, char *line, char **env)
 		concat(&lexer->buffer, ft_strdup(""));
 	lexer->start = lexer->end;
 	free(tmp);
-
 }
 
 void	expand_exclamation(t_lexer *lexer)
