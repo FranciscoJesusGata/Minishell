@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/17 16:41:04 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/18 17:17:59 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	main(int argc, char **argv, char **envp)
 			if (cmd)
 			{
 				g_exit_code = executor(&env, cmd);
+				//system("leaks minishell");
 				delete_cmd(&cmd);
 			}
 		}

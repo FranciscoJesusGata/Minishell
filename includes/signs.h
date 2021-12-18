@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signs.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:51:46 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 16:53:14 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/18 19:10:08 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "minishell.h"
 
-void handle_sigquit(int signo);
-void handle_sigint(int signo);
+void	handle_sigquit(int signo);
+void	handle_sigint(int signo);
+void	handle_heredoc(int signo);
 
 #endif

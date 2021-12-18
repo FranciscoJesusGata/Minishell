@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 12:18:18 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/18 19:09:07 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <errno.h>
+# include <sys/ioctl.h>
 
 # define WORD 61
 # define LESS 60

@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:43:24 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/13 19:00:53 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/18 17:07:38 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	is_dquote(t_lexer *lexer, char *line, char **env)
 minishell: syntax error: unexpected end of file\n");
 			return (1);
 		}
-		if (line[lexer->end] == '$')
+		if (line[lexer->end] == '$' && lexer->expand)
 			is_expand(lexer, line, env);
 		else
 			lexer->end++;
