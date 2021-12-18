@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
 /*   Updated: 2021/12/18 15:44:22 by fportalo         ###   ########.fr       */
@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	is_builtin(char *cmd)
+int	wait_cmds(t_simpleCmd *s_cmd)
 {
 	int	len;
 
@@ -173,15 +173,17 @@ int		wait_cmds(t_simpleCmd *s_cmd)
 
 void	fork_cmds(t_simpleCmd *s_cmd, char **path, char ***env, int builtin)
 {
-	pid_t		pid;
+	pid_t	pid;
 
 	while (s_cmd)
 	{
+		if (s_cmd->nxt)
+			create_pipes(s_cmd);
 		pid = fork();
 		if (!pid)
 			exit(exec_cmd(s_cmd, builtin, env, path));
-		close(s_cmd->fds[READ_END]);
 		close(s_cmd->fds[WRITE_END]);
+		close(s_cmd->fds[READ_END]);
 		s_cmd->pid = pid;
 		s_cmd = s_cmd->nxt;
 		if (s_cmd)
@@ -189,13 +191,26 @@ void	fork_cmds(t_simpleCmd *s_cmd, char **path, char ***env, int builtin)
 	}
 }
 
-int		executor(char ***env, t_cmd *cmd)
+void	no_fork(t_simpleCmd *cmd, char ***env)
 {
-	int			exit_code;
-	char		**path;
-	int			builtin;
-	int			tmpin;
-	int			tmpout;
+	int	tmpin;
+	int	tmpout;
+
+	tmpin = dup(STDIN_FILENO);
+	tmpout = dup(STDIN_FILENO);
+	redirect(cmd);
+	exec_builtin(cmd, env);
+	dup2(tmpin, STDIN_FILENO);
+	dup2(tmpout, STDOUT_FILENO);
+	close(tmpin);
+	close(tmpout);
+}
+
+int	executor(char ***env, t_cmd *cmd)
+{
+	int		exit_code;
+	char	**path;
+	int		builtin;
 
 	path = get_path(*env);
 	exit_code = 0;
