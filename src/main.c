@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/16 17:11:52 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/18 15:07:59 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,5 @@ int	main(int argc, char **argv, char **envp)
 		line = launch_term();
 	}
 	ending_minishell();
-
 	return (g_exit_code);
 }

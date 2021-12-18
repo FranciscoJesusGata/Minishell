@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:09:21 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/13 19:00:40 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/18 15:08:32 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	expand(t_lexer *lexer, char *line, char **env)
 	else
 		concat(&lexer->buffer, ft_strdup(""));
 	lexer->start = lexer->end;
+	free(tmp);
+
 }
 
 void	expand_exclamation(t_lexer *lexer)

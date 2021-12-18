@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 14:27:23 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/18 14:42:24 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	check_env_exists(char *env, char *argv)
 	if (!ft_strncmp(env, tmp[0], ft_strlen(tmp[0])))
 	{
 		if (argv[ft_strlen(tmp[0])] != '=')
+		{
+			ft_freearray(tmp);
 			return (2);
+		}
 		ft_freearray(tmp);
 		return (1);
 	}
