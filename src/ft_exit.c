@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:14:30 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/17 17:05:14 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/18 12:43:02 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int	ft_exit(char **argv, int argc)
 		}
 	}
 	printf("exit\n");
-	exit(0); // <-- cambiar por el g_exit_code <--
+	exit(g_exit_code);
 	return (0);
 }

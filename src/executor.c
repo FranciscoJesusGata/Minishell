@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 12:38:06 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/18 12:50:46 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,26 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-void	exec_builtin(t_simpleCmd *cmd, char ***env)
+int	exec_builtin(t_simpleCmd *cmd, char ***env)
 {
+	int	el_pibe;
+
+	el_pibe = 0;
 	if (!ft_strncmp(cmd->argv[0], "pwd", ft_strlen("pwd")))
-		g_exit_code = ft_pwd();
+		el_pibe = ft_pwd();
 	else if (!ft_strncmp(cmd->argv[0], "env", ft_strlen("env")))
-		g_exit_code = ft_env(*env, cmd->argv, cmd->argc);
+		el_pibe = ft_env(*env, cmd->argv, cmd->argc);
 	else if (!ft_strncmp(cmd->argv[0], "echo", ft_strlen("echo")))
-		g_exit_code = ft_echo(cmd->argc, cmd->argv);
+		el_pibe = ft_echo(cmd->argc, cmd->argv);
 	else if (!ft_strncmp(cmd->argv[0], "export", ft_strlen("export")))
-		g_exit_code = ft_export(cmd->argc, cmd->argv, env);
+		el_pibe = ft_export(cmd->argc, cmd->argv, env);
 	else if (!ft_strncmp(cmd->argv[0], "unset", ft_strlen("unset")))
-		g_exit_code = ft_unset(cmd->argc, cmd->argv, env);
+		el_pibe = ft_unset(cmd->argc, cmd->argv, env);
 	else if (!ft_strncmp(cmd->argv[0], "cd", ft_strlen("cd")))
-		g_exit_code = ft_cd(cmd->argc, cmd->argv, env);
+		el_pibe = ft_cd(cmd->argc, cmd->argv, env);
 	else if (!ft_strncmp(cmd->argv[0], "exit", ft_strlen("exit")))
-		g_exit_code = ft_exit(cmd->argv, cmd->argc);
+		el_pibe = ft_exit(cmd->argv, cmd->argc);
+	return (el_pibe);
 }
 
 char	*find_binary(t_simpleCmd *cmd, char **path)
@@ -97,7 +101,7 @@ int		exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
 	if (!redirections(cmd->redirs,(int *)&cmd->fds))
 		return (1);
 	if (is_builtin)
-		exec_builtin(cmd, env);
+		exit_status = exec_builtin(cmd, env);
 	else
 	{
 		bin_path = find_binary(cmd, path);
@@ -198,7 +202,7 @@ int		executor(char ***env, t_cmd *cmd)
 			tmpin = dup(STDIN_FILENO);
 			tmpout = dup(STDIN_FILENO);
 			redirect(cmd->cmds);
-			exec_builtin(cmd->cmds, env);
+			exit_code = exec_builtin(cmd->cmds, env);
 			dup2(tmpin, STDIN_FILENO);
 			dup2(tmpout, STDOUT_FILENO);
 			close(tmpin);

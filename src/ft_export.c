@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/16 15:40:40 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/18 13:05:31 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	ft_export(int argc, char **argv, char ***env)
 {
 	int		arr_size;
 	char	**tmp;
+	int		i;
 
 	tmp = NULL;
 	if (argc > 1)
@@ -114,6 +115,13 @@ int	ft_export(int argc, char **argv, char ***env)
 		tmp = env_to_temp(*env);
 		tmp = bubble_sort(tmp, arr_size);
 		display_str(tmp, arr_size, 1);
+	}
+	i = 1;
+	while(argv[i])
+	{
+		if (!valid_export(argv[i]))
+			return (1);
+		i++;
 	}
 	return (0);
 }

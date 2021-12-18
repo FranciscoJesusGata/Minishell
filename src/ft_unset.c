@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:58:10 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/17 17:55:56 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/18 13:07:24 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,12 @@ int	ft_unset(int argc, char **argv, char ***env)
 	tmp = if_some_argc(tmp, argc, argv);
 	ft_freearray(*env);
 	*env = tmp;
-	return (1);
+	i = 1;
+	while(argv[i])
+	{
+		if (!valid_unset(argv[i]))
+			return (1);
+		i++;
+	}
+	return (0);
 }
