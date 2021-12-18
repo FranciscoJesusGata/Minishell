@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 18:28:18 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/17 19:06:21 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/18 16:18:40 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,22 @@ int	is_builtin(char *cmd)
 {
 	int	len;
 
-	if (!cmd)
-		return (0);
 	len = ft_strlen(cmd);
 	if (len > 0 && \
-		((!ft_strncmp(cmd, "pwd", len) && len == (int)ft_strlen("pwd")) || \
-		(!ft_strncmp(cmd, "env", len) && len == (int)ft_strlen("env")) || \
-		(!ft_strncmp(cmd, "echo", len) && len == (int)ft_strlen("echo")) || \
-		(!ft_strncmp(cmd, "export", len) && len == (int)ft_strlen("export")) || \
-		(!ft_strncmp(cmd, "unset", len) && len == (int)ft_strlen("unset")) || \
-		(!ft_strncmp(cmd, "cd", len) && len == (int)ft_strlen("cd")) || \
-		(!ft_strncmp(cmd, "exit", len) && len == (int)ft_strlen("exit"))))
+		((!ft_strncmp(str_tolower(cmd), "pwd", len) && \
+		len == (int)ft_strlen("pwd")) || \
+		(!ft_strncmp(str_tolower(cmd), "env", len) && \
+		len == (int)ft_strlen("env")) || \
+		(!ft_strncmp(str_tolower(cmd), "echo", len) && \
+		len == (int)ft_strlen("echo")) || \
+		(!ft_strncmp(str_tolower(cmd), "export", len) && \
+		len == (int)ft_strlen("export")) || \
+		(!ft_strncmp(str_tolower(cmd), "unset", len) && \
+		len == (int)ft_strlen("unset")) || \
+		(!ft_strncmp(str_tolower(cmd), "cd", len) && \
+		len == (int)ft_strlen("cd")) || \
+		(!ft_strncmp(str_tolower(cmd), "exit", len) && \
+		len == (int)ft_strlen("exit"))))
 		return (1);
 	return (0);
 }
