@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 12:30:19 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/18 14:30:04 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define READ_END 0
 # define WRITE_END 1
 
-int		g_exit_code;
+int			g_exit_code;
 
 extern int	g_exit_code;
 

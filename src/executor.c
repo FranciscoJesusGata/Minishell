@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 12:50:46 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/18 14:24:24 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,20 @@ int	is_builtin(char *cmd)
 
 	len = ft_strlen(cmd);
 	if (len > 0 && \
-		((!ft_strncmp(str_tolower(cmd), "pwd", len) && len == (int)ft_strlen("pwd")) || \
-		(!ft_strncmp(str_tolower(cmd), "env", len) && len == (int)ft_strlen("env")) || \
-		(!ft_strncmp(str_tolower(cmd), "echo", len) && len == (int)ft_strlen("echo")) || \
-		(!ft_strncmp(str_tolower(cmd), "export", len) && len == (int)ft_strlen("export")) || \
-		(!ft_strncmp(str_tolower(cmd), "unset", len) && len == (int)ft_strlen("unset")) || \
-		(!ft_strncmp(str_tolower(cmd), "cd", len) && len == (int)ft_strlen("cd")) || \
-		(!ft_strncmp(str_tolower(cmd), "exit", len) && len == (int)ft_strlen("exit"))))
+		((!ft_strncmp(str_tolower(cmd), "pwd", len) && \
+		len == (int)ft_strlen("pwd")) || \
+		(!ft_strncmp(str_tolower(cmd), "env", len) && \
+		len == (int)ft_strlen("env")) || \
+		(!ft_strncmp(str_tolower(cmd), "echo", len) && \
+		len == (int)ft_strlen("echo")) || \
+		(!ft_strncmp(str_tolower(cmd), "export", len) && \
+		len == (int)ft_strlen("export")) || \
+		(!ft_strncmp(str_tolower(cmd), "unset", len) && \
+		len == (int)ft_strlen("unset")) || \
+		(!ft_strncmp(str_tolower(cmd), "cd", len) && \
+		len == (int)ft_strlen("cd")) || \
+		(!ft_strncmp(str_tolower(cmd), "exit", len) && \
+		len == (int)ft_strlen("exit"))))
 		return (1);
 	return (0);
 }

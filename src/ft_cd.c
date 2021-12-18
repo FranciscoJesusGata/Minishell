@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:17:46 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/17 17:57:28 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/18 14:25:49 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ int	ft_chdir(char **env)
 	if (looking_for_home(env))
 		dir_nbr = chdir(split[1]);
 	if (dir_nbr != 0)
-	{
-		//g_exit_code = 1;
 		printf("cd: %s: %s\n", strerror(errno), split[1]);
-	}
 	ft_freearray(split);
 	return (dir_nbr);
 }
