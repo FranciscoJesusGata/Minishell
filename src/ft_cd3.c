@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:53:43 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/16 15:53:23 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/18 15:34:46 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*new_oldpwd(char **env, char *tmp, char *cwd, int i)
 
 int	looking_for_home(char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[i])
