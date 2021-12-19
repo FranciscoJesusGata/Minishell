@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 22:18:30 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/20 00:12:31 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	executor(char ***env, t_cmd *cmd)
 	{
 		fork_cmds(cmd->cmds, path, env, builtin);
 		exit_code = wait_cmds(cmd->cmds);
+		if (exit_code == 131)
+			tcsetattr(STDIN_FILENO, TCSAFLUSH, &g_struct.term_attr);
 	}
 	if (path)
 		ft_freearray(path);
