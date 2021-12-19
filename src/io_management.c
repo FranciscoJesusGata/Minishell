@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:41:10 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/19 20:38:17 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 21:16:03 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	create_fd(int type, char *path, int quoted, char **env)
 		file = open(path, O_RDONLY);
 	else
 		file = heredoc(path, quoted, env);
-	if (file < 0 && !g_interrupted)
+	if (file < 0 && !g_struct.interrupted)
 		minishell_perror(0, path, NULL);
 	return (file);
 }

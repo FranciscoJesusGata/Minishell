@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 20:22:17 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 21:13:57 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@
 # define READ_END 0
 # define WRITE_END 1
 
-int		g_exit_code;
-int		g_interrupted;
+t_global	g_struct;
 
 char	*launch_term(void);
 t_list	*lexer(char *line, char **env);

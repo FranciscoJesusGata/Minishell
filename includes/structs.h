@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 13:22:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/18 15:29:32 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 21:13:15 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,10 @@ typedef struct s_parser {
 	int			argc;
 	int			type;
 }				t_parser;
+
+typedef struct s_global {
+	int			exit_code;
+	int			interrupted;
+}				t_global;
 
 #endif

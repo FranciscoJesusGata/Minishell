@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 21:00:15 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 21:15:30 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 
 	argc = 0;
 	argv = NULL;
-	g_exit_code = 0;
+	g_struct.exit_code = 0;
 	env = init_env(envp);
 	welcome();
 	line = launch_term();
@@ -52,8 +52,8 @@ int	main(int argc, char **argv, char **envp)
 			cmd = lexing_parsing(line, env);
 			if (cmd)
 			{
-				g_exit_code = executor(&env, cmd);
-				g_interrupted = 0;
+				g_struct.exit_code = executor(&env, cmd);
+				g_struct.interrupted = 0;
 				delete_cmd(&cmd);
 			}
 		}
@@ -61,5 +61,5 @@ int	main(int argc, char **argv, char **envp)
 		line = launch_term();
 	}
 	ending_minishell();
-	return (g_exit_code);
+	return (g_struct.exit_code);
 }

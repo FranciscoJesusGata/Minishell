@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:49:41 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 20:39:21 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 21:16:15 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void	handle_sigint(int signo)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_exit_code = 1;
+		g_struct.exit_code = 1;
 	}
 }
