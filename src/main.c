@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 17:15:12 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:24:13 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@ t_cmd	*lexing_parsing(char *line, char **env)
 	tokens = lexer(line, env);
 	if (tokens)
 		cmd = parser(tokens);
-	ft_lstclear(&tokens, free);
+	if (cmd)
+		ft_lstclear(&tokens, free);
 	return (cmd);
 }
-
-int		g_exit_code;
 
 void	ending_minishell(void)
 {
@@ -42,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 
 	argc = 0;
 	argv = NULL;
-	g_exit_code = 0;
+	g_struct.exit_code = 0;
 	env = init_env(envp);
 	welcome();
 	signal(SIGINT, handle_sigint);
@@ -57,7 +56,8 @@ int	main(int argc, char **argv, char **envp)
 			cmd = lexing_parsing(line, env);
 			if (cmd)
 			{
-				g_exit_code = executor(&env, cmd);
+				g_struct.exit_code = executor(&env, cmd);
+				g_struct.interrupted = 0;
 				delete_cmd(&cmd);
 			}
 		}
@@ -65,5 +65,5 @@ int	main(int argc, char **argv, char **envp)
 		line = launch_term();
 	}
 	ending_minishell();
-	return (g_exit_code);
+	return (g_struct.exit_code);
 }

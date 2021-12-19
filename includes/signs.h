@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signs.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:51:46 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 15:43:10 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:40:32 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 
 void	handle_sigquit(int signo);
 void	handle_sigint(int signo);
+void	handle_heredoc(int signo);
 
 #endif

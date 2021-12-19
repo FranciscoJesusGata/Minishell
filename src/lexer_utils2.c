@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:09:21 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 15:43:37 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:24:24 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	expand(t_lexer *lexer, char *line, char **env)
 
 void	expand_exclamation(t_lexer *lexer)
 {
-	concat(&lexer->buffer, ft_itoa(g_exit_code));
+	concat(&lexer->buffer, ft_itoa(g_struct.exit_code));
 	lexer->end++;
 	lexer->start = lexer->end;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 17:15:01 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:18:30 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	no_fork(t_simpleCmd *cmd, char ***env)
 	tmpout = dup(STDIN_FILENO);
 	redirect(cmd);
 	exit_code = exec_builtin(cmd, env);
+	signal(SIGINT, handle_sigint);
 	dup2(tmpin, STDIN_FILENO);
 	dup2(tmpout, STDOUT_FILENO);
 	close(tmpin);
@@ -77,7 +78,7 @@ int	executor(char ***env, t_cmd *cmd)
 	builtin = is_builtin(cmd->cmds->argv[0]);
 	if (cmd->count == 1 && builtin)
 	{
-		if (!redirections(cmd->cmds->redirs, (int *)&cmd->cmds->fds))
+		if (!redirections(cmd->cmds->redirs, (int *)&cmd->cmds->fds, *env))
 			exit_code = 1;
 		else
 			exit_code = no_fork(cmd->cmds, env);

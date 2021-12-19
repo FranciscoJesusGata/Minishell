@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:49:41 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 14:58:42 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:30:40 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ void	handle_sigquit(int signo)
 	}
 }
 
+void	handle_heredoc(int signo)
+{
+	(void)signo;
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	g_struct.interrupted = 1;
+}
+
 void	handle_sigint(int signo)
 {
 	if (signo == SIGINT)
@@ -30,5 +39,6 @@ void	handle_sigint(int signo)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_struct.exit_code = 1;
 	}
 }

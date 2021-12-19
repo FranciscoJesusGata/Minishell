@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 13:22:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/15 12:08:45 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:14:01 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_env {
 typedef struct s_redir {
 	int				type;
 	char			*path;
+	int				quoted;
 	struct s_redir	*nxt;
 }				t_redir;
 
@@ -78,5 +79,10 @@ typedef struct s_parser {
 	int			argc;
 	int			type;
 }				t_parser;
+
+typedef struct s_global {
+	int			exit_code;
+	int			interrupted;
+}				t_global;
 
 #endif

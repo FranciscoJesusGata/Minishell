@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:05:34 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 17:08:18 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:19:14 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ char	**init_env(char **envp)
 {
 	int		i;
 
-	g_exit_code = 0;
+	g_struct.exit_code = 0;
+	g_struct.interrupted = 0;
 	i = 0;
 	while (envp[i])
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_commands.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 18:31:26 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/18 17:12:29 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:23:20 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ int	exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
 
 	bin_path = NULL;
 	exit_status = 0;
-	if (!redirections(cmd->redirs, (int *)&cmd->fds))
+	if (!redirections(cmd->redirs, (int *)&cmd->fds, *env))
 		return (1);
+	signal(SIGINT, SIG_DFL);
 	if (is_builtin)
 	{
 		redirect(cmd);
-		exit_status = exec_builtin(cmd, env);
+		exec_builtin(cmd, env);
 	}
 	else
 	{
@@ -57,6 +58,7 @@ int	exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
 		{
 			redirect(cmd);
 			execve(bin_path, cmd->argv, *env);
+			free(bin_path);
 		}
 	}
 	return (exit_status);
