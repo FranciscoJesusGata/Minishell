@@ -6,12 +6,13 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 23:43:30 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/20 00:07:25 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# include <termios.h>
 # include "libft.h"
 # include "structs.h"
 # include "lexer.h"
@@ -22,7 +23,6 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <termios.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>

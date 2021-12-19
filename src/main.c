@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 23:56:56 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/20 00:04:07 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,37 +30,35 @@ void	parse_and_execute(char *line, char **env)
 	}
 }
 
-void	ending_minishell(struct termios *attr)
+void	ending_minishell(void)
 {
-	tcsetattr(STDIN_FILENO, TCSANOW, attr);
-	printf("\x1b[1F");
-	printf("\001\e[38;5;38m\002MiniShell ~ 👉  \001\033[39mexit\n");
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_struct.term_attr);
+	ft_putstr_fd("exit\n", 1);
 	clear_history();
 }
 
-void	init_minishell(char ***env, char **envp, struct termios *attr)
+void	init_minishell(char ***env, char **envp)
 {
-	struct termios	*new_attr;
+	struct termios	new_attr;
 
 	*env = init_env(envp);
 	welcome();
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
-	new_attr = attr;
-	tcgetattr(STDIN_FILENO, new_attr);
-	attr->c_lflag = ~(ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, new_attr);
+	tcgetattr(STDIN_FILENO, &g_struct.term_attr);
+	new_attr = g_struct.term_attr;
+	new_attr.c_lflag = ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &new_attr);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char			*line;
 	char			**env;
-	struct termios	attr;
 
 	argc = 0;
 	argv = NULL;
-	init_minishell(&env, envp, &attr);
+	init_minishell(&env, envp);
 	line = launch_term();
 	while (line)
 	{
@@ -69,6 +67,6 @@ int	main(int argc, char **argv, char **envp)
 		free(line);
 		line = launch_term();
 	}
-	ending_minishell(&attr);
+	ending_minishell();
 	return (g_struct.exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 13:22:45 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/19 22:14:01 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/20 00:05:41 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,9 @@ typedef struct s_parser {
 }				t_parser;
 
 typedef struct s_global {
-	int			exit_code;
-	int			interrupted;
+	int				exit_code;
+	int				interrupted;
+	struct termios	term_attr;
 }				t_global;
 
 #endif
