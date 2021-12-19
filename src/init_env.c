@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:05:34 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 14:44:06 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 17:08:18 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*sum_shlvl(char *env)
+{
+	int		shl_count;
+	char	*shl_char;
+	char	**split;
+	char	*tmp;
+
+	split = ft_split(env, '=');
+	shl_count = ft_atoi(split[1]) + 1;
+	tmp = ft_strjoin(split[0], "=");
+	shl_char = ft_itoa(shl_count);
+	tmp = clean_strjoin(tmp, shl_char);
+	free(shl_char);
+	ft_freearray(split);
+	return (tmp);
+}
 
 char	**save_env(char **envp, int i)
 {
@@ -20,7 +37,10 @@ char	**save_env(char **envp, int i)
 	i = 0;
 	while (envp[i])
 	{
-		env[i] = ft_strdup(envp[i]);
+		if (!ft_strncmp(envp[i], "SHLVL", 5))
+			env[i] = sum_shlvl(envp[i]);
+		else
+			env[i] = ft_strdup(envp[i]);
 		i++;
 	}
 	return (env);

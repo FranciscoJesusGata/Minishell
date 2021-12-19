@@ -6,15 +6,15 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 16:24:19 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 17:15:01 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		wait_cmds(t_simpleCmd *s_cmd)
+int	wait_cmds(t_simpleCmd *s_cmd)
 {
-	int exit_code;
+	int	exit_code;
 
 	exit_code = 0;
 	while (s_cmd)

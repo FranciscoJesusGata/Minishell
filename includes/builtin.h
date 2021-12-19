@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:09:06 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 15:42:01 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 16:57:02 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*clean_strdup(char *s);
 char	*if_exist_copy(char *temp, char *argv);
 int		check_env_exists(char *env, char *argv);
 char	*get_eq_num(char *argv);
-char	*include_quotes(char **env, char *ret, int i);
+char	*include_quotes(char *env);
 char	**env_to_temp(char **env);
 int		is_home(char **env);
 char	**pwd_to_home(char **env, int j);

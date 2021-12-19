@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 18:31:26 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/18 16:27:27 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/18 17:12:29 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ int	exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
 	if (!redirections(cmd->redirs, (int *)&cmd->fds))
 		return (1);
 	if (is_builtin)
+	{
+		redirect(cmd);
 		exit_status = exec_builtin(cmd, env);
+	}
 	else
 	{
 		bin_path = find_binary(cmd->argv[0], path);

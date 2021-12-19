@@ -6,23 +6,21 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:14:30 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 15:36:07 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 17:13:56 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "executor.h"
-
 
 int	all_digit(const char *arg)
 {
 	int	i;
 
 	i = 0;
-	while (arg[i])
+	while (arg)
 	{
 		if (ft_atoi(arg))
-			arg++;
+			return (1);
 		else
 			return (0);
 	}
