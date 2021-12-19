@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:58:10 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 17:16:49 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 17:29:40 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	equal_id(char *argv, char *env)
 		return (0);
 	len = ft_strlen(argv);
 	diff = ft_strncmp(env, argv, len);
-	if (!diff && env[len] == '=')
+	if (!diff && (env[len] == '=' || !env[len]))
 		return (1);
 	return (0);
 }

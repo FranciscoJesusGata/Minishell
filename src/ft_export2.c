@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:24:04 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 17:13:32 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 17:26:11 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ char	*include_quotes(char *env)
 	i = 0;
 	split = ft_split(env, '=');
 	ret = ft_strdup(split[0]);
-	ret = clean_strjoin(ret, "=\"");
-	env += ft_strlen(ret) - 1;
-	ret = clean_strjoin(ret, env);
-	ret = clean_strjoin(ret, "\"");
+	if (env[ft_strlen(split[0])] == '=')
+	{
+		ret = clean_strjoin(ret, "=\"");
+		env += ft_strlen(ret) - 1;
+		ret = clean_strjoin(ret, env);
+		ret = clean_strjoin(ret, "\"");
+	}
 	ft_freearray(split);
 	return (ret);
 }

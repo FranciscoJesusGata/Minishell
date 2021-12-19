@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 17:10:10 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 17:30:13 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,5 @@ int	ft_export(int argc, char **argv, char ***env)
 			return (1);
 		i++;
 	}
-	system("leaks -q minishell");
 	return (0);
 }
