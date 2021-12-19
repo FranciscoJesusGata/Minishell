@@ -6,31 +6,32 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 18:31:26 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/19 20:25:26 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:23:20 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_builtin(t_simpleCmd *cmd, char ***env)
+int	exec_builtin(t_simpleCmd *cmd, char ***env)
 {
-	int	len;
+	int	el_pibe;
 
-	len = ft_strlen(cmd->argv[0]);
-	if (!ft_strncmp(cmd->argv[0], "pwd", len))
-		ft_pwd();
-	else if (!ft_strncmp(cmd->argv[0], "env", len))
-		ft_env(*env);
-	else if (!ft_strncmp(cmd->argv[0], "echo", len))
-		ft_echo(cmd->argc, cmd->argv);
-	else if (!ft_strncmp(cmd->argv[0], "export", len))
-		ft_export(cmd->argc, cmd->argv, env);
-	else if (!ft_strncmp(cmd->argv[0], "unset", len))
-		ft_unset(cmd->argc, cmd->argv, env);
-	else if (!ft_strncmp(cmd->argv[0], "cd", len))
-		ft_cd(cmd->argc, cmd->argv, env);
-	else if (!ft_strncmp(cmd->argv[0], "exit", len))
-		ft_exit(cmd->argv, cmd->argc);
+	el_pibe = 0;
+	if (!ft_strncmp(cmd->argv[0], "pwd", ft_strlen("pwd")))
+		el_pibe = ft_pwd();
+	else if (!ft_strncmp(cmd->argv[0], "env", ft_strlen("env")))
+		el_pibe = ft_env(*env, cmd->argv, cmd->argc);
+	else if (!ft_strncmp(cmd->argv[0], "echo", ft_strlen("echo")))
+		el_pibe = ft_echo(cmd->argc, cmd->argv);
+	else if (!ft_strncmp(cmd->argv[0], "export", ft_strlen("export")))
+		el_pibe = ft_export(cmd->argc, cmd->argv, env);
+	else if (!ft_strncmp(cmd->argv[0], "unset", ft_strlen("unset")))
+		el_pibe = ft_unset(cmd->argc, cmd->argv, env);
+	else if (!ft_strncmp(cmd->argv[0], "cd", ft_strlen("cd")))
+		el_pibe = ft_cd(cmd->argc, cmd->argv, env);
+	else if (!ft_strncmp(cmd->argv[0], "exit", ft_strlen("exit")))
+		el_pibe = ft_exit(cmd->argv, cmd->argc);
+	return (el_pibe);
 }
 
 int	exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)

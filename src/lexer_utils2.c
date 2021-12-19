@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:09:21 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 21:14:51 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:24:24 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	expand(t_lexer *lexer, char *line, char **env)
 	else
 		concat(&lexer->buffer, ft_strdup(""));
 	lexer->start = lexer->end;
+	free(tmp);
 }
 
 void	expand_exclamation(t_lexer *lexer)

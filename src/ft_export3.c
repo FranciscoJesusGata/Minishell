@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_export3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 13:33:57 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 15:39:05 by fportalo         ###   ########.fr       */
+/*   Created: 2021/12/16 15:14:58 by fportalo          #+#    #+#             */
+/*   Updated: 2021/12/18 15:38:38 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#include "minishell.h"
 
-int	ft_pwd(void)
+int	valid_export(char *arg)
 {
-	char	cwd[PATH_MAX];
+	int	i;
+	int	count;
 
-	if (getcwd(cwd, sizeof(cwd)))
-	{
-		printf("%s\n", cwd);
+	count = 0;
+	if (arg[0] < 'A' || arg[0] > 'z')
 		return (0);
+	i = 1;
+	while (arg[count] != '=')
+		count++;
+	while (arg[i] && i < count)
+	{
+		if ((arg[i] < '0' || arg[i] > 'z' || (arg[i] > '9' && arg[i] < 'A')))
+		{
+			if (arg[i] != '=' && (i != (int)ft_strlen(arg)))
+				return (0);
+		}
+		i++;
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 21:15:30 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:24:13 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,13 @@ int	main(int argc, char **argv, char **envp)
 	g_struct.exit_code = 0;
 	env = init_env(envp);
 	welcome();
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit);
 	line = launch_term();
 	while (line)
 	{
+		signal(SIGINT, handle_sigint);
+		signal(SIGQUIT, handle_sigquit);
 		if (*line)
 		{
 			cmd = lexing_parsing(line, env);

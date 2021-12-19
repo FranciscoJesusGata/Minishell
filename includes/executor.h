@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:16:22 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 14:40:43 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:11:46 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 # include "minishell.h"
 
 int		executor(char ***env, t_cmd *cmd);
-void	ft_pwd(void);
-void	exec_builtin(t_simpleCmd *cmd, char ***env);
+int		exec_builtin(t_simpleCmd *cmd, char ***env);
 int		exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path);
 
 /*

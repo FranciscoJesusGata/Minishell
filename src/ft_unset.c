@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:58:10 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 14:46:14 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 17:29:40 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	equal_id(char *argv, char *env)
 		return (0);
 	len = ft_strlen(argv);
 	diff = ft_strncmp(env, argv, len);
-	if (!diff && env[len] == '=')
+	if (!diff && (env[len] == '=' || !env[len]))
 		return (1);
 	return (0);
 }
@@ -58,7 +58,7 @@ int	valid_unset(char *arg)
 	i = 1;
 	while (arg[i])
 	{
-		if (arg[i] < '0' || arg[i] > 'z' || (arg[i] > '9' && arg[i] < 'A'))
+		if ((arg[i] < '0' || arg[i] > 'z' || (arg[i] > '9' && arg[i] < 'A')))
 			return (0);
 		i++;
 	}
@@ -94,7 +94,7 @@ char	**if_some_argc(char **tmp, int argc, char **argv)
 	return (tmp);
 }
 
-void	ft_unset(int argc, char **argv, char ***env)
+int	ft_unset(int argc, char **argv, char ***env)
 {
 	int		i;
 	int		arg_nb;
@@ -111,4 +111,12 @@ void	ft_unset(int argc, char **argv, char ***env)
 	tmp = if_some_argc(tmp, argc, argv);
 	ft_freearray(*env);
 	*env = tmp;
+	i = 1;
+	while (argv[i])
+	{
+		if (!valid_unset(argv[i]))
+			return (1);
+		i++;
+	}
+	return (0);
 }

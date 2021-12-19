@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 13:33:57 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 15:39:05 by fportalo         ###   ########.fr       */
+/*   Created: 2021/12/18 12:27:56 by fportalo          #+#    #+#             */
+/*   Updated: 2021/12/18 15:41:09 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#include "minishell.h"
 
-int	ft_pwd(void)
+char	*str_tolower(char *str)
 {
-	char	cwd[PATH_MAX];
+	int	i;
 
-	if (getcwd(cwd, sizeof(cwd)))
+	i = 0;
+	while (str[i])
 	{
-		printf("%s\n", cwd);
-		return (0);
+		str[i] = ft_tolower(str[i]);
+		i++;
 	}
-	return (1);
+	return (str);
 }

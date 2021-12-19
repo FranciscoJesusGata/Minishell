@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:41:10 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/19 21:16:03 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:21:58 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	heredoc(char *delimiter, int quoted, char **env)
 		return (fd);
 	len = ft_strlen(delimiter);
 	line = readline("> ");
-	while (line && !g_interrupted)
+	while (line && !g_struct.interrupted)
 	{
 		if (!ft_strncmp(line, delimiter, len) && len == ft_strlen(line))
 			break ;
@@ -97,7 +97,7 @@ int	heredoc(char *delimiter, int quoted, char **env)
 	if (line)
 		free(line);
 	close(fd);
-	if (g_interrupted)
+	if (g_struct.interrupted)
 	{
 		unlink("/tmp/heredoc");
 		return (-1);

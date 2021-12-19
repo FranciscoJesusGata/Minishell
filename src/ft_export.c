@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:28:42 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/15 14:42:55 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 17:30:13 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	check_env_exists(char *env, char *argv)
 	if (!ft_strncmp(env, tmp[0], ft_strlen(tmp[0])))
 	{
 		if (argv[ft_strlen(tmp[0])] != '=')
+		{
+			ft_freearray(tmp);
 			return (2);
+		}
 		ft_freearray(tmp);
 		return (1);
 	}
@@ -74,8 +77,7 @@ char	**copy_envs(char **temp, char **argv, int argc, int c)
 				temp[i] = clean_strdup(temp[i]);
 			i++;
 		}
-		if (c != argc)
-			temp[i] = ft_strdup(argv[c]);
+		temp[i] = new_env(argc, argv, temp[i], c);
 		c++;
 	}
 	return (temp);
@@ -105,6 +107,7 @@ int	ft_export(int argc, char **argv, char ***env)
 {
 	int		arr_size;
 	char	**tmp;
+	int		i;
 
 	tmp = NULL;
 	if (argc > 1)
@@ -115,6 +118,13 @@ int	ft_export(int argc, char **argv, char ***env)
 		tmp = env_to_temp(*env);
 		tmp = bubble_sort(tmp, arr_size);
 		display_str(tmp, arr_size, 1);
+	}
+	i = 1;
+	while (argv[i])
+	{
+		if (!valid_export(argv[i]))
+			return (1);
+		i++;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 20:24:44 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:18:30 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,22 @@ void	fork_cmds(t_simpleCmd *s_cmd, char **path, char ***env, int builtin)
 	}
 }
 
-void	no_fork(t_simpleCmd *cmd, char ***env)
+int	no_fork(t_simpleCmd *cmd, char ***env)
 {
 	int	tmpin;
 	int	tmpout;
+	int	exit_code;
 
 	tmpin = dup(STDIN_FILENO);
 	tmpout = dup(STDIN_FILENO);
 	redirect(cmd);
-	exec_builtin(cmd, env);
+	exit_code = exec_builtin(cmd, env);
 	signal(SIGINT, handle_sigint);
 	dup2(tmpin, STDIN_FILENO);
 	dup2(tmpout, STDOUT_FILENO);
 	close(tmpin);
 	close(tmpout);
+	return (exit_code);
 }
 
 int	executor(char ***env, t_cmd *cmd)
@@ -79,7 +81,7 @@ int	executor(char ***env, t_cmd *cmd)
 		if (!redirections(cmd->cmds->redirs, (int *)&cmd->cmds->fds, *env))
 			exit_code = 1;
 		else
-			no_fork(cmd->cmds, env);
+			exit_code = no_fork(cmd->cmds, env);
 	}
 	else
 	{

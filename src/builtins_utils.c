@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:26:30 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/11 20:27:31 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 15:24:21 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	ft_freearray(char **array)
 	i = 0;
 	while (array[i])
 	{
-		free(array[i]);
+		if (array[i])
+			free(array[i]);
 		i++;
 	}
 	free(array[i]);
