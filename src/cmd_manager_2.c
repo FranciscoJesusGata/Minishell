@@ -36,6 +36,19 @@ void	delete_matrix(char **matrix, int lines)
 	free(matrix);
 }
 
+void	delete_matrix(char **matrix, int lines)
+{
+	int	i;
+
+	i = 0;
+	while (i < lines)
+	{
+		free(matrix[i]);
+		i++;
+	}
+	free(matrix);
+}
+
 void	delete_redirs(t_redir *redirs)
 {
 	t_redir	*nxt;
