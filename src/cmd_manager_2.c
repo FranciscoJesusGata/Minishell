@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 15:23:39 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/19 22:16:31 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:29:29 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,6 @@ void	add_arg(t_parser *parser, char *word)
 		malloc_error();
 	ft_lstadd_back(&parser->args, new);
 	parser->argc++;
-}
-
-void	delete_matrix(char **matrix, int lines)
-{
-	int	i;
-
-	i = 0;
-	while (i < lines)
-	{
-		free(matrix[i]);
-		i++;
-	}
-	free(matrix);
 }
 
 void	delete_matrix(char **matrix, int lines)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:14:30 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 17:13:56 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:30:15 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ int	ft_exit(char **argv, int argc)
 		}
 	}
 	printf("exit\n");
-	exit(g_exit_code);
+	exit(g_struct.exit_code);
 	return (0);
 }
