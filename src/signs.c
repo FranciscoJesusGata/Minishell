@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:49:41 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 22:30:40 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 23:53:34 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	handle_sigint(int signo)
 {
 	if (signo == SIGINT)
 	{
-		printf("\001\e[38;5;38m\002MiniShell ~ 👉  \033[0;0m%s  ", rl_line_buffer);
-		printf("\001\e[0m\002\e[2D\e[0K\n");
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
