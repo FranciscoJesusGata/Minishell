@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 18:09:37 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 21:00:15 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ t_cmd	*lexing_parsing(char *line, char **env)
 	tokens = lexer(line, env);
 	if (tokens)
 		cmd = parser(tokens);
-	ft_lstclear(&tokens, free);
+	if (cmd)
+		ft_lstclear(&tokens, free);
 	return (cmd);
 }
-
-int		g_exit_code;
-//int		g_interruted;
 
 void	ending_minishell(void)
 {
@@ -55,6 +53,7 @@ int	main(int argc, char **argv, char **envp)
 			if (cmd)
 			{
 				g_exit_code = executor(&env, cmd);
+				g_interrupted = 0;
 				delete_cmd(&cmd);
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 18:28:46 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 20:24:44 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	no_fork(t_simpleCmd *cmd, char ***env)
 	tmpout = dup(STDIN_FILENO);
 	redirect(cmd);
 	exec_builtin(cmd, env);
+	signal(SIGINT, handle_sigint);
 	dup2(tmpin, STDIN_FILENO);
 	dup2(tmpout, STDOUT_FILENO);
 	close(tmpin);

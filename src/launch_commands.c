@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 18:31:26 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/19 18:40:17 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 20:25:26 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ int	exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
 
 	bin_path = NULL;
 	exit_status = 0;
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
 	if (!redirections(cmd->redirs, (int *)&cmd->fds, *env))
 		return (1);
+	signal(SIGINT, SIG_DFL);
 	if (is_builtin)
 	{
 		redirect(cmd);

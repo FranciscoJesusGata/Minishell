@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:33:13 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/11/22 15:29:22 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 21:09:09 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_parser(t_parser *parser, t_cmd **cmd)
 void	free_parser(t_parser *parser)
 {
 	if (parser->args)
-		ft_lstclear(&parser->args, free);
+		free(parser->args);
 	delete_redirs(parser->redirs);
 }
 
@@ -74,6 +74,7 @@ t_cmd	*parser(t_list *tokens)
 			printf("minishell: syntax error: unexpected end of file\n");
 		delete_cmd(&commands);
 		free_parser(&parser);
+		ft_lstclear(&tokens, delete_token);
 	}
 	return (commands);
 }

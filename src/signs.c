@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:49:41 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 17:05:31 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 20:39:21 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	handle_heredoc(int signo)
 {
 	(void)signo;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	g_interrupted = 1;
 }
 
 void	handle_sigint(int signo)

@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:41:10 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/18 17:31:36 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 20:38:17 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,13 @@ int	heredoc(char *delimiter, int quoted, char **env)
 	size_t	len;
 
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_heredoc);
 	fd = open("/tmp/heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (fd < 0)
 		return (fd);
 	len = ft_strlen(delimiter);
 	line = readline("> ");
-	while (line)
+	while (line && !g_interrupted)
 	{
 		if (!ft_strncmp(line, delimiter, len) && len == ft_strlen(line))
 			break ;
@@ -96,6 +97,11 @@ int	heredoc(char *delimiter, int quoted, char **env)
 	if (line)
 		free(line);
 	close(fd);
+	if (g_interrupted)
+	{
+		unlink("/tmp/heredoc");
+		return (-1);
+	}
 	fd = open("/tmp/heredoc", O_RDONLY);
 	signal(SIGQUIT, SIG_DFL);
 	return (fd);
@@ -113,7 +119,7 @@ int	create_fd(int type, char *path, int quoted, char **env)
 		file = open(path, O_RDONLY);
 	else
 		file = heredoc(path, quoted, env);
-	if (file < 0)
+	if (file < 0 && !g_interrupted)
 		minishell_perror(0, path, NULL);
 	return (file);
 }
