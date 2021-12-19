@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 18:31:26 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/19 22:23:20 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 23:00:47 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,37 @@ int	exec_builtin(t_simpleCmd *cmd, char ***env)
 	return (el_pibe);
 }
 
-int	exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
+int	exec_bin(t_simpleCmd *cmd, char ***env, char **path)
 {
 	char	*bin_path;
 	int		exit_status;
 
-	bin_path = NULL;
 	exit_status = 0;
+	bin_path = find_binary(cmd->argv[0], path);
+	if (!bin_path && cmd->argv[0])
+		exit_status = 127;
+	else
+	{
+		redirect(cmd);
+		execve(bin_path, cmd->argv, *env);
+		free(bin_path);
+	}
+	return (exit_status);
+}
+
+int	exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
+{
+	int		exit_status;
+
 	if (!redirections(cmd->redirs, (int *)&cmd->fds, *env))
 		return (1);
 	signal(SIGINT, SIG_DFL);
 	if (is_builtin)
 	{
 		redirect(cmd);
-		exec_builtin(cmd, env);
+		exit_status = exec_builtin(cmd, env);
 	}
 	else
-	{
-		bin_path = find_binary(cmd->argv[0], path);
-		if (!bin_path && cmd->argv[0])
-			exit_status = 127;
-		else
-		{
-			redirect(cmd);
-			execve(bin_path, cmd->argv, *env);
-			free(bin_path);
-		}
-	}
+		exit_status = exec_bin(cmd, env, path);
 	return (exit_status);
 }

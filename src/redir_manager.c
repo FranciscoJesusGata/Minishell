@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 17:30:34 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/19 18:08:04 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 23:02:06 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	redir_add_back(t_redir **redirs, t_redir *new)
 
 void	create_redir(t_list **tokens, t_redir **redirs)
 {
-	t_redir *new;
+	t_redir	*new;
 
 	new = new_redi(*tokens);
 	if (!*redirs)
