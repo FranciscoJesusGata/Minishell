@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:14 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/20 00:07:25 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/20 00:16:03 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ t_list	*lexer(char *line, char **env);
 void	malloc_error(void);
 int		minishell_perror(int exit_code, char *name, char *msg);
 char	*str_tolower(char *str);
+void	deactivate_echo_ctl(void);
+
 /*
 ** Term utils
 */

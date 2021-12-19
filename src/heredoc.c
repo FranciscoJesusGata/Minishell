@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 22:46:57 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/19 23:01:13 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/20 00:20:13 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ int	heredoc(char *delimiter, int quoted, char **env)
 	}
 	fd = open("/tmp/heredoc", O_RDONLY);
 	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	return (fd);
 }

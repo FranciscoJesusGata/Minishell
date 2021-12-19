@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/20 00:04:07 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/20 00:18:07 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,12 @@ void	ending_minishell(void)
 
 void	init_minishell(char ***env, char **envp)
 {
-	struct termios	new_attr;
-
 	*env = init_env(envp);
 	welcome();
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
 	tcgetattr(STDIN_FILENO, &g_struct.term_attr);
-	new_attr = g_struct.term_attr;
-	new_attr.c_lflag = ~(ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &new_attr);
+	deactivate_echo_ctl();
 }
 
 int	main(int argc, char **argv, char **envp)
