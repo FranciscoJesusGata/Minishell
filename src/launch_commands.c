@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 18:31:26 by fgata-va          #+#    #+#             */
-/*   Updated: 2021/12/18 17:18:54 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 18:40:17 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	exec_cmd(t_simpleCmd *cmd, int is_builtin, char ***env, char **path)
 		{
 			redirect(cmd);
 			execve(bin_path, cmd->argv, *env);
+			free(bin_path);
 		}
 	}
 	return (exit_status);

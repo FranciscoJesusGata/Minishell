@@ -6,7 +6,7 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:08:07 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/18 19:11:50 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/19 18:28:46 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,10 @@ int	executor(char ***env, t_cmd *cmd)
 	builtin = is_builtin(cmd->cmds->argv[0]);
 	if (cmd->count == 1 && builtin)
 	{
-		signal(SIGINT, handle_heredoc);
 		if (!redirections(cmd->cmds->redirs, (int *)&cmd->cmds->fds, *env))
 			exit_code = 1;
 		else
 			no_fork(cmd->cmds, env);
-		signal(SIGINT, handle_sigint);
 	}
 	else
 	{
