@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:44:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 17:16:19 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/20 13:06:09 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,27 +66,17 @@ char	**pwd_to_home(char **env, int j)
 char	**home_to_pwd(char **env)
 {
 	int		i;
-	int		j;
 	char	**split_home;
 	char	**split_pwd;
 
 	i = 0;
 	split_home = NULL;
+	split_pwd = NULL;
 	split_home = chop_home(env, split_home);
-	while (env[i])
-	{
-		if (!ft_strncmp(env[i], "PWD=", ft_strlen("PWD=")))
-		{
-			split_pwd = ft_split(env[i], '=');
-			j = i;
-		}
-		i++;
-	}
-	free(env[j]);
-	env[j] = ft_strdup("PWD=");
-	env[j] = clean_strjoin(env[j], split_home[1]);
+	search_pwd(env, split_home[1]);
 	ft_freearray(split_home);
-	ft_freearray(split_pwd);
+	if (split_pwd)
+		ft_freearray(split_pwd);
 	return (env);
 }
 
