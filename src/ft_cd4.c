@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 13:06:21 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/20 16:04:19 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/20 16:36:14 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,15 @@
 char	**search_pwd(char **env, char *split_home)
 {
 	int		i;
-	char	**split_pwd;
-
+	char	*tmp;
 	i = 0;
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], "PWD=", ft_strlen("PWD=")))
 		{
-			split_pwd = ft_split(env[i], '=');
 			free(env[i]);
-			env[i] = ("PWD=");
-			env[i] = clean_strjoin(env[i], split_home);
+			tmp = ft_strdup("PWD=");
+			env[i] = clean_strjoin(tmp, split_home);
 		}
 		i++;
 	}

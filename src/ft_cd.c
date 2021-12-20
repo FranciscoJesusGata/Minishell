@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:17:46 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/20 16:12:54 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/20 16:43:47 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	**change_pwd(char **env, char *cwd)
 
 	i = 0;
 	split = NULL;
+
 	split = chop_pwd(env, cwd);
 	while (env[i])
 	{
@@ -54,6 +55,7 @@ char	**change_pwd(char **env, char *cwd)
 		}
 		i++;
 	}
+
 	if (split)
 		ft_freearray(split);
 	return (env);
@@ -86,6 +88,7 @@ int	check_path(char **env, char *path)
 {
 	char	cwd[PATH_MAX];
 
+
 	if (!ft_strncmp(path, "~", 1))
 	{
 		path = join_home(env, path);
@@ -96,6 +99,7 @@ int	check_path(char **env, char *path)
 	{
 		getcwd(cwd, sizeof(cwd));
 		env = change_pwd(env, cwd);
+
 	}
 	else
 	{
