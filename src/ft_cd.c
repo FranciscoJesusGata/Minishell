@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:17:46 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/19 17:15:39 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/20 16:12:54 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_chdir(char **env)
 	return (dir_nbr);
 }
 
-void	change_pwd(char **env, char *cwd)
+char	**change_pwd(char **env, char *cwd)
 {
 	int		i;
 	char	**split;
@@ -42,7 +42,6 @@ void	change_pwd(char **env, char *cwd)
 	i = 0;
 	split = NULL;
 	split = chop_pwd(env, cwd);
-	i = 0;
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], "OLDPWD=", ft_strlen("OLDPWD=")))
@@ -50,11 +49,14 @@ void	change_pwd(char **env, char *cwd)
 			free(env[i]);
 			env[i] = ft_strdup("OLDPWD=");
 			env[i] = clean_strjoin(env[i], split[1]);
+			ft_freearray(split);
+			return (env);
 		}
 		i++;
 	}
 	if (split)
 		ft_freearray(split);
+	return (env);
 }
 
 char	*join_home(char **env, char *path)
@@ -93,7 +95,7 @@ int	check_path(char **env, char *path)
 	if (!chdir(path))
 	{
 		getcwd(cwd, sizeof(cwd));
-		change_pwd(env, cwd);
+		env = change_pwd(env, cwd);
 	}
 	else
 	{
