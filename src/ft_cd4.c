@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 13:06:21 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/20 16:36:14 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/20 16:48:33 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	**search_pwd(char **env, char *split_home)
 {
 	int		i;
 	char	*tmp;
+
 	i = 0;
 	while (env[i])
 	{
