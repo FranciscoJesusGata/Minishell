@@ -6,25 +6,25 @@
 /*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 09:18:25 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/20 00:18:07 by fgata-va         ###   ########.fr       */
+/*   Updated: 2021/12/20 12:08:34 by fgata-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parse_and_execute(char *line, char **env)
+void	parse_and_execute(char *line, char ***env)
 {
 	t_list	*tokens;
 	t_cmd	*cmd;
 
 	cmd = NULL;
-	tokens = lexer(line, env);
+	tokens = lexer(line, *env);
 	if (tokens)
 		cmd = parser(tokens);
 	if (cmd)
 	{
 		ft_lstclear(&tokens, free);
-		g_struct.exit_code = executor(&env, cmd);
+		g_struct.exit_code = executor(env, cmd);
 		g_struct.interrupted = 0;
 		delete_cmd(&cmd);
 	}
@@ -59,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 	while (line)
 	{
 		if (*line)
-			parse_and_execute(line, env);
+			parse_and_execute(line, &env);
 		free(line);
 		line = launch_term();
 	}
