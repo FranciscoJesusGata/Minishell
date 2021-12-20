@@ -6,7 +6,7 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:09:06 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/20 13:07:16 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/20 13:14:15 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**edit_oldpwd(char **env);
 int		look_for_oldpwd(char **env);
 char	**chop_pwd(char **env, char *cwd);
 char	**chop_home(char **env, char **split_home);
-void	search_pwd(char **env, char *split_home);
+char	**search_pwd(char **env, char *split_home);
 char	**create_oldpwd(char **env);
 char	*new_oldpwd(char **env, char *tmp, char *cwd, int i);
 int		valid_unset(char *arg);

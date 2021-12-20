@@ -6,13 +6,13 @@
 /*   By: fportalo <fportalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 13:06:21 by fportalo          #+#    #+#             */
-/*   Updated: 2021/12/20 13:06:31 by fportalo         ###   ########.fr       */
+/*   Updated: 2021/12/20 13:14:22 by fportalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	search_pwd(char **env, char *split_home)
+char	**search_pwd(char **env, char *split_home)
 {
 	int		i;
 	char	**split_pwd;
@@ -31,4 +31,5 @@ void	search_pwd(char **env, char *split_home)
 	env[i] = ft_strdup("PWD=");
 	env[i] = clean_strjoin(env[i], split_home);
 	env[i + 1] = NULL;
+	return (env);
 }
